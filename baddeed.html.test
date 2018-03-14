@@ -1,0 +1,2143 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Search :: SHINE</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		
+		<link rel="stylesheet" media="screen" href="/shine/assets/stylesheets/main.css">
+		<link rel="shortcut icon" type="image/png" href="/shine/assets/images/favicon.png">
+		<link rel="stylesheet" media="screen" href="/shine/assets/bootstrap/css/bootstrap.min.css">
+		<script src="/shine/assets/javascripts/modernizr.custom.js" type="text/javascript"></script>
+		<script src="/shine/assets/javascripts/jquery-1.11.2.min.js" type="text/javascript"></script>
+        <script src='/shine/assets/javascripts/jquery.cookie.js' type="text/javascript"></script>
+	    <script src="/shine/assets/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+		<script src="/shine/assets/bootstrap/js/modal.js" type="text/javascript"></script>
+		<script src="/shine/assets/bootstrap/js/button.js" type="text/javascript"></script>
+		<script type="text/javascript" src="/shine/assets/javascripts/routes"></script>
+		
+		
+	<link rel="stylesheet" type="text/css" media="screen" href="/shine/assets/bootstrap/typeahead/css/typeahead.css">
+
+		
+	<script src="/shine/assets/javascripts/tooltip.js" type="text/javascript"></script>
+	<script src="/shine/assets/javascripts/jquery.validate.min.js" type="text/javascript"></script>
+	<script src="/shine/assets/javascripts/search.js" type="text/javascript"></script>
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+			$('#sort').val('crawl_date')
+	  		$('#order').val('asc')
+
+	  		$('#current-url').text(window.location.search);
+	  		
+			$('#export-message').addClass('hide');
+			
+	  		// if facet.show=crawl_year
+	  		var facetShow = getURLParameter("facet.show");
+	  		if (facetShow) {
+				var array = facetShow.split(",");
+				array.forEach(function(value) {
+					var link = 'a#' + value;
+					//console.log(">>> " + link);
+					$(link).trigger("click");
+				});
+	  			
+	  		}
+	  		
+			$('#ajax-loader').hide();
+
+			function disableForm() {
+				$('#ajax-loader').show();
+				$('#query').attr('disabled', 'disabled');
+				$('#search').attr('disabled', 'disabled');
+				$('#reset').attr('disabled', 'disabled');
+			}
+			
+			function enableForm() {
+				$('#ajax-loader').hide();
+				$('#query').removeAttr('disabled');
+				$('#search').removeAttr('disabled');
+				$('#reset').removeAttr('disabled');
+			}
+
+			function getUrl() {
+				return "/search?facet.sort=index&query=" + $("#query").val();
+			}
+
+			$("#search-menu li").on("click", function(event){
+				event.preventDefault();
+				var dropdown = $('#search-dropdown');
+				dropdown.html($(this).text() + " <span class='caret'></span>");
+				var mode = $(this).attr('id');
+				$('#modeValue').val(mode);
+			});
+			
+			var sample = 'Sample Mode';
+			var full = 'Full Mode';
+			
+			//read back in the search mode
+			var mode = getURLParameter('mode');
+			var dropdown = $('#search-dropdown');
+			if (mode) {
+				$('#modeValue').val(mode);
+				if (mode == 'sample') {
+					dropdown.html(sample + " <span class='caret'></span>");
+				} else {
+					dropdown.html(full + " <span class='caret'></span>");
+				}
+			} else {
+				$('#modeValue').val('');
+				dropdown.html(sample + " <span class='caret'></span>");
+			}
+			
+			$('#search').on('click', function() {
+				doSearch();
+			});
+			
+			function doSearch() {
+				if ($('#search-form').valid()) {
+					if ($('#addFacet').val() == "") {
+						$('#addFacet').prop("disabled", true);
+					}
+					if ($('#modeValue').val() == "") {
+						$('#modeValue').prop("disabled", true);
+					}
+					if ($('#tab').val() == "") {
+						$('#tab').prop("disabled", true);
+					}
+					
+					processSelectedResources();
+				    $('#action').val('search');
+
+					modalLoader();
+				    // add to parameters then submit
+				    // &facet.fields=postcode_district
+				    
+					$('#search-form').submit();
+				}
+
+			}
+			
+			function buildDefaultFacets() {
+			    var crawl_year = $("<input>")
+	       			.attr("type", "hidden")
+	       			.attr("name", "facet.fields").val("crawl_year");
+				
+			    var public_suffix = $("<input>")
+	       			.attr("type", "hidden")
+	       			.attr("name", "facet.fields").val("public_suffix");
+			    
+			    $('#search-form').append($(crawl_year)).append($(public_suffix));
+			}
+			
+			function createSummary() {
+				
+				var query = $('<li class="summary-li">').html("Search Term(s): " + $("#query").val());
+				var line = "";
+				$('#search-summary').append(query);
+				
+				$('ul.facet-heading').each(function(index) {
+					
+					// check form fields
+					var facet_options = $(this).find('li.facet-options');
+					
+					var total = facet_options.length;
+
+					var facet_main = $(this).parent().parent().find('div.facet-main');
+					var name = "";
+					var values = "";
+					var facetValue = facet_main.find('input[type=hidden]:first').val();
+					var invert = facet_main.find('input[type=hidden]:last').val();
+					
+					console.log(facetValue + "/" + facetValue.length + " - " + invert + "/" + invert.length);
+					
+					// +/-
+					facet_options.each(function(index) {
+						if (name.length == 0) {
+							name = facet_main.find('a strong').html();
+							//console.log(name);
+							// inverted
+							if (facetValue != '' && invert != '' && facetValue == invert) {
+								line = name + ": (Exclude) ";
+							} else {
+								line = name + ": (Include) ";
+							}
+						}
+						var facet_option = $(this);
+						
+						var include = facet_option.find('input.include');
+						var exclude = facet_option.find('input.exclude');
+
+						if (include.attr('checked')) {
+							var value = include.val();
+							values += value + " ";
+						}
+						if (exclude.attr('checked')) {
+							var value = exclude.val();
+							values += value + " ";
+						}
+					    if (index === total - 1 && values.length > 0) {
+					    	line += values;
+							summary = $('<li class="summary-li">').html(line);
+							$('#search-summary').append(summary);
+					    }
+
+					});
+				});
+				
+				createSummaryExclusions();
+
+			}
+
+			function actionButtons() {
+				$('.excludeButton').on('click', function(event) {
+					event.preventDefault();
+					console.log('exclude');
+					$('input.resource').each(function() {
+						$(this).attr('name', 'exclude');
+					});
+					doSearch();
+				});
+				$('.excludeHostButton').on('click', function(event) {
+					event.preventDefault();
+					console.log('exclude host');
+					$('input.resource').each(function() {
+						var host = $(this).attr('host');
+						$(this).val(host);
+						$(this).attr('name', 'excludeHost');
+					});
+					doSearch();
+				});
+			}
+			
+			resetFacets();
+			searchTabs();
+			facetOptions();
+			showFacets();
+			saveSearch();
+			saveCorpus();
+			validateSearchForm();
+			applyInverts();
+			csvLink();
+			createSummary();
+			resetExcluded();
+			actionButtons();
+			applyShowMoreLinks();
+		});
+	</script>
+
+		
+	</head>
+	<body>
+		<nav class="navbar navbar-default" role="navigation">
+  			<div class="navbar-header">		
+    			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+      				<span class="sr-only">Toggle navigation</span>
+      				<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/shine">
+					<image src="/shine/assets/images/ukwa-icon-nobg-16.png" />
+						UK Web Archive
+				</a>
+			</div>
+  			<div class="collapse navbar-collapse">
+  				<ul class="nav navbar-nav">
+					<li class="active"><a class="white-text" id="nav-search" href="/shine/search?facet.sort=index&tab=results">Search</a></li>
+	           		<li class=""><a class="white-text"  href="/shine/graph">Trends</a></li>
+				</ul>
+				<div class="navbar-right">
+					
+					<!-- 
+		           		<a class="btn btn-success navbar-btn" href="/shine/login">Login</a>
+                     -->
+		           	
+				</div>
+			</div>
+		</nav>
+		<div class="container">
+		 <!-- Warning banner and show/hide logic... -->
+	        <div id="alert-beta-service-warning" class="alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="hideMe()"><span aria-hidden="true">&times;</span></button>
+	            <strong>Warning!</strong> This is a research prototype for a web archive search service, and may be taken down at any time.
+	        </div>
+		<script>
+	      if($.cookie('alert-beta-service-warning') == null) {
+	          $.cookie('alert-beta-service-warning', 'open', { expires: 7 });
+	          $("#alert-beta-service-warning").show();
+	      } else if($.cookie('alert-beta-service-warning') == 'close') {
+	          $("#alert-beta-service-warning").hide();
+	      }
+	        
+	      function hideMe(){
+	        $.cookie('alert-beta-service-warning', 'close', {expires:7 });
+	        $("#alert-beta-service-warning").hide();
+	      }
+	    </script>
+		 <!-- End Of: Warning banner and show/hide logic... -->
+	        
+			
+
+	
+
+
+
+<ul class="nav nav-tabs">
+ 
+
+  	<li class="active"><a href="/shine/search?facet.sort=index&tab=results">Search</a></li>
+    <li><a href="/shine/search/advanced">Advanced Search</a></li>
+    <li><a href="/shine/search/tips">Search Tips</a></li>
+	
+	
+  
+
+</ul>
+
+	<div class="padding-20">
+
+		 
+
+<form action="/shine/search" method="GET" id="search-form">
+    
+	
+			<div class="row">
+				
+					<div class="col-md-4 col-sm-4">
+						
+
+
+
+
+
+
+
+
+
+<div class="panel panel-default">
+	<input id="facet-sort" class="hide" type="checkbox" name="facet.sort" value=""  />
+	
+		<input type="hidden" name="page" value="1" />
+	
+	<div class="padding-5 pull-right">
+		<button class="facet-sort btn btn-primary btn-xs" type="button" value="value" id="facet-sort-value" data-toggle="tooltip" data-placement="top" title="Sort by Index">
+			<span class="glyphicon glyphicon-sort-by-alphabet"></span>
+		</button>
+		<button class="facet-sort btn btn-primary btn-xs" type="button" value="count" id="facet-sort-count" data-toggle="tooltip" data-placement="top" title="Sort by Count">
+			<span class="glyphicon glyphicon-sort-by-order-alt"></span>
+		</button>
+	</div>
+	
+	
+		
+			<div class="panel-body content_type_norm">
+   				<div class="facet-main">
+					<a class="facet-heading"><strong>General Content Type</strong></a> <span class="badge">1</span>
+					<input type="hidden" name="facet.fields" value="content_type_norm" id="content_type_norm">
+					<input type="hidden" name="invert" value="" id="invert_content_type_norm">
+					<div class="btn-group">
+						<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+							<span class="glyphicon glyphicon-cog"></span>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+							
+							<li><a href="#" class="facet-invert" id="invertmenu_content_type_norm">(+-) Exclude selected values</a></li>
+							<li><a href="#" class="facet-remove">(x) remove this facet </a></li>
+							<li><a href="#" class="facet-search">(+) search for another facet value  </a></li>
+						</ul>
+					</div>
+   				</div>
+   				<div class="facet-index">
+					<ul class="list-unstyled facet-heading">
+						
+							
+   								<li class="facet-options show" data-attr="default">
+							
+								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
+								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
+								<a class="facet-name">powerpoint</a> <span class="badge">179</span>
+								<input class="include hide" type="checkbox" name="facet.in.content_type_norm" value='"powerpoint"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.content_type_norm" value='"powerpoint"'  onclick="this.form.submit();"/>
+							</li>
+					        <!-- dynamically add checked="true"? -->
+					        <!-- OR use some kind of link constructor? -->
+						
+						
+					</ul>
+					<div id="add-more-option-0" class="input-group input-group-sm hide">
+						<span class="input-group-btn">
+							<button class="add-facet-button btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+						</span>
+						<input type="text" class="form-control add-facet-field" placeholder="Facet Search" value="" >
+						<span class="input-group-sm input-group-addon">
+							<a href="#" title="Include" class="add-facet-value">
+								<span class="glyphicon glyphicon-plus-sign"></span>
+							</a>
+							<a href="#" title="Exclude" class="remove-facet-value">
+								<span class="glyphicon glyphicon-minus-sign"></span>
+							</a>
+							<a href="#" title="Close" class="close-facet-value" id="close-search-0">
+								<span class="glyphicon glyphicon-remove-sign"></span>
+							</a>
+							
+						</span>
+						<span class="tt-dropdown-menu" style="position: absolute; top: 100%; left: 0px; z-index: 100; display: none; right: auto;">
+						</span>
+					</div>
+   				</div>
+			</div>
+		
+			<div class="panel-body crawl_year">
+   				<div class="facet-main">
+					<a class="facet-heading"><strong>Crawl Years</strong></a> <span class="badge">10</span>
+					<input type="hidden" name="facet.fields" value="crawl_year" id="crawl_year">
+					<input type="hidden" name="invert" value="" id="invert_crawl_year">
+					<div class="btn-group">
+						<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+							<span class="glyphicon glyphicon-cog"></span>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+							
+								<li><a href="#" class="facet-sort-alpha">(az) sort values alphabetically </a></li>
+								<li><a href="#" class="facet-sort-freq">(01) sort values by frequency </a></li>
+							
+							<li><a href="#" class="facet-invert" id="invertmenu_crawl_year">(+-) Exclude selected values</a></li>
+							<li><a href="#" class="facet-remove">(x) remove this facet </a></li>
+							<li><a href="#" class="facet-search">(+) search for another facet value  </a></li>
+						</ul>
+					</div>
+   				</div>
+   				<div class="facet-index">
+					<ul class="list-unstyled facet-heading">
+						
+							
+   								<li class="facet-options show" data-attr="default">
+							
+								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
+								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
+								<a class="facet-name">2004</a> <span class="badge">62</span>
+								<input class="include hide" type="checkbox" name="facet.in.crawl_year" value='"2004"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.crawl_year" value='"2004"'  onclick="this.form.submit();"/>
+							</li>
+					        <!-- dynamically add checked="true"? -->
+					        <!-- OR use some kind of link constructor? -->
+						
+							
+   								<li class="facet-options show" data-attr="default">
+							
+								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
+								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
+								<a class="facet-name">1997</a> <span class="badge">31</span>
+								<input class="include hide" type="checkbox" name="facet.in.crawl_year" value='"1997"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.crawl_year" value='"1997"'  onclick="this.form.submit();"/>
+							</li>
+					        <!-- dynamically add checked="true"? -->
+					        <!-- OR use some kind of link constructor? -->
+						
+							
+   								<li class="facet-options show" data-attr="default">
+							
+								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
+								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
+								<a class="facet-name">2003</a> <span class="badge">15</span>
+								<input class="include hide" type="checkbox" name="facet.in.crawl_year" value='"2003"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.crawl_year" value='"2003"'  onclick="this.form.submit();"/>
+							</li>
+					        <!-- dynamically add checked="true"? -->
+					        <!-- OR use some kind of link constructor? -->
+						
+							
+   								<li class="facet-options show" data-attr="default">
+							
+								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
+								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
+								<a class="facet-name">1998</a> <span class="badge">14</span>
+								<input class="include hide" type="checkbox" name="facet.in.crawl_year" value='"1998"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.crawl_year" value='"1998"'  onclick="this.form.submit();"/>
+							</li>
+					        <!-- dynamically add checked="true"? -->
+					        <!-- OR use some kind of link constructor? -->
+						
+							
+   								<li class="facet-options show" data-attr="default">
+							
+								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
+								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
+								<a class="facet-name">2005</a> <span class="badge">14</span>
+								<input class="include hide" type="checkbox" name="facet.in.crawl_year" value='"2005"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.crawl_year" value='"2005"'  onclick="this.form.submit();"/>
+							</li>
+					        <!-- dynamically add checked="true"? -->
+					        <!-- OR use some kind of link constructor? -->
+						
+							
+   								<li class="facet-options hide">
+							
+								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
+								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
+								<a class="facet-name">2006</a> <span class="badge">14</span>
+								<input class="include hide" type="checkbox" name="facet.in.crawl_year" value='"2006"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.crawl_year" value='"2006"'  onclick="this.form.submit();"/>
+							</li>
+					        <!-- dynamically add checked="true"? -->
+					        <!-- OR use some kind of link constructor? -->
+						
+							
+   								<li class="facet-options hide">
+							
+								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
+								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
+								<a class="facet-name">2007</a> <span class="badge">13</span>
+								<input class="include hide" type="checkbox" name="facet.in.crawl_year" value='"2007"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.crawl_year" value='"2007"'  onclick="this.form.submit();"/>
+							</li>
+					        <!-- dynamically add checked="true"? -->
+					        <!-- OR use some kind of link constructor? -->
+						
+							
+   								<li class="facet-options hide">
+							
+								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
+								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
+								<a class="facet-name">2000</a> <span class="badge">8</span>
+								<input class="include hide" type="checkbox" name="facet.in.crawl_year" value='"2000"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.crawl_year" value='"2000"'  onclick="this.form.submit();"/>
+							</li>
+					        <!-- dynamically add checked="true"? -->
+					        <!-- OR use some kind of link constructor? -->
+						
+							
+   								<li class="facet-options hide">
+							
+								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
+								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
+								<a class="facet-name">1999</a> <span class="badge">5</span>
+								<input class="include hide" type="checkbox" name="facet.in.crawl_year" value='"1999"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.crawl_year" value='"1999"'  onclick="this.form.submit();"/>
+							</li>
+					        <!-- dynamically add checked="true"? -->
+					        <!-- OR use some kind of link constructor? -->
+						
+							
+   								<li class="facet-options hide">
+							
+								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
+								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
+								<a class="facet-name">2001</a> <span class="badge">3</span>
+								<input class="include hide" type="checkbox" name="facet.in.crawl_year" value='"2001"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.crawl_year" value='"2001"'  onclick="this.form.submit();"/>
+							</li>
+					        <!-- dynamically add checked="true"? -->
+					        <!-- OR use some kind of link constructor? -->
+						
+						
+							<li> 
+    							<a id="crawl_year" class="show-more" href="#"><span class="glyphicon glyphicon-plus-sign"></span> <span>Show more...</span></a>
+     						</li>
+    					
+					</ul>
+					<div id="add-more-option-1" class="input-group input-group-sm hide">
+						<span class="input-group-btn">
+							<button class="add-facet-button btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+						</span>
+						<input type="text" class="form-control add-facet-field" placeholder="Facet Search" value="" >
+						<span class="input-group-sm input-group-addon">
+							<a href="#" title="Include" class="add-facet-value">
+								<span class="glyphicon glyphicon-plus-sign"></span>
+							</a>
+							<a href="#" title="Exclude" class="remove-facet-value">
+								<span class="glyphicon glyphicon-minus-sign"></span>
+							</a>
+							<a href="#" title="Close" class="close-facet-value" id="close-search-1">
+								<span class="glyphicon glyphicon-remove-sign"></span>
+							</a>
+							
+						</span>
+						<span class="tt-dropdown-menu" style="position: absolute; top: 100%; left: 0px; z-index: 100; display: none; right: auto;">
+						</span>
+					</div>
+   				</div>
+			</div>
+		
+			<div class="panel-body postcode_district">
+   				<div class="facet-main">
+					<a class="facet-heading"><strong>Postcode District</strong></a> <span class="badge">0</span>
+					<input type="hidden" name="facet.fields" value="postcode_district" id="postcode_district">
+					<input type="hidden" name="invert" value="" id="invert_postcode_district">
+					<div class="btn-group">
+						<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+							<span class="glyphicon glyphicon-cog"></span>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+							
+							<li><a href="#" class="facet-invert" id="invertmenu_postcode_district">(+-) Exclude selected values</a></li>
+							<li><a href="#" class="facet-remove">(x) remove this facet </a></li>
+							<li><a href="#" class="facet-search">(+) search for another facet value  </a></li>
+						</ul>
+					</div>
+   				</div>
+   				<div class="facet-index">
+					<ul class="list-unstyled facet-heading">
+						
+						
+					</ul>
+					<div id="add-more-option-2" class="input-group input-group-sm hide">
+						<span class="input-group-btn">
+							<button class="add-facet-button btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+						</span>
+						<input type="text" class="form-control add-facet-field" placeholder="Facet Search" value="" >
+						<span class="input-group-sm input-group-addon">
+							<a href="#" title="Include" class="add-facet-value">
+								<span class="glyphicon glyphicon-plus-sign"></span>
+							</a>
+							<a href="#" title="Exclude" class="remove-facet-value">
+								<span class="glyphicon glyphicon-minus-sign"></span>
+							</a>
+							<a href="#" title="Close" class="close-facet-value" id="close-search-2">
+								<span class="glyphicon glyphicon-remove-sign"></span>
+							</a>
+							
+						</span>
+						<span class="tt-dropdown-menu" style="position: absolute; top: 100%; left: 0px; z-index: 100; display: none; right: auto;">
+						</span>
+					</div>
+   				</div>
+			</div>
+		
+			<div class="panel-body public_suffix">
+   				<div class="facet-main">
+					<a class="facet-heading"><strong>Public Suffix</strong></a> <span class="badge">2</span>
+					<input type="hidden" name="facet.fields" value="public_suffix" id="public_suffix">
+					<input type="hidden" name="invert" value="" id="invert_public_suffix">
+					<div class="btn-group">
+						<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+							<span class="glyphicon glyphicon-cog"></span>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+							
+							<li><a href="#" class="facet-invert" id="invertmenu_public_suffix">(+-) Exclude selected values</a></li>
+							<li><a href="#" class="facet-remove">(x) remove this facet </a></li>
+							<li><a href="#" class="facet-search">(+) search for another facet value  </a></li>
+						</ul>
+					</div>
+   				</div>
+   				<div class="facet-index">
+					<ul class="list-unstyled facet-heading">
+						
+							
+   								<li class="facet-options show" data-attr="default">
+							
+								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
+								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
+								<a class="facet-name">ac.uk</a> <span class="badge">169</span>
+								<input class="include hide" type="checkbox" name="facet.in.public_suffix" value='"ac.uk"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.public_suffix" value='"ac.uk"'  onclick="this.form.submit();"/>
+							</li>
+					        <!-- dynamically add checked="true"? -->
+					        <!-- OR use some kind of link constructor? -->
+						
+							
+   								<li class="facet-options show" data-attr="default">
+							
+								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
+								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
+								<a class="facet-name">org.uk</a> <span class="badge">10</span>
+								<input class="include hide" type="checkbox" name="facet.in.public_suffix" value='"org.uk"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.public_suffix" value='"org.uk"'  onclick="this.form.submit();"/>
+							</li>
+					        <!-- dynamically add checked="true"? -->
+					        <!-- OR use some kind of link constructor? -->
+						
+						
+					</ul>
+					<div id="add-more-option-3" class="input-group input-group-sm hide">
+						<span class="input-group-btn">
+							<button class="add-facet-button btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+						</span>
+						<input type="text" class="form-control add-facet-field" placeholder="Facet Search" value="" >
+						<span class="input-group-sm input-group-addon">
+							<a href="#" title="Include" class="add-facet-value">
+								<span class="glyphicon glyphicon-plus-sign"></span>
+							</a>
+							<a href="#" title="Exclude" class="remove-facet-value">
+								<span class="glyphicon glyphicon-minus-sign"></span>
+							</a>
+							<a href="#" title="Close" class="close-facet-value" id="close-search-3">
+								<span class="glyphicon glyphicon-remove-sign"></span>
+							</a>
+							
+						</span>
+						<span class="tt-dropdown-menu" style="position: absolute; top: 100%; left: 0px; z-index: 100; display: none; right: auto;">
+						</span>
+					</div>
+   				</div>
+			</div>
+		
+			<div class="panel-body content_language">
+   				<div class="facet-main">
+					<a class="facet-heading"><strong>Language</strong></a> <span class="badge">0</span>
+					<input type="hidden" name="facet.fields" value="content_language" id="content_language">
+					<input type="hidden" name="invert" value="" id="invert_content_language">
+					<div class="btn-group">
+						<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+							<span class="glyphicon glyphicon-cog"></span>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+							
+							<li><a href="#" class="facet-invert" id="invertmenu_content_language">(+-) Exclude selected values</a></li>
+							<li><a href="#" class="facet-remove">(x) remove this facet </a></li>
+							<li><a href="#" class="facet-search">(+) search for another facet value  </a></li>
+						</ul>
+					</div>
+   				</div>
+   				<div class="facet-index">
+					<ul class="list-unstyled facet-heading">
+						
+						
+					</ul>
+					<div id="add-more-option-4" class="input-group input-group-sm hide">
+						<span class="input-group-btn">
+							<button class="add-facet-button btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+						</span>
+						<input type="text" class="form-control add-facet-field" placeholder="Facet Search" value="" >
+						<span class="input-group-sm input-group-addon">
+							<a href="#" title="Include" class="add-facet-value">
+								<span class="glyphicon glyphicon-plus-sign"></span>
+							</a>
+							<a href="#" title="Exclude" class="remove-facet-value">
+								<span class="glyphicon glyphicon-minus-sign"></span>
+							</a>
+							<a href="#" title="Close" class="close-facet-value" id="close-search-4">
+								<span class="glyphicon glyphicon-remove-sign"></span>
+							</a>
+							
+						</span>
+						<span class="tt-dropdown-menu" style="position: absolute; top: 100%; left: 0px; z-index: 100; display: none; right: auto;">
+						</span>
+					</div>
+   				</div>
+			</div>
+		
+			<div class="panel-body domain">
+   				<div class="facet-main">
+					<a class="facet-heading"><strong>Domain</strong></a> <span class="badge">10</span>
+					<input type="hidden" name="facet.fields" value="domain" id="domain">
+					<input type="hidden" name="invert" value="" id="invert_domain">
+					<div class="btn-group">
+						<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+							<span class="glyphicon glyphicon-cog"></span>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+							
+							<li><a href="#" class="facet-invert" id="invertmenu_domain">(+-) Exclude selected values</a></li>
+							<li><a href="#" class="facet-remove">(x) remove this facet </a></li>
+							<li><a href="#" class="facet-search">(+) search for another facet value  </a></li>
+						</ul>
+					</div>
+   				</div>
+   				<div class="facet-index">
+					<ul class="list-unstyled facet-heading">
+						
+							
+   								<li class="facet-options show" data-attr="default">
+							
+								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
+								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
+								<a class="facet-name">qmul.ac.uk</a> <span class="badge">72</span>
+								<input class="include hide" type="checkbox" name="facet.in.domain" value='"qmul.ac.uk"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.domain" value='"qmul.ac.uk"'  onclick="this.form.submit();"/>
+							</li>
+					        <!-- dynamically add checked="true"? -->
+					        <!-- OR use some kind of link constructor? -->
+						
+							
+   								<li class="facet-options show" data-attr="default">
+							
+								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
+								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
+								<a class="facet-name">bton.ac.uk</a> <span class="badge">39</span>
+								<input class="include hide" type="checkbox" name="facet.in.domain" value='"bton.ac.uk"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.domain" value='"bton.ac.uk"'  onclick="this.form.submit();"/>
+							</li>
+					        <!-- dynamically add checked="true"? -->
+					        <!-- OR use some kind of link constructor? -->
+						
+							
+   								<li class="facet-options show" data-attr="default">
+							
+								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
+								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
+								<a class="facet-name">brighton.ac.uk</a> <span class="badge">25</span>
+								<input class="include hide" type="checkbox" name="facet.in.domain" value='"brighton.ac.uk"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.domain" value='"brighton.ac.uk"'  onclick="this.form.submit();"/>
+							</li>
+					        <!-- dynamically add checked="true"? -->
+					        <!-- OR use some kind of link constructor? -->
+						
+							
+   								<li class="facet-options show" data-attr="default">
+							
+								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
+								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
+								<a class="facet-name">staffs.ac.uk</a> <span class="badge">9</span>
+								<input class="include hide" type="checkbox" name="facet.in.domain" value='"staffs.ac.uk"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.domain" value='"staffs.ac.uk"'  onclick="this.form.submit();"/>
+							</li>
+					        <!-- dynamically add checked="true"? -->
+					        <!-- OR use some kind of link constructor? -->
+						
+							
+   								<li class="facet-options show" data-attr="default">
+							
+								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
+								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
+								<a class="facet-name">parkinsons.org.uk</a> <span class="badge">7</span>
+								<input class="include hide" type="checkbox" name="facet.in.domain" value='"parkinsons.org.uk"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.domain" value='"parkinsons.org.uk"'  onclick="this.form.submit();"/>
+							</li>
+					        <!-- dynamically add checked="true"? -->
+					        <!-- OR use some kind of link constructor? -->
+						
+							
+   								<li class="facet-options show" data-attr="default">
+							
+								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
+								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
+								<a class="facet-name">bris.ac.uk</a> <span class="badge">4</span>
+								<input class="include hide" type="checkbox" name="facet.in.domain" value='"bris.ac.uk"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.domain" value='"bris.ac.uk"'  onclick="this.form.submit();"/>
+							</li>
+					        <!-- dynamically add checked="true"? -->
+					        <!-- OR use some kind of link constructor? -->
+						
+							
+   								<li class="facet-options show" data-attr="default">
+							
+								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
+								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
+								<a class="facet-name">dmu.ac.uk</a> <span class="badge">4</span>
+								<input class="include hide" type="checkbox" name="facet.in.domain" value='"dmu.ac.uk"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.domain" value='"dmu.ac.uk"'  onclick="this.form.submit();"/>
+							</li>
+					        <!-- dynamically add checked="true"? -->
+					        <!-- OR use some kind of link constructor? -->
+						
+							
+   								<li class="facet-options show" data-attr="default">
+							
+								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
+								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
+								<a class="facet-name">qmw.ac.uk</a> <span class="badge">4</span>
+								<input class="include hide" type="checkbox" name="facet.in.domain" value='"qmw.ac.uk"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.domain" value='"qmw.ac.uk"'  onclick="this.form.submit();"/>
+							</li>
+					        <!-- dynamically add checked="true"? -->
+					        <!-- OR use some kind of link constructor? -->
+						
+							
+   								<li class="facet-options show" data-attr="default">
+							
+								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
+								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
+								<a class="facet-name">ukoln.ac.uk</a> <span class="badge">4</span>
+								<input class="include hide" type="checkbox" name="facet.in.domain" value='"ukoln.ac.uk"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.domain" value='"ukoln.ac.uk"'  onclick="this.form.submit();"/>
+							</li>
+					        <!-- dynamically add checked="true"? -->
+					        <!-- OR use some kind of link constructor? -->
+						
+							
+   								<li class="facet-options show" data-attr="default">
+							
+								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
+								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
+								<a class="facet-name">sunsite.org.uk</a> <span class="badge">3</span>
+								<input class="include hide" type="checkbox" name="facet.in.domain" value='"sunsite.org.uk"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.domain" value='"sunsite.org.uk"'  onclick="this.form.submit();"/>
+							</li>
+					        <!-- dynamically add checked="true"? -->
+					        <!-- OR use some kind of link constructor? -->
+						
+						
+					</ul>
+					<div id="add-more-option-5" class="input-group input-group-sm hide">
+						<span class="input-group-btn">
+							<button class="add-facet-button btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+						</span>
+						<input type="text" class="form-control add-facet-field" placeholder="Facet Search" value="" >
+						<span class="input-group-sm input-group-addon">
+							<a href="#" title="Include" class="add-facet-value">
+								<span class="glyphicon glyphicon-plus-sign"></span>
+							</a>
+							<a href="#" title="Exclude" class="remove-facet-value">
+								<span class="glyphicon glyphicon-minus-sign"></span>
+							</a>
+							<a href="#" title="Close" class="close-facet-value" id="close-search-5">
+								<span class="glyphicon glyphicon-remove-sign"></span>
+							</a>
+							
+						</span>
+						<span class="tt-dropdown-menu" style="position: absolute; top: 100%; left: 0px; z-index: 100; display: none; right: auto;">
+						</span>
+					</div>
+   				</div>
+			</div>
+		
+			<div class="panel-body links_domains">
+   				<div class="facet-main">
+					<a class="facet-heading"><strong>Links Domains</strong></a> <span class="badge">0</span>
+					<input type="hidden" name="facet.fields" value="links_domains" id="links_domains">
+					<input type="hidden" name="invert" value="" id="invert_links_domains">
+					<div class="btn-group">
+						<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+							<span class="glyphicon glyphicon-cog"></span>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+							
+							<li><a href="#" class="facet-invert" id="invertmenu_links_domains">(+-) Exclude selected values</a></li>
+							<li><a href="#" class="facet-remove">(x) remove this facet </a></li>
+							<li><a href="#" class="facet-search">(+) search for another facet value  </a></li>
+						</ul>
+					</div>
+   				</div>
+   				<div class="facet-index">
+					<ul class="list-unstyled facet-heading">
+						
+						
+					</ul>
+					<div id="add-more-option-6" class="input-group input-group-sm hide">
+						<span class="input-group-btn">
+							<button class="add-facet-button btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+						</span>
+						<input type="text" class="form-control add-facet-field" placeholder="Facet Search" value="" >
+						<span class="input-group-sm input-group-addon">
+							<a href="#" title="Include" class="add-facet-value">
+								<span class="glyphicon glyphicon-plus-sign"></span>
+							</a>
+							<a href="#" title="Exclude" class="remove-facet-value">
+								<span class="glyphicon glyphicon-minus-sign"></span>
+							</a>
+							<a href="#" title="Close" class="close-facet-value" id="close-search-6">
+								<span class="glyphicon glyphicon-remove-sign"></span>
+							</a>
+							
+						</span>
+						<span class="tt-dropdown-menu" style="position: absolute; top: 100%; left: 0px; z-index: 100; display: none; right: auto;">
+						</span>
+					</div>
+   				</div>
+			</div>
+		
+		
+				
+	
+	
+	<div class="panel-body">
+		<div class="row pull-right">
+			<div class="col-md-12 col-sm-12">
+				
+					<div class="input-group">
+						<select class="form-control" name="addFacet" id="addFacet">
+							<option value="" selected="selected">&#060;Please Select&#062;</option>
+							
+								<option value="links_public_suffixes">Links to Public Suffixes</option>
+							
+						</select>
+						<span class="input-group-btn">
+							<button id="add-facet" class="btn btn-primary" type="button" name="action" value="add-facet" data-toggle="tooltip" data-placement="top" title="Add Facet to the above list"><span>Add Facet</span> <span class="glyphicon glyphicon-plus"></span></button>
+						</span>
+					</div><!-- /input-group -->
+					<input type="hidden" name="action" value="search" id="action" />
+				
+			</div>
+		</div>
+		<div class="row pull-right reset-facets">
+			<div class="col-md-12 col-sm-12">
+				<button id="reset-facets" class="btn btn-primary" type="button" name="action" value="reset-facets" data-toggle="tooltip" data-placement="left" title="Resets Optional Facets"><span>Reset All Facets</span> <span class="glyphicon glyphicon-remove-circle"></span></button>
+			</div>
+		</div>
+	</div>
+</div>
+					</div>
+			
+					<div class="col-md-8 col-sm-8">
+						<div class="panel panel-default">
+							<div class="panel-body">
+					   			<div class="input-group">
+					   				<div class="input-group-btn">
+								        <button type="button" class="btn btn-primary dropdown-toggle search-dropdown" data-toggle="dropdown" aria-expanded="false" id="search-dropdown">Sample Mode <span class="caret"></span></button>
+								        <ul class="dropdown-menu" role="menu" id="search-menu">
+											<li id="sample"><a href="#">Sample Mode</a></li>
+											<li id="full"><a href="#">Full Mode</a></li>
+										</ul>
+							      	</div><!-- /btn-group -->			
+					   				
+
+
+
+
+
+
+
+
+
+
+
+
+    <input type="text" id="query" name="query" value="content_ffb:&quot;0baddeed&quot;" placeholder="Enter search term" class="form-control search-field">
+
+
+
+
+					   				<input type="hidden" name="tab" value="results" id="tab" />
+									<span class="input-group-btn">
+										<button type="button" class="btn btn-primary" id="search" name="action" value="search">Search</button>
+										<button type="reset" class="btn btn-primary" id="reset" name="action" value="reset">Reset</button>
+										
+										<!-- <img id="ajax-loader" src="assets/images/ajax-loader.gif">  -->
+									</span>
+								</div>
+								<div id="errorBox"></div>
+							</div>
+						</div>
+	
+						<div class="padding-20" id="summary">
+							<div class="alert alert-info">
+								<ul id="search-summary">
+								</ul>
+							</div>
+							<div class="alert alert-danger alert-dismissible" id="export-message" role="alert">
+								<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+							</div>
+						</div>					
+	
+						<div class="padding-20 hide" id="max-view-reached">
+							<div class="alert alert-danger alert-dismissable">
+								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+								Maximum number of results reached
+							</div>
+						</div>
+
+						<input type="hidden" name="totalCount" value="totalCount" id="totalCount" />
+						
+
+<ul class="nav nav-tabs">
+ 
+	
+	  	<li class="active" id="resultsTab"><a href="#">Results</a></li>
+		<li id="concordanceTab"><a href="#">Concordance</a></li>
+	  
+
+</ul>
+						
+									
+						<div class="padding-20">
+							<div id="results">
+
+
+
+
+
+<div class="panel panel-default">
+	<div class="panel-heading filter-heading">
+		<h4 class="panel-title pull-left filter-heading-title">
+			
+			    Results <span id="displayingXOfY">1 to 10 of 179</span>
+			
+		</h4>
+		<span class="hide" id="current-url"></span>
+		<div class="form-inline pull-right">
+			
+			 	<div class="form-group">
+					<div class="btn-group">
+					  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+					    CSV <span class="caret"></span>
+					  </button>
+					  <ul class="dropdown-menu" role="menu">
+					    <li><a href="#" id="briefCSV" data-toggle="tooltip" data-placement="top" title="Export Standard Version">Brief</a></li>
+					    <li><a href="#" id="fullCSV" data-toggle="tooltip" data-placement="top" title="Export Full Version">Full</a></li>
+					  </ul>
+					</div>			 		
+			 	</div>
+			
+			<div class="form-group">
+				<select class="form-control" name="sort" id="sort">
+					<!-- get from some where -->
+					<option value="content_type_norm">Title</option>
+					<option value="crawl_date">Crawl Date</option>
+					<option value="content_type_norm">Content</option>
+					<option value="domain">Domain</option>
+					<option value="sentiment_score">Score</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<select class="form-control" name="order" id="order">
+					<option value="asc">Asc</option>
+					<option value="desc">Desc</option>
+				</select>
+			</div>
+		</div>
+	</div>
+
+	<div class="panel-body">
+		
+	
+
+
+
+
+
+	<div class="row">
+		<div class="col-md-7 col-sm7">
+			<div class="text-center paging-tabs">
+				<ul class="pagination">
+					
+		                <li class="prev disabled">
+		                    <a class="paging">&laquo;</a>
+		                </li>
+		            
+					
+						
+							
+							<li class="active current" id="list-1"><a href="#" class="paging" id="page-1">1 <span class="sr-only">(current)</span></a></li>
+						
+					
+						
+							
+								<li id="list-2"><a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=2&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-2" class="paging">2</a></li>
+							
+						
+					
+						
+							
+								<li id="list-3"><a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=3&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-3" class="paging">3</a></li>
+							
+						
+					
+						
+							
+								<li id="list-4"><a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=4&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-4" class="paging">4</a></li>
+							
+						
+					
+						
+							
+								<li id="list-5"><a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=5&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-5" class="paging">5</a></li>
+							
+						
+					
+						
+							
+								<li id="list-6"><a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=6&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-6" class="paging">6</a></li>
+							
+						
+					
+		        	
+		                <li class="next" id="list-BaseScalaTemplate(play.api.templates.HtmlFormat$@3680fb53)">
+							
+	                    		<a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=2&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-2" class="paging" data-toggle="tooltip" data-placement="right" title="Page 2">&raquo;</a>
+							
+		                </li>
+		            
+				</ul>
+			</div>
+		</div>
+		<div class="col-md-5 col-sm5">
+			
+				<div class="pull-right save-right">
+					<div class="btn-group">
+						<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+							Action <span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+							
+							<li><a href="#" class="excludeButton">Exclude</a></li>
+							<li><a href="#" class="excludeHostButton">Exclude Host</a></li>
+						</ul>
+					</div>
+			    </div>
+			
+		</div>
+	</div>
+
+
+
+
+		<div id="result-set">
+			
+				
+					
+	
+
+
+
+
+
+<div class="list-group">
+	<div class="list-group-item" href="#">
+		<div class="row">
+			<div class="col-md-8 col-sm-8">
+				<h4 class="list-group-item-heading">
+					1 <a href="http://web.archive.org/web/19970210180909/http://www.chem.ox.ac.uk:80/software/powerpoint.ppt">""</a>
+				</h4>
+				<p class="list-group-item-text">
+						Feb 10 1997 18:09:09 GMT<br />
+						powerpoint<br />
+						<span class="result-host">www.chem.ox.ac.uk</span><br />
+						
+						
+						<hr />
+							
+							
+		 					
+						
+				</p>
+			</div>
+			<div class="col-md-4 col-sm-4 checkbox">
+			 	<div class="checkbox pull-right">
+			 		<input host="www.chem.ox.ac.uk" type="checkbox" name="selectedResource" value="
+	g7wf2o3oct/FyOMd7hERdg==/19970210180909;;;Mon Feb 10 18:09:09 GMT 1997;;; ;;;ox.ac.uk;;;http://www.chem.ox.ac.uk:80/software/powerpoint.ppt;;;19970210180909
+" data-toggle="tooltip" data-placement="top" title="select" class="resource">
+			 	</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+				
+					
+	
+
+
+
+
+
+<div class="list-group">
+	<div class="list-group-item" href="#">
+		<div class="row">
+			<div class="col-md-8 col-sm-8">
+				<h4 class="list-group-item-heading">
+					2 <a href="http://web.archive.org/web/19970301094741/http://maxwell-11.cs.strath.ac.uk:8001/GSES/PS/INET-T3-2.ppt">""</a>
+				</h4>
+				<p class="list-group-item-text">
+						Mar 01 1997 09:47:41 GMT<br />
+						powerpoint<br />
+						<span class="result-host">maxwell-11.cs.strath.ac.uk</span><br />
+						
+						
+						<hr />
+							
+							
+		 					
+						
+				</p>
+			</div>
+			<div class="col-md-4 col-sm-4 checkbox">
+			 	<div class="checkbox pull-right">
+			 		<input host="maxwell-11.cs.strath.ac.uk" type="checkbox" name="selectedResource" value="
+	cXHyVGsIkzQu+mkiRFWFtg==/19970301094741;;;Sat Mar 01 09:47:41 GMT 1997;;; ;;;strath.ac.uk;;;http://maxwell-11.cs.strath.ac.uk:8001/GSES/PS/INET-T3-2.ppt;;;19970301094741
+" data-toggle="tooltip" data-placement="top" title="select" class="resource">
+			 	</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+				
+					
+	
+
+
+
+
+
+<div class="list-group">
+	<div class="list-group-item" href="#">
+		<div class="row">
+			<div class="col-md-8 col-sm-8">
+				<h4 class="list-group-item-heading">
+					3 <a href="http://web.archive.org/web/19970522213214/http://www.seg.dmu.ac.uk:80/ppt/BidStrat.ppt">""</a>
+				</h4>
+				<p class="list-group-item-text">
+						May 22 1997 22:32:14 BST<br />
+						powerpoint<br />
+						<span class="result-host">www.seg.dmu.ac.uk</span><br />
+						
+						
+						<hr />
+							
+							
+		 					
+						
+				</p>
+			</div>
+			<div class="col-md-4 col-sm-4 checkbox">
+			 	<div class="checkbox pull-right">
+			 		<input host="www.seg.dmu.ac.uk" type="checkbox" name="selectedResource" value="
+	yMhZZWk8NToiTpWaCVZJ6w==/19970522213214;;;Thu May 22 22:32:14 BST 1997;;; ;;;dmu.ac.uk;;;http://www.seg.dmu.ac.uk:80/ppt/BidStrat.ppt;;;19970522213214
+" data-toggle="tooltip" data-placement="top" title="select" class="resource">
+			 	</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+				
+					
+	
+
+
+
+
+
+<div class="list-group">
+	<div class="list-group-item" href="#">
+		<div class="row">
+			<div class="col-md-8 col-sm-8">
+				<h4 class="list-group-item-heading">
+					4 <a href="http://web.archive.org/web/19970522213340/http://www.seg.dmu.ac.uk:80/ppt/TendRev.ppt">""</a>
+				</h4>
+				<p class="list-group-item-text">
+						May 22 1997 22:33:40 BST<br />
+						powerpoint<br />
+						<span class="result-host">www.seg.dmu.ac.uk</span><br />
+						
+						
+						<hr />
+							
+							
+		 					
+						
+				</p>
+			</div>
+			<div class="col-md-4 col-sm-4 checkbox">
+			 	<div class="checkbox pull-right">
+			 		<input host="www.seg.dmu.ac.uk" type="checkbox" name="selectedResource" value="
+	dE0mQtwohjxwBGdFTVR4zg==/19970522213340;;;Thu May 22 22:33:40 BST 1997;;; ;;;dmu.ac.uk;;;http://www.seg.dmu.ac.uk:80/ppt/TendRev.ppt;;;19970522213340
+" data-toggle="tooltip" data-placement="top" title="select" class="resource">
+			 	</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+				
+					
+	
+
+
+
+
+
+<div class="list-group">
+	<div class="list-group-item" href="#">
+		<div class="row">
+			<div class="col-md-8 col-sm-8">
+				<h4 class="list-group-item-heading">
+					5 <a href="http://web.archive.org/web/19970522213425/http://www.seg.dmu.ac.uk:80/ppt/PropProd.ppt">""</a>
+				</h4>
+				<p class="list-group-item-text">
+						May 22 1997 22:34:25 BST<br />
+						powerpoint<br />
+						<span class="result-host">www.seg.dmu.ac.uk</span><br />
+						
+						
+						<hr />
+							
+							
+		 					
+						
+				</p>
+			</div>
+			<div class="col-md-4 col-sm-4 checkbox">
+			 	<div class="checkbox pull-right">
+			 		<input host="www.seg.dmu.ac.uk" type="checkbox" name="selectedResource" value="
+	VHwp86eGr06Z2dJ8uaEwzQ==/19970522213425;;;Thu May 22 22:34:25 BST 1997;;; ;;;dmu.ac.uk;;;http://www.seg.dmu.ac.uk:80/ppt/PropProd.ppt;;;19970522213425
+" data-toggle="tooltip" data-placement="top" title="select" class="resource">
+			 	</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+				
+					
+	
+
+
+
+
+
+<div class="list-group">
+	<div class="list-group-item" href="#">
+		<div class="row">
+			<div class="col-md-8 col-sm-8">
+				<h4 class="list-group-item-heading">
+					6 <a href="http://web.archive.org/web/19970529233912/http://www-centrim.bus.bton.ac.uk:80/projects/esrcitm/prod.inn/1/1.ppt">""</a>
+				</h4>
+				<p class="list-group-item-text">
+						May 30 1997 00:39:12 BST<br />
+						powerpoint<br />
+						<span class="result-host">www-centrim.bus.bton.ac.uk</span><br />
+						
+						
+						<hr />
+							
+							
+		 					
+						
+				</p>
+			</div>
+			<div class="col-md-4 col-sm-4 checkbox">
+			 	<div class="checkbox pull-right">
+			 		<input host="www-centrim.bus.bton.ac.uk" type="checkbox" name="selectedResource" value="
+	MjEFCGWeH1ViX77RKznAgg==/19970529233912;;;Fri May 30 00:39:12 BST 1997;;; ;;;bton.ac.uk;;;http://www-centrim.bus.bton.ac.uk:80/projects/esrcitm/prod.inn/1/1.ppt;;;19970529233912
+" data-toggle="tooltip" data-placement="top" title="select" class="resource">
+			 	</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+				
+					
+	
+
+
+
+
+
+<div class="list-group">
+	<div class="list-group-item" href="#">
+		<div class="row">
+			<div class="col-md-8 col-sm-8">
+				<h4 class="list-group-item-heading">
+					7 <a href="http://web.archive.org/web/19970529234358/http://www-centrim.bus.bton.ac.uk:80/projects/esrcitm/prod.inn/2/2.ppt">""</a>
+				</h4>
+				<p class="list-group-item-text">
+						May 30 1997 00:43:58 BST<br />
+						powerpoint<br />
+						<span class="result-host">www-centrim.bus.bton.ac.uk</span><br />
+						
+						
+						<hr />
+							
+							
+		 					
+						
+				</p>
+			</div>
+			<div class="col-md-4 col-sm-4 checkbox">
+			 	<div class="checkbox pull-right">
+			 		<input host="www-centrim.bus.bton.ac.uk" type="checkbox" name="selectedResource" value="
+	mHFTl9/ga2ipKVtTW25U8g==/19970529234358;;;Fri May 30 00:43:58 BST 1997;;; ;;;bton.ac.uk;;;http://www-centrim.bus.bton.ac.uk:80/projects/esrcitm/prod.inn/2/2.ppt;;;19970529234358
+" data-toggle="tooltip" data-placement="top" title="select" class="resource">
+			 	</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+				
+					
+	
+
+
+
+
+
+<div class="list-group">
+	<div class="list-group-item" href="#">
+		<div class="row">
+			<div class="col-md-8 col-sm-8">
+				<h4 class="list-group-item-heading">
+					8 <a href="http://web.archive.org/web/19970529234455/http://www-centrim.bus.bton.ac.uk:80/projects/esrcitm/prod.inn/3/3.ppt">""</a>
+				</h4>
+				<p class="list-group-item-text">
+						May 30 1997 00:44:55 BST<br />
+						powerpoint<br />
+						<span class="result-host">www-centrim.bus.bton.ac.uk</span><br />
+						
+						
+						<hr />
+							
+							
+		 					
+						
+				</p>
+			</div>
+			<div class="col-md-4 col-sm-4 checkbox">
+			 	<div class="checkbox pull-right">
+			 		<input host="www-centrim.bus.bton.ac.uk" type="checkbox" name="selectedResource" value="
+	eUBoKpm6k7roX+fhsH9+Jg==/19970529234455;;;Fri May 30 00:44:55 BST 1997;;; ;;;bton.ac.uk;;;http://www-centrim.bus.bton.ac.uk:80/projects/esrcitm/prod.inn/3/3.ppt;;;19970529234455
+" data-toggle="tooltip" data-placement="top" title="select" class="resource">
+			 	</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+				
+					
+	
+
+
+
+
+
+<div class="list-group">
+	<div class="list-group-item" href="#">
+		<div class="row">
+			<div class="col-md-8 col-sm-8">
+				<h4 class="list-group-item-heading">
+					9 <a href="http://web.archive.org/web/19970529234607/http://www-centrim.bus.bton.ac.uk:80/projects/esrcitm/prod.inn/4/4.ppt">""</a>
+				</h4>
+				<p class="list-group-item-text">
+						May 30 1997 00:46:07 BST<br />
+						powerpoint<br />
+						<span class="result-host">www-centrim.bus.bton.ac.uk</span><br />
+						
+						
+						<hr />
+							
+							
+		 					
+						
+				</p>
+			</div>
+			<div class="col-md-4 col-sm-4 checkbox">
+			 	<div class="checkbox pull-right">
+			 		<input host="www-centrim.bus.bton.ac.uk" type="checkbox" name="selectedResource" value="
+	SD77J4JBmoUmkTHSJ/RQ1A==/19970529234607;;;Fri May 30 00:46:07 BST 1997;;; ;;;bton.ac.uk;;;http://www-centrim.bus.bton.ac.uk:80/projects/esrcitm/prod.inn/4/4.ppt;;;19970529234607
+" data-toggle="tooltip" data-placement="top" title="select" class="resource">
+			 	</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+				
+					
+	
+
+
+
+
+
+<div class="list-group">
+	<div class="list-group-item" href="#">
+		<div class="row">
+			<div class="col-md-8 col-sm-8">
+				<h4 class="list-group-item-heading">
+					10 <a href="http://web.archive.org/web/19970529234811/http://www-centrim.bus.bton.ac.uk:80/projects/esrcitm/prod.inn/5/5.ppt">""</a>
+				</h4>
+				<p class="list-group-item-text">
+						May 30 1997 00:48:11 BST<br />
+						powerpoint<br />
+						<span class="result-host">www-centrim.bus.bton.ac.uk</span><br />
+						
+						
+						<hr />
+							
+							
+		 					
+						
+				</p>
+			</div>
+			<div class="col-md-4 col-sm-4 checkbox">
+			 	<div class="checkbox pull-right">
+			 		<input host="www-centrim.bus.bton.ac.uk" type="checkbox" name="selectedResource" value="
+	NuDRuyPElau9F3GSdbGJZA==/19970529234811;;;Fri May 30 00:48:11 BST 1997;;; ;;;bton.ac.uk;;;http://www-centrim.bus.bton.ac.uk:80/projects/esrcitm/prod.inn/5/5.ppt;;;19970529234811
+" data-toggle="tooltip" data-placement="top" title="select" class="resource">
+			 	</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+				
+			
+		</div>
+		
+	
+
+
+
+
+
+	<div class="row">
+		<div class="col-md-7 col-sm7">
+			<div class="text-center paging-tabs">
+				<ul class="pagination">
+					
+		                <li class="prev disabled">
+		                    <a class="paging">&laquo;</a>
+		                </li>
+		            
+					
+						
+							
+							<li class="active current" id="list-1"><a href="#" class="paging" id="page-1">1 <span class="sr-only">(current)</span></a></li>
+						
+					
+						
+							
+								<li id="list-2"><a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=2&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-2" class="paging">2</a></li>
+							
+						
+					
+						
+							
+								<li id="list-3"><a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=3&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-3" class="paging">3</a></li>
+							
+						
+					
+						
+							
+								<li id="list-4"><a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=4&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-4" class="paging">4</a></li>
+							
+						
+					
+						
+							
+								<li id="list-5"><a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=5&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-5" class="paging">5</a></li>
+							
+						
+					
+						
+							
+								<li id="list-6"><a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=6&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-6" class="paging">6</a></li>
+							
+						
+					
+		        	
+		                <li class="next" id="list-BaseScalaTemplate(play.api.templates.HtmlFormat$@3680fb53)">
+							
+	                    		<a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=2&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-2" class="paging" data-toggle="tooltip" data-placement="right" title="Page 2">&raquo;</a>
+							
+		                </li>
+		            
+				</ul>
+			</div>
+		</div>
+		<div class="col-md-5 col-sm5">
+			
+				<div class="pull-right save-right">
+					<div class="btn-group">
+						<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+							Action <span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+							
+							<li><a href="#" class="excludeButton">Exclude</a></li>
+							<li><a href="#" class="excludeHostButton">Exclude Host</a></li>
+						</ul>
+					</div>
+			    </div>
+			
+		</div>
+	</div>
+
+
+
+	</div>
+</div>
+</div>
+							<div id="concordance">
+
+
+
+
+
+<div class="panel-body">
+
+	
+	
+
+
+
+
+
+	<div class="row">
+		<div class="col-md-7 col-sm7">
+			<div class="text-center paging-tabs">
+				<ul class="pagination">
+					
+		                <li class="prev disabled">
+		                    <a class="paging">&laquo;</a>
+		                </li>
+		            
+					
+						
+							
+							<li class="active current" id="list-1"><a href="#" class="paging" id="page-1">1 <span class="sr-only">(current)</span></a></li>
+						
+					
+						
+							
+								<li id="list-2"><a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=2&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-2" class="paging">2</a></li>
+							
+						
+					
+						
+							
+								<li id="list-3"><a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=3&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-3" class="paging">3</a></li>
+							
+						
+					
+						
+							
+								<li id="list-4"><a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=4&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-4" class="paging">4</a></li>
+							
+						
+					
+						
+							
+								<li id="list-5"><a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=5&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-5" class="paging">5</a></li>
+							
+						
+					
+						
+							
+								<li id="list-6"><a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=6&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-6" class="paging">6</a></li>
+							
+						
+					
+		        	
+		                <li class="next" id="list-BaseScalaTemplate(play.api.templates.HtmlFormat$@3680fb53)">
+							
+	                    		<a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=2&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-2" class="paging" data-toggle="tooltip" data-placement="right" title="Page 2">&raquo;</a>
+							
+		                </li>
+		            
+				</ul>
+			</div>
+		</div>
+		<div class="col-md-5 col-sm5">
+			
+		</div>
+	</div>
+
+
+
+
+	<div id="concordance-set">
+	
+		<div class="list-group">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Date</th>
+						<th>Domain</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>					  				
+					
+						
+							
+	
+
+<tr>
+	<td>
+		<a href="http://web.archive.org/web/19970210180909/http://www.chem.ox.ac.uk:80/software/powerpoint.ppt">Feb 10 1997</a>
+	</td>
+	<td>ox.ac.uk</td>
+	<td>
+
+		
+		
+		
+		
+		
+	</td>
+</tr>
+
+
+
+						
+							
+	
+
+<tr>
+	<td>
+		<a href="http://web.archive.org/web/19970301094741/http://maxwell-11.cs.strath.ac.uk:8001/GSES/PS/INET-T3-2.ppt">Mar 01 1997</a>
+	</td>
+	<td>strath.ac.uk</td>
+	<td>
+
+		
+		
+		
+		
+		
+	</td>
+</tr>
+
+
+
+						
+							
+	
+
+<tr>
+	<td>
+		<a href="http://web.archive.org/web/19970522213214/http://www.seg.dmu.ac.uk:80/ppt/BidStrat.ppt">May 22 1997</a>
+	</td>
+	<td>dmu.ac.uk</td>
+	<td>
+
+		
+		
+		
+		
+		
+	</td>
+</tr>
+
+
+
+						
+							
+	
+
+<tr>
+	<td>
+		<a href="http://web.archive.org/web/19970522213340/http://www.seg.dmu.ac.uk:80/ppt/TendRev.ppt">May 22 1997</a>
+	</td>
+	<td>dmu.ac.uk</td>
+	<td>
+
+		
+		
+		
+		
+		
+	</td>
+</tr>
+
+
+
+						
+							
+	
+
+<tr>
+	<td>
+		<a href="http://web.archive.org/web/19970522213425/http://www.seg.dmu.ac.uk:80/ppt/PropProd.ppt">May 22 1997</a>
+	</td>
+	<td>dmu.ac.uk</td>
+	<td>
+
+		
+		
+		
+		
+		
+	</td>
+</tr>
+
+
+
+						
+							
+	
+
+<tr>
+	<td>
+		<a href="http://web.archive.org/web/19970529233912/http://www-centrim.bus.bton.ac.uk:80/projects/esrcitm/prod.inn/1/1.ppt">May 30 1997</a>
+	</td>
+	<td>bton.ac.uk</td>
+	<td>
+
+		
+		
+		
+		
+		
+	</td>
+</tr>
+
+
+
+						
+							
+	
+
+<tr>
+	<td>
+		<a href="http://web.archive.org/web/19970529234358/http://www-centrim.bus.bton.ac.uk:80/projects/esrcitm/prod.inn/2/2.ppt">May 30 1997</a>
+	</td>
+	<td>bton.ac.uk</td>
+	<td>
+
+		
+		
+		
+		
+		
+	</td>
+</tr>
+
+
+
+						
+							
+	
+
+<tr>
+	<td>
+		<a href="http://web.archive.org/web/19970529234455/http://www-centrim.bus.bton.ac.uk:80/projects/esrcitm/prod.inn/3/3.ppt">May 30 1997</a>
+	</td>
+	<td>bton.ac.uk</td>
+	<td>
+
+		
+		
+		
+		
+		
+	</td>
+</tr>
+
+
+
+						
+							
+	
+
+<tr>
+	<td>
+		<a href="http://web.archive.org/web/19970529234607/http://www-centrim.bus.bton.ac.uk:80/projects/esrcitm/prod.inn/4/4.ppt">May 30 1997</a>
+	</td>
+	<td>bton.ac.uk</td>
+	<td>
+
+		
+		
+		
+		
+		
+	</td>
+</tr>
+
+
+
+						
+							
+	
+
+<tr>
+	<td>
+		<a href="http://web.archive.org/web/19970529234811/http://www-centrim.bus.bton.ac.uk:80/projects/esrcitm/prod.inn/5/5.ppt">May 30 1997</a>
+	</td>
+	<td>bton.ac.uk</td>
+	<td>
+
+		
+		
+		
+		
+		
+	</td>
+</tr>
+
+
+
+						
+					
+				</tbody>
+			</table>
+		</div>
+	</div>	
+	
+	
+	
+
+
+
+
+
+	<div class="row">
+		<div class="col-md-7 col-sm7">
+			<div class="text-center paging-tabs">
+				<ul class="pagination">
+					
+		                <li class="prev disabled">
+		                    <a class="paging">&laquo;</a>
+		                </li>
+		            
+					
+						
+							
+							<li class="active current" id="list-1"><a href="#" class="paging" id="page-1">1 <span class="sr-only">(current)</span></a></li>
+						
+					
+						
+							
+								<li id="list-2"><a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=2&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-2" class="paging">2</a></li>
+							
+						
+					
+						
+							
+								<li id="list-3"><a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=3&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-3" class="paging">3</a></li>
+							
+						
+					
+						
+							
+								<li id="list-4"><a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=4&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-4" class="paging">4</a></li>
+							
+						
+					
+						
+							
+								<li id="list-5"><a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=5&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-5" class="paging">5</a></li>
+							
+						
+					
+						
+							
+								<li id="list-6"><a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=6&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-6" class="paging">6</a></li>
+							
+						
+					
+		        	
+		                <li class="next" id="list-BaseScalaTemplate(play.api.templates.HtmlFormat$@3680fb53)">
+							
+	                    		<a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=2&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-2" class="paging" data-toggle="tooltip" data-placement="right" title="Page 2">&raquo;</a>
+							
+		                </li>
+		            
+				</ul>
+			</div>
+		</div>
+		<div class="col-md-5 col-sm5">
+			
+		</div>
+	</div>
+
+
+
+	
+</div>
+
+</div>
+						</div>	
+					</div>
+				
+			</div>
+			<input type="hidden" name="mode" value="sample" id="modeValue" />
+		
+</form>
+
+	</div>
+	<input type="hidden" id="export_url" value="/shine/search/export">
+	
+	<div id="save-search-form" class="modal fade" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-vertical-centered">
+    	<div class="modal-content">
+			<div class="modal-header">
+				<button id="dismiss-search-x" type="button" class="close">&times;</button>
+				<h3 class="modal-title" id="modalTitle">Save Search</h3>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" role="form" id="search-modal-form">
+					<div class="form-group">
+						<label for="saveName" class="col-sm-2 control-label">Name</label>
+					    <div class="col-sm-10">
+							<input type="text" name="saveName" id="saveName" class="form-control">
+					    </div>
+					</div>
+					<div class="form-group">				
+			    		<label for="save-description" class="col-sm-2 control-label">Description</label>
+			    		<div class="col-sm-10">
+							<textarea id="save-description" name="save-description" class="form-control"></textarea>
+			    		</div>
+			   		</div>
+				 </form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" id="save-search-close" class="btn" data-dismiss="modal">Close</button>
+				<button type="button" id="save-search-save" class="btn btn-primary">Save</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+	<div id="modalLoader" class="modal fade" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-vertical-centered-progress">
+    	<div class="modal-content">
+			<div class="modal-body">
+			    <div class="progress progress-striped active">
+			        <div class="progress-bar" style="width: 100%;">
+			        </div>
+			    </div>
+			</div>
+		</div>
+	</div>
+</div>
+
+	
+
+<div id="save-corpus-form" class="modal fade" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-vertical-centered">
+    	<div class="modal-content">
+			<div class="modal-header">
+				<button id="dismiss-corpus-x" type="button" class="close">&times;</button>
+				<h3 class="modal-title" id="modalTitle">Save Corpus</h3>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" role="form" id="corpus-modal-form">
+					<div id="corpusDropDownPanel">
+					 
+					</div>
+					<div class="form-group">
+						<label for="saveCorpusName" class="col-sm-2 control-label">Name</label>
+					    <div class="col-sm-10">
+							<input type="text" name="saveCorpusName" id="saveCorpusName" class="form-control" placeholder="Create new corpus or choose from above dropdown">
+					    </div>
+					</div>
+					<div class="form-group">				
+			    		<label for="save-corpus-description" class="col-sm-2 control-label">Description</label>
+			    		<div class="col-sm-10">
+							<textarea id="save-corpus-description" name="save-corpus-description" class="form-control"></textarea>
+			    		</div>
+			   		</div>
+				 </form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" id="save-corpus-close" class="btn">Close</button>
+				<button type="button" id="save-corpus-save" class="btn btn-primary">Save</button>
+				<button type="button" id="save-resource-save" class="btn btn-primary">Save Resource(s)</button>
+			</div>
+		</div>
+	</div>
+</div>
+	
+	
+
+			
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-7571526-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+		</div>
+	</body>
+</html>
+
+
