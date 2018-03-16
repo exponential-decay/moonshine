@@ -338,7 +338,7 @@
 		
 			<div class="panel-body content_type_norm">
    				<div class="facet-main">
-					<a class="facet-heading"><strong>General Content Type</strong></a> <span class="badge">6</span>
+					<a class="facet-heading"><strong>General Content Type</strong></a> <span class="badge">4</span>
 					<input type="hidden" name="facet.fields" value="content_type_norm" id="content_type_norm">
 					<input type="hidden" name="invert" value="" id="invert_content_type_norm">
 					<div class="btn-group">
@@ -361,7 +361,19 @@
 							
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">other</a> <span class="badge">5,491,921</span>
+								<a class="facet-name">image</a> <span class="badge">133,572,842</span>
+								<input class="include hide" type="checkbox" name="facet.in.content_type_norm" value='"image"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.content_type_norm" value='"image"'  onclick="this.form.submit();"/>
+							</li>
+					        <!-- dynamically add checked="true"? -->
+					        <!-- OR use some kind of link constructor? -->
+						
+							
+   								<li class="facet-options show" data-attr="default">
+							
+								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
+								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
+								<a class="facet-name">other</a> <span class="badge">3,856</span>
 								<input class="include hide" type="checkbox" name="facet.in.content_type_norm" value='"other"'  onclick="this.form.submit();"/>
 								<input class="exclude hide" type="checkbox" name="facet.out.content_type_norm" value='"other"'  onclick="this.form.submit();"/>
 							</li>
@@ -373,43 +385,7 @@
 							
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">word</a> <span class="badge">5,647</span>
-								<input class="include hide" type="checkbox" name="facet.in.content_type_norm" value='"word"'  onclick="this.form.submit();"/>
-								<input class="exclude hide" type="checkbox" name="facet.out.content_type_norm" value='"word"'  onclick="this.form.submit();"/>
-							</li>
-					        <!-- dynamically add checked="true"? -->
-					        <!-- OR use some kind of link constructor? -->
-						
-							
-   								<li class="facet-options show" data-attr="default">
-							
-								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
-								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">powerpoint</a> <span class="badge">2,609</span>
-								<input class="include hide" type="checkbox" name="facet.in.content_type_norm" value='"powerpoint"'  onclick="this.form.submit();"/>
-								<input class="exclude hide" type="checkbox" name="facet.out.content_type_norm" value='"powerpoint"'  onclick="this.form.submit();"/>
-							</li>
-					        <!-- dynamically add checked="true"? -->
-					        <!-- OR use some kind of link constructor? -->
-						
-							
-   								<li class="facet-options hide">
-							
-								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
-								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">excel</a> <span class="badge">843</span>
-								<input class="include hide" type="checkbox" name="facet.in.content_type_norm" value='"excel"'  onclick="this.form.submit();"/>
-								<input class="exclude hide" type="checkbox" name="facet.out.content_type_norm" value='"excel"'  onclick="this.form.submit();"/>
-							</li>
-					        <!-- dynamically add checked="true"? -->
-					        <!-- OR use some kind of link constructor? -->
-						
-							
-   								<li class="facet-options hide">
-							
-								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
-								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">html</a> <span class="badge">62</span>
+								<a class="facet-name">html</a> <span class="badge">189</span>
 								<input class="include hide" type="checkbox" name="facet.in.content_type_norm" value='"html"'  onclick="this.form.submit();"/>
 								<input class="exclude hide" type="checkbox" name="facet.out.content_type_norm" value='"html"'  onclick="this.form.submit();"/>
 							</li>
@@ -421,7 +397,7 @@
 							
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">text</a> <span class="badge">5</span>
+								<a class="facet-name">text</a> <span class="badge">16</span>
 								<input class="include hide" type="checkbox" name="facet.in.content_type_norm" value='"text"'  onclick="this.form.submit();"/>
 								<input class="exclude hide" type="checkbox" name="facet.out.content_type_norm" value='"text"'  onclick="this.form.submit();"/>
 							</li>
@@ -485,19 +461,7 @@
 							
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">2004</a> <span class="badge">1,379,353</span>
-								<input class="include hide" type="checkbox" name="facet.in.crawl_year" value='"2004"'  onclick="this.form.submit();"/>
-								<input class="exclude hide" type="checkbox" name="facet.out.crawl_year" value='"2004"'  onclick="this.form.submit();"/>
-							</li>
-					        <!-- dynamically add checked="true"? -->
-					        <!-- OR use some kind of link constructor? -->
-						
-							
-   								<li class="facet-options show" data-attr="default">
-							
-								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
-								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">2006</a> <span class="badge">1,175,531</span>
+								<a class="facet-name">2006</a> <span class="badge">27,133,053</span>
 								<input class="include hide" type="checkbox" name="facet.in.crawl_year" value='"2006"'  onclick="this.form.submit();"/>
 								<input class="exclude hide" type="checkbox" name="facet.out.crawl_year" value='"2006"'  onclick="this.form.submit();"/>
 							</li>
@@ -509,9 +473,9 @@
 							
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">2005</a> <span class="badge">944,751</span>
-								<input class="include hide" type="checkbox" name="facet.in.crawl_year" value='"2005"'  onclick="this.form.submit();"/>
-								<input class="exclude hide" type="checkbox" name="facet.out.crawl_year" value='"2005"'  onclick="this.form.submit();"/>
+								<a class="facet-name">2004</a> <span class="badge">13,666,487</span>
+								<input class="include hide" type="checkbox" name="facet.in.crawl_year" value='"2004"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.crawl_year" value='"2004"'  onclick="this.form.submit();"/>
 							</li>
 					        <!-- dynamically add checked="true"? -->
 					        <!-- OR use some kind of link constructor? -->
@@ -521,7 +485,7 @@
 							
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">2003</a> <span class="badge">750,510</span>
+								<a class="facet-name">2003</a> <span class="badge">12,625,447</span>
 								<input class="include hide" type="checkbox" name="facet.in.crawl_year" value='"2003"'  onclick="this.form.submit();"/>
 								<input class="exclude hide" type="checkbox" name="facet.out.crawl_year" value='"2003"'  onclick="this.form.submit();"/>
 							</li>
@@ -533,7 +497,7 @@
 							
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">2007</a> <span class="badge">455,565</span>
+								<a class="facet-name">2007</a> <span class="badge">12,005,685</span>
 								<input class="include hide" type="checkbox" name="facet.in.crawl_year" value='"2007"'  onclick="this.form.submit();"/>
 								<input class="exclude hide" type="checkbox" name="facet.out.crawl_year" value='"2007"'  onclick="this.form.submit();"/>
 							</li>
@@ -541,11 +505,11 @@
 					        <!-- OR use some kind of link constructor? -->
 						
 							
-   								<li class="facet-options hide">
+   								<li class="facet-options show" data-attr="default">
 							
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">2012</a> <span class="badge">204,240</span>
+								<a class="facet-name">2012</a> <span class="badge">11,147,528</span>
 								<input class="include hide" type="checkbox" name="facet.in.crawl_year" value='"2012"'  onclick="this.form.submit();"/>
 								<input class="exclude hide" type="checkbox" name="facet.out.crawl_year" value='"2012"'  onclick="this.form.submit();"/>
 							</li>
@@ -557,9 +521,9 @@
 							
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">2010</a> <span class="badge">146,523</span>
-								<input class="include hide" type="checkbox" name="facet.in.crawl_year" value='"2010"'  onclick="this.form.submit();"/>
-								<input class="exclude hide" type="checkbox" name="facet.out.crawl_year" value='"2010"'  onclick="this.form.submit();"/>
+								<a class="facet-name">2002</a> <span class="badge">10,273,847</span>
+								<input class="include hide" type="checkbox" name="facet.in.crawl_year" value='"2002"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.crawl_year" value='"2002"'  onclick="this.form.submit();"/>
 							</li>
 					        <!-- dynamically add checked="true"? -->
 					        <!-- OR use some kind of link constructor? -->
@@ -569,7 +533,19 @@
 							
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">2011</a> <span class="badge">126,725</span>
+								<a class="facet-name">2005</a> <span class="badge">9,544,516</span>
+								<input class="include hide" type="checkbox" name="facet.in.crawl_year" value='"2005"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.crawl_year" value='"2005"'  onclick="this.form.submit();"/>
+							</li>
+					        <!-- dynamically add checked="true"? -->
+					        <!-- OR use some kind of link constructor? -->
+						
+							
+   								<li class="facet-options hide">
+							
+								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
+								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
+								<a class="facet-name">2011</a> <span class="badge">7,854,031</span>
 								<input class="include hide" type="checkbox" name="facet.in.crawl_year" value='"2011"'  onclick="this.form.submit();"/>
 								<input class="exclude hide" type="checkbox" name="facet.out.crawl_year" value='"2011"'  onclick="this.form.submit();"/>
 							</li>
@@ -581,9 +557,9 @@
 							
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">2008</a> <span class="badge">109,299</span>
-								<input class="include hide" type="checkbox" name="facet.in.crawl_year" value='"2008"'  onclick="this.form.submit();"/>
-								<input class="exclude hide" type="checkbox" name="facet.out.crawl_year" value='"2008"'  onclick="this.form.submit();"/>
+								<a class="facet-name">2001</a> <span class="badge">7,712,797</span>
+								<input class="include hide" type="checkbox" name="facet.in.crawl_year" value='"2001"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.crawl_year" value='"2001"'  onclick="this.form.submit();"/>
 							</li>
 					        <!-- dynamically add checked="true"? -->
 					        <!-- OR use some kind of link constructor? -->
@@ -593,9 +569,9 @@
 							
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">2002</a> <span class="badge">46,080</span>
-								<input class="include hide" type="checkbox" name="facet.in.crawl_year" value='"2002"'  onclick="this.form.submit();"/>
-								<input class="exclude hide" type="checkbox" name="facet.out.crawl_year" value='"2002"'  onclick="this.form.submit();"/>
+								<a class="facet-name">2000</a> <span class="badge">7,385,257</span>
+								<input class="include hide" type="checkbox" name="facet.in.crawl_year" value='"2000"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.crawl_year" value='"2000"'  onclick="this.form.submit();"/>
 							</li>
 					        <!-- dynamically add checked="true"? -->
 					        <!-- OR use some kind of link constructor? -->
@@ -631,7 +607,7 @@
 		
 			<div class="panel-body postcode_district">
    				<div class="facet-main">
-					<a class="facet-heading"><strong>Postcode District</strong></a> <span class="badge">10</span>
+					<a class="facet-heading"><strong>Postcode District</strong></a> <span class="badge">1</span>
 					<input type="hidden" name="facet.fields" value="postcode_district" id="postcode_district">
 					<input type="hidden" name="invert" value="" id="invert_postcode_district">
 					<div class="btn-group">
@@ -654,126 +630,14 @@
 							
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">SW1E</a> <span class="badge">99,782</span>
-								<input class="include hide" type="checkbox" name="facet.in.postcode_district" value='"SW1E"'  onclick="this.form.submit();"/>
-								<input class="exclude hide" type="checkbox" name="facet.out.postcode_district" value='"SW1E"'  onclick="this.form.submit();"/>
-							</li>
-					        <!-- dynamically add checked="true"? -->
-					        <!-- OR use some kind of link constructor? -->
-						
-							
-   								<li class="facet-options show" data-attr="default">
-							
-								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
-								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">SW1P</a> <span class="badge">46,661</span>
-								<input class="include hide" type="checkbox" name="facet.in.postcode_district" value='"SW1P"'  onclick="this.form.submit();"/>
-								<input class="exclude hide" type="checkbox" name="facet.out.postcode_district" value='"SW1P"'  onclick="this.form.submit();"/>
-							</li>
-					        <!-- dynamically add checked="true"? -->
-					        <!-- OR use some kind of link constructor? -->
-						
-							
-   								<li class="facet-options show" data-attr="default">
-							
-								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
-								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">SE1</a> <span class="badge">44,181</span>
-								<input class="include hide" type="checkbox" name="facet.in.postcode_district" value='"SE1"'  onclick="this.form.submit();"/>
-								<input class="exclude hide" type="checkbox" name="facet.out.postcode_district" value='"SE1"'  onclick="this.form.submit();"/>
-							</li>
-					        <!-- dynamically add checked="true"? -->
-					        <!-- OR use some kind of link constructor? -->
-						
-							
-   								<li class="facet-options show" data-attr="default">
-							
-								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
-								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">LS23</a> <span class="badge">22,491</span>
-								<input class="include hide" type="checkbox" name="facet.in.postcode_district" value='"LS23"'  onclick="this.form.submit();"/>
-								<input class="exclude hide" type="checkbox" name="facet.out.postcode_district" value='"LS23"'  onclick="this.form.submit();"/>
-							</li>
-					        <!-- dynamically add checked="true"? -->
-					        <!-- OR use some kind of link constructor? -->
-						
-							
-   								<li class="facet-options show" data-attr="default">
-							
-								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
-								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">SW1A</a> <span class="badge">19,457</span>
-								<input class="include hide" type="checkbox" name="facet.in.postcode_district" value='"SW1A"'  onclick="this.form.submit();"/>
-								<input class="exclude hide" type="checkbox" name="facet.out.postcode_district" value='"SW1A"'  onclick="this.form.submit();"/>
-							</li>
-					        <!-- dynamically add checked="true"? -->
-					        <!-- OR use some kind of link constructor? -->
-						
-							
-   								<li class="facet-options hide">
-							
-								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
-								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">SW1H</a> <span class="badge">18,263</span>
-								<input class="include hide" type="checkbox" name="facet.in.postcode_district" value='"SW1H"'  onclick="this.form.submit();"/>
-								<input class="exclude hide" type="checkbox" name="facet.out.postcode_district" value='"SW1H"'  onclick="this.form.submit();"/>
-							</li>
-					        <!-- dynamically add checked="true"? -->
-					        <!-- OR use some kind of link constructor? -->
-						
-							
-   								<li class="facet-options hide">
-							
-								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
-								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">NW1</a> <span class="badge">16,259</span>
-								<input class="include hide" type="checkbox" name="facet.in.postcode_district" value='"NW1"'  onclick="this.form.submit();"/>
-								<input class="exclude hide" type="checkbox" name="facet.out.postcode_district" value='"NW1"'  onclick="this.form.submit();"/>
-							</li>
-					        <!-- dynamically add checked="true"? -->
-					        <!-- OR use some kind of link constructor? -->
-						
-							
-   								<li class="facet-options hide">
-							
-								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
-								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">G2</a> <span class="badge">15,221</span>
-								<input class="include hide" type="checkbox" name="facet.in.postcode_district" value='"G2"'  onclick="this.form.submit();"/>
-								<input class="exclude hide" type="checkbox" name="facet.out.postcode_district" value='"G2"'  onclick="this.form.submit();"/>
-							</li>
-					        <!-- dynamically add checked="true"? -->
-					        <!-- OR use some kind of link constructor? -->
-						
-							
-   								<li class="facet-options hide">
-							
-								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
-								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">CF10</a> <span class="badge">14,508</span>
-								<input class="include hide" type="checkbox" name="facet.in.postcode_district" value='"CF10"'  onclick="this.form.submit();"/>
-								<input class="exclude hide" type="checkbox" name="facet.out.postcode_district" value='"CF10"'  onclick="this.form.submit();"/>
-							</li>
-					        <!-- dynamically add checked="true"? -->
-					        <!-- OR use some kind of link constructor? -->
-						
-							
-   								<li class="facet-options hide">
-							
-								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
-								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">NR3</a> <span class="badge">14,255</span>
-								<input class="include hide" type="checkbox" name="facet.in.postcode_district" value='"NR3"'  onclick="this.form.submit();"/>
-								<input class="exclude hide" type="checkbox" name="facet.out.postcode_district" value='"NR3"'  onclick="this.form.submit();"/>
+								<a class="facet-name">W1T</a> <span class="badge">2</span>
+								<input class="include hide" type="checkbox" name="facet.in.postcode_district" value='"W1T"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.postcode_district" value='"W1T"'  onclick="this.form.submit();"/>
 							</li>
 					        <!-- dynamically add checked="true"? -->
 					        <!-- OR use some kind of link constructor? -->
 						
 						
-							<li> 
-    							<a id="postcode_district" class="show-more" href="#"><span class="glyphicon glyphicon-plus-sign"></span> <span>Show more...</span></a>
-     						</li>
-    					
 					</ul>
 					<div id="add-more-option-2" class="input-group input-group-sm hide">
 						<span class="input-group-btn">
@@ -823,31 +687,7 @@
 							
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">gov.uk</a> <span class="badge">2,300,440</span>
-								<input class="include hide" type="checkbox" name="facet.in.public_suffix" value='"gov.uk"'  onclick="this.form.submit();"/>
-								<input class="exclude hide" type="checkbox" name="facet.out.public_suffix" value='"gov.uk"'  onclick="this.form.submit();"/>
-							</li>
-					        <!-- dynamically add checked="true"? -->
-					        <!-- OR use some kind of link constructor? -->
-						
-							
-   								<li class="facet-options show" data-attr="default">
-							
-								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
-								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">ac.uk</a> <span class="badge">1,056,971</span>
-								<input class="include hide" type="checkbox" name="facet.in.public_suffix" value='"ac.uk"'  onclick="this.form.submit();"/>
-								<input class="exclude hide" type="checkbox" name="facet.out.public_suffix" value='"ac.uk"'  onclick="this.form.submit();"/>
-							</li>
-					        <!-- dynamically add checked="true"? -->
-					        <!-- OR use some kind of link constructor? -->
-						
-							
-   								<li class="facet-options show" data-attr="default">
-							
-								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
-								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">co.uk</a> <span class="badge">980,991</span>
+								<a class="facet-name">co.uk</a> <span class="badge">93,992,029</span>
 								<input class="include hide" type="checkbox" name="facet.in.public_suffix" value='"co.uk"'  onclick="this.form.submit();"/>
 								<input class="exclude hide" type="checkbox" name="facet.out.public_suffix" value='"co.uk"'  onclick="this.form.submit();"/>
 							</li>
@@ -859,7 +699,19 @@
 							
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">org.uk</a> <span class="badge">767,846</span>
+								<a class="facet-name">ac.uk</a> <span class="badge">9,982,571</span>
+								<input class="include hide" type="checkbox" name="facet.in.public_suffix" value='"ac.uk"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.public_suffix" value='"ac.uk"'  onclick="this.form.submit();"/>
+							</li>
+					        <!-- dynamically add checked="true"? -->
+					        <!-- OR use some kind of link constructor? -->
+						
+							
+   								<li class="facet-options show" data-attr="default">
+							
+								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
+								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
+								<a class="facet-name">org.uk</a> <span class="badge">9,607,383</span>
 								<input class="include hide" type="checkbox" name="facet.in.public_suffix" value='"org.uk"'  onclick="this.form.submit();"/>
 								<input class="exclude hide" type="checkbox" name="facet.out.public_suffix" value='"org.uk"'  onclick="this.form.submit();"/>
 							</li>
@@ -871,9 +723,21 @@
 							
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">nhs.uk</a> <span class="badge">151,446</span>
-								<input class="include hide" type="checkbox" name="facet.in.public_suffix" value='"nhs.uk"'  onclick="this.form.submit();"/>
-								<input class="exclude hide" type="checkbox" name="facet.out.public_suffix" value='"nhs.uk"'  onclick="this.form.submit();"/>
+								<a class="facet-name">com</a> <span class="badge">7,508,458</span>
+								<input class="include hide" type="checkbox" name="facet.in.public_suffix" value='"com"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.public_suffix" value='"com"'  onclick="this.form.submit();"/>
+							</li>
+					        <!-- dynamically add checked="true"? -->
+					        <!-- OR use some kind of link constructor? -->
+						
+							
+   								<li class="facet-options show" data-attr="default">
+							
+								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
+								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
+								<a class="facet-name">gov.uk</a> <span class="badge">6,160,392</span>
+								<input class="include hide" type="checkbox" name="facet.in.public_suffix" value='"gov.uk"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.public_suffix" value='"gov.uk"'  onclick="this.form.submit();"/>
 							</li>
 					        <!-- dynamically add checked="true"? -->
 					        <!-- OR use some kind of link constructor? -->
@@ -883,7 +747,7 @@
 							
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">mod.uk</a> <span class="badge">147,848</span>
+								<a class="facet-name">mod.uk</a> <span class="badge">2,487,376</span>
 								<input class="include hide" type="checkbox" name="facet.in.public_suffix" value='"mod.uk"'  onclick="this.form.submit();"/>
 								<input class="exclude hide" type="checkbox" name="facet.out.public_suffix" value='"mod.uk"'  onclick="this.form.submit();"/>
 							</li>
@@ -895,7 +759,19 @@
 							
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">sch.uk</a> <span class="badge">74,433</span>
+								<a class="facet-name">net</a> <span class="badge">842,272</span>
+								<input class="include hide" type="checkbox" name="facet.in.public_suffix" value='"net"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.public_suffix" value='"net"'  onclick="this.form.submit();"/>
+							</li>
+					        <!-- dynamically add checked="true"? -->
+					        <!-- OR use some kind of link constructor? -->
+						
+							
+   								<li class="facet-options hide">
+							
+								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
+								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
+								<a class="facet-name">sch.uk</a> <span class="badge">654,789</span>
 								<input class="include hide" type="checkbox" name="facet.in.public_suffix" value='"sch.uk"'  onclick="this.form.submit();"/>
 								<input class="exclude hide" type="checkbox" name="facet.out.public_suffix" value='"sch.uk"'  onclick="this.form.submit();"/>
 							</li>
@@ -907,9 +783,9 @@
 							
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">police.uk</a> <span class="badge">6,211</span>
-								<input class="include hide" type="checkbox" name="facet.in.public_suffix" value='"police.uk"'  onclick="this.form.submit();"/>
-								<input class="exclude hide" type="checkbox" name="facet.out.public_suffix" value='"police.uk"'  onclick="this.form.submit();"/>
+								<a class="facet-name">nhs.uk</a> <span class="badge">329,543</span>
+								<input class="include hide" type="checkbox" name="facet.in.public_suffix" value='"nhs.uk"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.public_suffix" value='"nhs.uk"'  onclick="this.form.submit();"/>
 							</li>
 					        <!-- dynamically add checked="true"? -->
 					        <!-- OR use some kind of link constructor? -->
@@ -919,21 +795,9 @@
 							
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">net.uk</a> <span class="badge">4,020</span>
-								<input class="include hide" type="checkbox" name="facet.in.public_suffix" value='"net.uk"'  onclick="this.form.submit();"/>
-								<input class="exclude hide" type="checkbox" name="facet.out.public_suffix" value='"net.uk"'  onclick="this.form.submit();"/>
-							</li>
-					        <!-- dynamically add checked="true"? -->
-					        <!-- OR use some kind of link constructor? -->
-						
-							
-   								<li class="facet-options hide">
-							
-								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
-								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">parliament.uk</a> <span class="badge">3,629</span>
-								<input class="include hide" type="checkbox" name="facet.in.public_suffix" value='"parliament.uk"'  onclick="this.form.submit();"/>
-								<input class="exclude hide" type="checkbox" name="facet.out.public_suffix" value='"parliament.uk"'  onclick="this.form.submit();"/>
+								<a class="facet-name">org</a> <span class="badge">302,281</span>
+								<input class="include hide" type="checkbox" name="facet.in.public_suffix" value='"org"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.public_suffix" value='"org"'  onclick="this.form.submit();"/>
 							</li>
 					        <!-- dynamically add checked="true"? -->
 					        <!-- OR use some kind of link constructor? -->
@@ -992,7 +856,19 @@
 							
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">en</a> <span class="badge">5,130,119</span>
+								<a class="facet-name">vi</a> <span class="badge">1,201</span>
+								<input class="include hide" type="checkbox" name="facet.in.content_language" value='"vi"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.content_language" value='"vi"'  onclick="this.form.submit();"/>
+							</li>
+					        <!-- dynamically add checked="true"? -->
+					        <!-- OR use some kind of link constructor? -->
+						
+							
+   								<li class="facet-options show" data-attr="default">
+							
+								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
+								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
+								<a class="facet-name">en</a> <span class="badge">1,100</span>
 								<input class="include hide" type="checkbox" name="facet.in.content_language" value='"en"'  onclick="this.form.submit();"/>
 								<input class="exclude hide" type="checkbox" name="facet.out.content_language" value='"en"'  onclick="this.form.submit();"/>
 							</li>
@@ -1004,9 +880,9 @@
 							
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">de</a> <span class="badge">13,523</span>
-								<input class="include hide" type="checkbox" name="facet.in.content_language" value='"de"'  onclick="this.form.submit();"/>
-								<input class="exclude hide" type="checkbox" name="facet.out.content_language" value='"de"'  onclick="this.form.submit();"/>
+								<a class="facet-name">ru</a> <span class="badge">418</span>
+								<input class="include hide" type="checkbox" name="facet.in.content_language" value='"ru"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.content_language" value='"ru"'  onclick="this.form.submit();"/>
 							</li>
 					        <!-- dynamically add checked="true"? -->
 					        <!-- OR use some kind of link constructor? -->
@@ -1016,43 +892,7 @@
 							
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">fr</a> <span class="badge">12,638</span>
-								<input class="include hide" type="checkbox" name="facet.in.content_language" value='"fr"'  onclick="this.form.submit();"/>
-								<input class="exclude hide" type="checkbox" name="facet.out.content_language" value='"fr"'  onclick="this.form.submit();"/>
-							</li>
-					        <!-- dynamically add checked="true"? -->
-					        <!-- OR use some kind of link constructor? -->
-						
-							
-   								<li class="facet-options show" data-attr="default">
-							
-								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
-								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">es</a> <span class="badge">5,708</span>
-								<input class="include hide" type="checkbox" name="facet.in.content_language" value='"es"'  onclick="this.form.submit();"/>
-								<input class="exclude hide" type="checkbox" name="facet.out.content_language" value='"es"'  onclick="this.form.submit();"/>
-							</li>
-					        <!-- dynamically add checked="true"? -->
-					        <!-- OR use some kind of link constructor? -->
-						
-							
-   								<li class="facet-options show" data-attr="default">
-							
-								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
-								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">bn</a> <span class="badge">5,301</span>
-								<input class="include hide" type="checkbox" name="facet.in.content_language" value='"bn"'  onclick="this.form.submit();"/>
-								<input class="exclude hide" type="checkbox" name="facet.out.content_language" value='"bn"'  onclick="this.form.submit();"/>
-							</li>
-					        <!-- dynamically add checked="true"? -->
-					        <!-- OR use some kind of link constructor? -->
-						
-							
-   								<li class="facet-options hide">
-							
-								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
-								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">ko</a> <span class="badge">4,173</span>
+								<a class="facet-name">ko</a> <span class="badge">160</span>
 								<input class="include hide" type="checkbox" name="facet.in.content_language" value='"ko"'  onclick="this.form.submit();"/>
 								<input class="exclude hide" type="checkbox" name="facet.out.content_language" value='"ko"'  onclick="this.form.submit();"/>
 							</li>
@@ -1060,13 +900,13 @@
 					        <!-- OR use some kind of link constructor? -->
 						
 							
-   								<li class="facet-options hide">
+   								<li class="facet-options show" data-attr="default">
 							
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">zh-cn</a> <span class="badge">3,947</span>
-								<input class="include hide" type="checkbox" name="facet.in.content_language" value='"zh-cn"'  onclick="this.form.submit();"/>
-								<input class="exclude hide" type="checkbox" name="facet.out.content_language" value='"zh-cn"'  onclick="this.form.submit();"/>
+								<a class="facet-name">bg</a> <span class="badge">143</span>
+								<input class="include hide" type="checkbox" name="facet.in.content_language" value='"bg"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.content_language" value='"bg"'  onclick="this.form.submit();"/>
 							</li>
 					        <!-- dynamically add checked="true"? -->
 					        <!-- OR use some kind of link constructor? -->
@@ -1076,9 +916,9 @@
 							
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">nl</a> <span class="badge">2,949</span>
-								<input class="include hide" type="checkbox" name="facet.in.content_language" value='"nl"'  onclick="this.form.submit();"/>
-								<input class="exclude hide" type="checkbox" name="facet.out.content_language" value='"nl"'  onclick="this.form.submit();"/>
+								<a class="facet-name">da</a> <span class="badge">123</span>
+								<input class="include hide" type="checkbox" name="facet.in.content_language" value='"da"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.content_language" value='"da"'  onclick="this.form.submit();"/>
 							</li>
 					        <!-- dynamically add checked="true"? -->
 					        <!-- OR use some kind of link constructor? -->
@@ -1088,7 +928,31 @@
 							
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">pt</a> <span class="badge">2,421</span>
+								<a class="facet-name">cs</a> <span class="badge">81</span>
+								<input class="include hide" type="checkbox" name="facet.in.content_language" value='"cs"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.content_language" value='"cs"'  onclick="this.form.submit();"/>
+							</li>
+					        <!-- dynamically add checked="true"? -->
+					        <!-- OR use some kind of link constructor? -->
+						
+							
+   								<li class="facet-options hide">
+							
+								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
+								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
+								<a class="facet-name">sk</a> <span class="badge">76</span>
+								<input class="include hide" type="checkbox" name="facet.in.content_language" value='"sk"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.content_language" value='"sk"'  onclick="this.form.submit();"/>
+							</li>
+					        <!-- dynamically add checked="true"? -->
+					        <!-- OR use some kind of link constructor? -->
+						
+							
+   								<li class="facet-options hide">
+							
+								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
+								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
+								<a class="facet-name">pt</a> <span class="badge">69</span>
 								<input class="include hide" type="checkbox" name="facet.in.content_language" value='"pt"'  onclick="this.form.submit();"/>
 								<input class="exclude hide" type="checkbox" name="facet.out.content_language" value='"pt"'  onclick="this.form.submit();"/>
 							</li>
@@ -1100,9 +964,9 @@
 							
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">ru</a> <span class="badge">2,189</span>
-								<input class="include hide" type="checkbox" name="facet.in.content_language" value='"ru"'  onclick="this.form.submit();"/>
-								<input class="exclude hide" type="checkbox" name="facet.out.content_language" value='"ru"'  onclick="this.form.submit();"/>
+								<a class="facet-name">fr</a> <span class="badge">59</span>
+								<input class="include hide" type="checkbox" name="facet.in.content_language" value='"fr"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.content_language" value='"fr"'  onclick="this.form.submit();"/>
 							</li>
 					        <!-- dynamically add checked="true"? -->
 					        <!-- OR use some kind of link constructor? -->
@@ -1161,7 +1025,43 @@
 							
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">odpm.gov.uk</a> <span class="badge">860,902</span>
+								<a class="facet-name">bbc.co.uk</a> <span class="badge">4,832,438</span>
+								<input class="include hide" type="checkbox" name="facet.in.domain" value='"bbc.co.uk"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.domain" value='"bbc.co.uk"'  onclick="this.form.submit();"/>
+							</li>
+					        <!-- dynamically add checked="true"? -->
+					        <!-- OR use some kind of link constructor? -->
+						
+							
+   								<li class="facet-options show" data-attr="default">
+							
+								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
+								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
+								<a class="facet-name">demon.co.uk</a> <span class="badge">1,778,533</span>
+								<input class="include hide" type="checkbox" name="facet.in.domain" value='"demon.co.uk"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.domain" value='"demon.co.uk"'  onclick="this.form.submit();"/>
+							</li>
+					        <!-- dynamically add checked="true"? -->
+					        <!-- OR use some kind of link constructor? -->
+						
+							
+   								<li class="facet-options show" data-attr="default">
+							
+								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
+								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
+								<a class="facet-name">guardian.co.uk</a> <span class="badge">1,471,851</span>
+								<input class="include hide" type="checkbox" name="facet.in.domain" value='"guardian.co.uk"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.domain" value='"guardian.co.uk"'  onclick="this.form.submit();"/>
+							</li>
+					        <!-- dynamically add checked="true"? -->
+					        <!-- OR use some kind of link constructor? -->
+						
+							
+   								<li class="facet-options show" data-attr="default">
+							
+								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
+								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
+								<a class="facet-name">odpm.gov.uk</a> <span class="badge">1,380,642</span>
 								<input class="include hide" type="checkbox" name="facet.in.domain" value='"odpm.gov.uk"'  onclick="this.form.submit();"/>
 								<input class="exclude hide" type="checkbox" name="facet.out.domain" value='"odpm.gov.uk"'  onclick="this.form.submit();"/>
 							</li>
@@ -1173,19 +1073,7 @@
 							
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">dh.gov.uk</a> <span class="badge">292,206</span>
-								<input class="include hide" type="checkbox" name="facet.in.domain" value='"dh.gov.uk"'  onclick="this.form.submit();"/>
-								<input class="exclude hide" type="checkbox" name="facet.out.domain" value='"dh.gov.uk"'  onclick="this.form.submit();"/>
-							</li>
-					        <!-- dynamically add checked="true"? -->
-					        <!-- OR use some kind of link constructor? -->
-						
-							
-   								<li class="facet-options show" data-attr="default">
-							
-								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
-								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">army.mod.uk</a> <span class="badge">109,007</span>
+								<a class="facet-name">army.mod.uk</a> <span class="badge">1,049,207</span>
 								<input class="include hide" type="checkbox" name="facet.in.domain" value='"army.mod.uk"'  onclick="this.form.submit();"/>
 								<input class="exclude hide" type="checkbox" name="facet.out.domain" value='"army.mod.uk"'  onclick="this.form.submit();"/>
 							</li>
@@ -1197,9 +1085,9 @@
 							
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">communities.gov.uk</a> <span class="badge">105,454</span>
-								<input class="include hide" type="checkbox" name="facet.in.domain" value='"communities.gov.uk"'  onclick="this.form.submit();"/>
-								<input class="exclude hide" type="checkbox" name="facet.out.domain" value='"communities.gov.uk"'  onclick="this.form.submit();"/>
+								<a class="facet-name">freeserve.co.uk</a> <span class="badge">695,681</span>
+								<input class="include hide" type="checkbox" name="facet.in.domain" value='"freeserve.co.uk"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.domain" value='"freeserve.co.uk"'  onclick="this.form.submit();"/>
 							</li>
 					        <!-- dynamically add checked="true"? -->
 					        <!-- OR use some kind of link constructor? -->
@@ -1209,31 +1097,7 @@
 							
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">doh.gov.uk</a> <span class="badge">91,545</span>
-								<input class="include hide" type="checkbox" name="facet.in.domain" value='"doh.gov.uk"'  onclick="this.form.submit();"/>
-								<input class="exclude hide" type="checkbox" name="facet.out.domain" value='"doh.gov.uk"'  onclick="this.form.submit();"/>
-							</li>
-					        <!-- dynamically add checked="true"? -->
-					        <!-- OR use some kind of link constructor? -->
-						
-							
-   								<li class="facet-options show" data-attr="default">
-							
-								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
-								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">statistics.gov.uk</a> <span class="badge">78,662</span>
-								<input class="include hide" type="checkbox" name="facet.in.domain" value='"statistics.gov.uk"'  onclick="this.form.submit();"/>
-								<input class="exclude hide" type="checkbox" name="facet.out.domain" value='"statistics.gov.uk"'  onclick="this.form.submit();"/>
-							</li>
-					        <!-- dynamically add checked="true"? -->
-					        <!-- OR use some kind of link constructor? -->
-						
-							
-   								<li class="facet-options show" data-attr="default">
-							
-								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
-								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">dfes.gov.uk</a> <span class="badge">77,488</span>
+								<a class="facet-name">dfes.gov.uk</a> <span class="badge">625,011</span>
 								<input class="include hide" type="checkbox" name="facet.in.domain" value='"dfes.gov.uk"'  onclick="this.form.submit();"/>
 								<input class="exclude hide" type="checkbox" name="facet.out.domain" value='"dfes.gov.uk"'  onclick="this.form.submit();"/>
 							</li>
@@ -1245,9 +1109,9 @@
 							
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">salford.gov.uk</a> <span class="badge">50,042</span>
-								<input class="include hide" type="checkbox" name="facet.in.domain" value='"salford.gov.uk"'  onclick="this.form.submit();"/>
-								<input class="exclude hide" type="checkbox" name="facet.out.domain" value='"salford.gov.uk"'  onclick="this.form.submit();"/>
+								<a class="facet-name">royal-navy.mod.uk</a> <span class="badge">590,220</span>
+								<input class="include hide" type="checkbox" name="facet.in.domain" value='"royal-navy.mod.uk"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.domain" value='"royal-navy.mod.uk"'  onclick="this.form.submit();"/>
 							</li>
 					        <!-- dynamically add checked="true"? -->
 					        <!-- OR use some kind of link constructor? -->
@@ -1257,9 +1121,9 @@
 							
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">wales.gov.uk</a> <span class="badge">48,817</span>
-								<input class="include hide" type="checkbox" name="facet.in.domain" value='"wales.gov.uk"'  onclick="this.form.submit();"/>
-								<input class="exclude hide" type="checkbox" name="facet.out.domain" value='"wales.gov.uk"'  onclick="this.form.submit();"/>
+								<a class="facet-name">raf.mod.uk</a> <span class="badge">566,331</span>
+								<input class="include hide" type="checkbox" name="facet.in.domain" value='"raf.mod.uk"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.domain" value='"raf.mod.uk"'  onclick="this.form.submit();"/>
 							</li>
 					        <!-- dynamically add checked="true"? -->
 					        <!-- OR use some kind of link constructor? -->
@@ -1269,9 +1133,9 @@
 							
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">abdn.ac.uk</a> <span class="badge">28,217</span>
-								<input class="include hide" type="checkbox" name="facet.in.domain" value='"abdn.ac.uk"'  onclick="this.form.submit();"/>
-								<input class="exclude hide" type="checkbox" name="facet.out.domain" value='"abdn.ac.uk"'  onclick="this.form.submit();"/>
+								<a class="facet-name">cam.ac.uk</a> <span class="badge">520,748</span>
+								<input class="include hide" type="checkbox" name="facet.in.domain" value='"cam.ac.uk"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.domain" value='"cam.ac.uk"'  onclick="this.form.submit();"/>
 							</li>
 					        <!-- dynamically add checked="true"? -->
 					        <!-- OR use some kind of link constructor? -->
@@ -1303,7 +1167,7 @@
 		
 			<div class="panel-body links_domains">
    				<div class="facet-main">
-					<a class="facet-heading"><strong>Links Domains</strong></a> <span class="badge">3</span>
+					<a class="facet-heading"><strong>Links Domains</strong></a> <span class="badge">10</span>
 					<input type="hidden" name="facet.fields" value="links_domains" id="links_domains">
 					<input type="hidden" name="invert" value="" id="invert_links_domains">
 					<div class="btn-group">
@@ -1326,9 +1190,9 @@
 							
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">swan.ac.uk</a> <span class="badge">38</span>
-								<input class="include hide" type="checkbox" name="facet.in.links_domains" value='"swan.ac.uk"'  onclick="this.form.submit();"/>
-								<input class="exclude hide" type="checkbox" name="facet.out.links_domains" value='"swan.ac.uk"'  onclick="this.form.submit();"/>
+								<a class="facet-name">awin1.com</a> <span class="badge">193</span>
+								<input class="include hide" type="checkbox" name="facet.in.links_domains" value='"awin1.com"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.links_domains" value='"awin1.com"'  onclick="this.form.submit();"/>
 							</li>
 					        <!-- dynamically add checked="true"? -->
 					        <!-- OR use some kind of link constructor? -->
@@ -1338,9 +1202,9 @@
 							
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">info-med.co.uk</a> <span class="badge">11</span>
-								<input class="include hide" type="checkbox" name="facet.in.links_domains" value='"info-med.co.uk"'  onclick="this.form.submit();"/>
-								<input class="exclude hide" type="checkbox" name="facet.out.links_domains" value='"info-med.co.uk"'  onclick="this.form.submit();"/>
+								<a class="facet-name">blue-tomato.at</a> <span class="badge">193</span>
+								<input class="include hide" type="checkbox" name="facet.in.links_domains" value='"blue-tomato.at"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.links_domains" value='"blue-tomato.at"'  onclick="this.form.submit();"/>
 							</li>
 					        <!-- dynamically add checked="true"? -->
 					        <!-- OR use some kind of link constructor? -->
@@ -1350,14 +1214,102 @@
 							
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
-								<a class="facet-name">pituitary.org.uk</a> <span class="badge">1</span>
-								<input class="include hide" type="checkbox" name="facet.in.links_domains" value='"pituitary.org.uk"'  onclick="this.form.submit();"/>
-								<input class="exclude hide" type="checkbox" name="facet.out.links_domains" value='"pituitary.org.uk"'  onclick="this.form.submit();"/>
+								<a class="facet-name">myreferer.com</a> <span class="badge">193</span>
+								<input class="include hide" type="checkbox" name="facet.in.links_domains" value='"myreferer.com"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.links_domains" value='"myreferer.com"'  onclick="this.form.submit();"/>
+							</li>
+					        <!-- dynamically add checked="true"? -->
+					        <!-- OR use some kind of link constructor? -->
+						
+							
+   								<li class="facet-options show" data-attr="default">
+							
+								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
+								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
+								<a class="facet-name">snowinsure.com</a> <span class="badge">193</span>
+								<input class="include hide" type="checkbox" name="facet.in.links_domains" value='"snowinsure.com"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.links_domains" value='"snowinsure.com"'  onclick="this.form.submit();"/>
+							</li>
+					        <!-- dynamically add checked="true"? -->
+					        <!-- OR use some kind of link constructor? -->
+						
+							
+   								<li class="facet-options show" data-attr="default">
+							
+								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
+								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
+								<a class="facet-name">theboarder.co.uk</a> <span class="badge">193</span>
+								<input class="include hide" type="checkbox" name="facet.in.links_domains" value='"theboarder.co.uk"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.links_domains" value='"theboarder.co.uk"'  onclick="this.form.submit();"/>
+							</li>
+					        <!-- dynamically add checked="true"? -->
+					        <!-- OR use some kind of link constructor? -->
+						
+							
+   								<li class="facet-options hide">
+							
+								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
+								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
+								<a class="facet-name">webgreen.co.uk</a> <span class="badge">193</span>
+								<input class="include hide" type="checkbox" name="facet.in.links_domains" value='"webgreen.co.uk"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.links_domains" value='"webgreen.co.uk"'  onclick="this.form.submit();"/>
+							</li>
+					        <!-- dynamically add checked="true"? -->
+					        <!-- OR use some kind of link constructor? -->
+						
+							
+   								<li class="facet-options hide">
+							
+								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
+								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
+								<a class="facet-name">astaro.com</a> <span class="badge">161</span>
+								<input class="include hide" type="checkbox" name="facet.in.links_domains" value='"astaro.com"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.links_domains" value='"astaro.com"'  onclick="this.form.submit();"/>
+							</li>
+					        <!-- dynamically add checked="true"? -->
+					        <!-- OR use some kind of link constructor? -->
+						
+							
+   								<li class="facet-options hide">
+							
+								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
+								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
+								<a class="facet-name">astaro.co.uk</a> <span class="badge">159</span>
+								<input class="include hide" type="checkbox" name="facet.in.links_domains" value='"astaro.co.uk"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.links_domains" value='"astaro.co.uk"'  onclick="this.form.submit();"/>
+							</li>
+					        <!-- dynamically add checked="true"? -->
+					        <!-- OR use some kind of link constructor? -->
+						
+							
+   								<li class="facet-options hide">
+							
+								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
+								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
+								<a class="facet-name">omniture.com</a> <span class="badge">144</span>
+								<input class="include hide" type="checkbox" name="facet.in.links_domains" value='"omniture.com"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.links_domains" value='"omniture.com"'  onclick="this.form.submit();"/>
+							</li>
+					        <!-- dynamically add checked="true"? -->
+					        <!-- OR use some kind of link constructor? -->
+						
+							
+   								<li class="facet-options hide">
+							
+								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
+								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
+								<a class="facet-name">cakephp.org</a> <span class="badge">131</span>
+								<input class="include hide" type="checkbox" name="facet.in.links_domains" value='"cakephp.org"'  onclick="this.form.submit();"/>
+								<input class="exclude hide" type="checkbox" name="facet.out.links_domains" value='"cakephp.org"'  onclick="this.form.submit();"/>
 							</li>
 					        <!-- dynamically add checked="true"? -->
 					        <!-- OR use some kind of link constructor? -->
 						
 						
+							<li> 
+    							<a id="links_domains" class="show-more" href="#"><span class="glyphicon glyphicon-plus-sign"></span> <span>Show more...</span></a>
+     						</li>
+    					
 					</ul>
 					<div id="add-more-option-6" class="input-group input-group-sm hide">
 						<span class="input-group-btn">
@@ -1438,7 +1390,7 @@
 
 
 
-    <input type="text" id="query" name="query" value="content_ffb:&quot;d0cf11e0&quot;" placeholder="Enter search term" class="form-control search-field">
+    <input type="text" id="query" name="query" value="content_ffb:&quot;47494638&quot;" placeholder="Enter search term" class="form-control search-field">
 
 
 
@@ -1496,7 +1448,7 @@
 	<div class="panel-heading filter-heading">
 		<h4 class="panel-title pull-left filter-heading-title">
 			
-			    Results <span id="displayingXOfY">1 to 10 of 5,501,087</span>
+			    Results <span id="displayingXOfY">1 to 10 of 133,576,903</span>
 			
 		</h4>
 		<span class="hide" id="current-url"></span>
@@ -1558,38 +1510,38 @@
 					
 						
 							
-								<li id="list-2"><a href="/shine/search?query=content_ffb%3A%22d0cf11e0%22&amp;page=2&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-2" class="paging">2</a></li>
+								<li id="list-2"><a href="/shine/search?query=content_ffb%3A%2247494638%22&amp;page=2&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-2" class="paging">2</a></li>
 							
 						
 					
 						
 							
-								<li id="list-3"><a href="/shine/search?query=content_ffb%3A%22d0cf11e0%22&amp;page=3&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-3" class="paging">3</a></li>
+								<li id="list-3"><a href="/shine/search?query=content_ffb%3A%2247494638%22&amp;page=3&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-3" class="paging">3</a></li>
 							
 						
 					
 						
 							
-								<li id="list-4"><a href="/shine/search?query=content_ffb%3A%22d0cf11e0%22&amp;page=4&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-4" class="paging">4</a></li>
+								<li id="list-4"><a href="/shine/search?query=content_ffb%3A%2247494638%22&amp;page=4&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-4" class="paging">4</a></li>
 							
 						
 					
 						
 							
-								<li id="list-5"><a href="/shine/search?query=content_ffb%3A%22d0cf11e0%22&amp;page=5&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-5" class="paging">5</a></li>
+								<li id="list-5"><a href="/shine/search?query=content_ffb%3A%2247494638%22&amp;page=5&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-5" class="paging">5</a></li>
 							
 						
 					
 						
 							
-								<li id="list-6"><a href="/shine/search?query=content_ffb%3A%22d0cf11e0%22&amp;page=6&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-6" class="paging">6</a></li>
+								<li id="list-6"><a href="/shine/search?query=content_ffb%3A%2247494638%22&amp;page=6&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-6" class="paging">6</a></li>
 							
 						
 					
 		        	
 		                <li class="next" id="list-BaseScalaTemplate(play.api.templates.HtmlFormat$@3680fb53)">
 							
-	                    		<a href="/shine/search?query=content_ffb%3A%22d0cf11e0%22&amp;page=2&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-2" class="paging" data-toggle="tooltip" data-placement="right" title="Page 2">&raquo;</a>
+	                    		<a href="/shine/search?query=content_ffb%3A%2247494638%22&amp;page=2&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-2" class="paging" data-toggle="tooltip" data-placement="right" title="Page 2">&raquo;</a>
 							
 		                </li>
 		            
@@ -1632,12 +1584,12 @@
 		<div class="row">
 			<div class="col-md-8 col-sm-8">
 				<h4 class="list-group-item-heading">
-					1 <a href="http://web.archive.org/web/19951110000000/http://fluorine.hesa.ac.uk:80/docs/circular/1995/student/95_09.doc">"Student Circular 95/09"</a>
+					1 <a href="http://web.archive.org/web/19800101000000/http://web.robert-gordon.ac.uk:80/prospectus96/schools/aps1.gif">""</a>
 				</h4>
 				<p class="list-group-item-text">
-						Nov 10 1995 00:00:00 GMT<br />
-						other<br />
-						<span class="result-host">fluorine.hesa.ac.uk</span><br />
+						Jan 01 1980 00:00:00 GMT<br />
+						image<br />
+						<span class="result-host">web.robert-gordon.ac.uk</span><br />
 						
 						
 						<hr />
@@ -1649,8 +1601,8 @@
 			</div>
 			<div class="col-md-4 col-sm-4 checkbox">
 			 	<div class="checkbox pull-right">
-			 		<input host="fluorine.hesa.ac.uk" type="checkbox" name="selectedResource" value="
-	sen4Mu7dAiqWZ4y/RmImUQ==/19951110000000;;;Fri Nov 10 00:00:00 GMT 1995;;;Student Circular 95/09;;;hesa.ac.uk;;;http://fluorine.hesa.ac.uk:80/docs/circular/1995/student/95_09.doc;;;19951110000000
+			 		<input host="web.robert-gordon.ac.uk" type="checkbox" name="selectedResource" value="
+	A/5tG0jIpe7F4BU93Znpjg==/19800101000000;;;Tue Jan 01 00:00:00 GMT 1980;;; ;;;robert-gordon.ac.uk;;;http://web.robert-gordon.ac.uk:80/prospectus96/schools/aps1.gif;;;19800101000000
 " data-toggle="tooltip" data-placement="top" title="select" class="resource">
 			 	</div>
 			</div>
@@ -1671,12 +1623,12 @@
 		<div class="row">
 			<div class="col-md-8 col-sm-8">
 				<h4 class="list-group-item-heading">
-					2 <a href="http://web.archive.org/web/19951110000000/http://fluorine.hesa.ac.uk:80/docs/circular/1995/student/95_01.doc">"First Destination Circular 95/01"</a>
+					2 <a href="http://web.archive.org/web/19800101000000/http://web.robert-gordon.ac.uk:80/prospectus95/schools/business.gif">""</a>
 				</h4>
 				<p class="list-group-item-text">
-						Nov 10 1995 00:00:00 GMT<br />
-						other<br />
-						<span class="result-host">fluorine.hesa.ac.uk</span><br />
+						Jan 01 1980 00:00:00 GMT<br />
+						image<br />
+						<span class="result-host">web.robert-gordon.ac.uk</span><br />
 						
 						
 						<hr />
@@ -1688,8 +1640,8 @@
 			</div>
 			<div class="col-md-4 col-sm-4 checkbox">
 			 	<div class="checkbox pull-right">
-			 		<input host="fluorine.hesa.ac.uk" type="checkbox" name="selectedResource" value="
-	iW1p/SCZpv5GaT+mO/1hfQ==/19951110000000;;;Fri Nov 10 00:00:00 GMT 1995;;;First Destination Circular 95/01;;;hesa.ac.uk;;;http://fluorine.hesa.ac.uk:80/docs/circular/1995/student/95_01.doc;;;19951110000000
+			 		<input host="web.robert-gordon.ac.uk" type="checkbox" name="selectedResource" value="
+	3Ny81f610ELDUoYOASG/ww==/19800101000000;;;Tue Jan 01 00:00:00 GMT 1980;;; ;;;robert-gordon.ac.uk;;;http://web.robert-gordon.ac.uk:80/prospectus95/schools/business.gif;;;19800101000000
 " data-toggle="tooltip" data-placement="top" title="select" class="resource">
 			 	</div>
 			</div>
@@ -1710,12 +1662,12 @@
 		<div class="row">
 			<div class="col-md-8 col-sm-8">
 				<h4 class="list-group-item-heading">
-					3 <a href="http://web.archive.org/web/19951110000000/http://fluorine.hesa.ac.uk:80/docs/circular/1995/student/95_10.doc">"Student Circular 95/10"</a>
+					3 <a href="http://web.archive.org/web/19800101000000/http://web.robert-gordon.ac.uk:80/prospectus96/schools/eee1.gif">""</a>
 				</h4>
 				<p class="list-group-item-text">
-						Nov 10 1995 00:00:00 GMT<br />
-						other<br />
-						<span class="result-host">fluorine.hesa.ac.uk</span><br />
+						Jan 01 1980 00:00:00 GMT<br />
+						image<br />
+						<span class="result-host">web.robert-gordon.ac.uk</span><br />
 						
 						
 						<hr />
@@ -1727,8 +1679,8 @@
 			</div>
 			<div class="col-md-4 col-sm-4 checkbox">
 			 	<div class="checkbox pull-right">
-			 		<input host="fluorine.hesa.ac.uk" type="checkbox" name="selectedResource" value="
-	5q7dIrFpwQTZdrjNYXp4HA==/19951110000000;;;Fri Nov 10 00:00:00 GMT 1995;;;Student Circular 95/10;;;hesa.ac.uk;;;http://fluorine.hesa.ac.uk:80/docs/circular/1995/student/95_10.doc;;;19951110000000
+			 		<input host="web.robert-gordon.ac.uk" type="checkbox" name="selectedResource" value="
+	AlrzycgHbyB0ihB9BVU31Q==/19800101000000;;;Tue Jan 01 00:00:00 GMT 1980;;; ;;;robert-gordon.ac.uk;;;http://web.robert-gordon.ac.uk:80/prospectus96/schools/eee1.gif;;;19800101000000
 " data-toggle="tooltip" data-placement="top" title="select" class="resource">
 			 	</div>
 			</div>
@@ -1749,12 +1701,12 @@
 		<div class="row">
 			<div class="col-md-8 col-sm-8">
 				<h4 class="list-group-item-heading">
-					4 <a href="http://web.archive.org/web/19951110000000/http://fluorine.hesa.ac.uk:80/docs/circular/1995/staff/95_03.doc">"Staff Circular 95/03"</a>
+					4 <a href="http://web.archive.org/web/19800101000000/http://web.robert-gordon.ac.uk:80/prospectus95/student/custser.gif">""</a>
 				</h4>
 				<p class="list-group-item-text">
-						Nov 10 1995 00:00:00 GMT<br />
-						other<br />
-						<span class="result-host">fluorine.hesa.ac.uk</span><br />
+						Jan 01 1980 00:00:00 GMT<br />
+						image<br />
+						<span class="result-host">web.robert-gordon.ac.uk</span><br />
 						
 						
 						<hr />
@@ -1766,8 +1718,8 @@
 			</div>
 			<div class="col-md-4 col-sm-4 checkbox">
 			 	<div class="checkbox pull-right">
-			 		<input host="fluorine.hesa.ac.uk" type="checkbox" name="selectedResource" value="
-	+JGYhhww/gqI+xxRotoZxA==/19951110000000;;;Fri Nov 10 00:00:00 GMT 1995;;;Staff Circular 95/03;;;hesa.ac.uk;;;http://fluorine.hesa.ac.uk:80/docs/circular/1995/staff/95_03.doc;;;19951110000000
+			 		<input host="web.robert-gordon.ac.uk" type="checkbox" name="selectedResource" value="
+	okjpUvI6rpNpmFw+8m3htQ==/19800101000000;;;Tue Jan 01 00:00:00 GMT 1980;;; ;;;robert-gordon.ac.uk;;;http://web.robert-gordon.ac.uk:80/prospectus95/student/custser.gif;;;19800101000000
 " data-toggle="tooltip" data-placement="top" title="select" class="resource">
 			 	</div>
 			</div>
@@ -1788,12 +1740,12 @@
 		<div class="row">
 			<div class="col-md-8 col-sm-8">
 				<h4 class="list-group-item-heading">
-					5 <a href="http://web.archive.org/web/19951124072529/http://fluorine.hesa.ac.uk:80/docs/circular/1995/tech/tech9503.doc">"Technical Bulletin 95/03"</a>
+					5 <a href="http://web.archive.org/web/19800101000000/http://web.robert-gordon.ac.uk:80/prospectus95/schools/scott.gif">""</a>
 				</h4>
 				<p class="list-group-item-text">
-						Nov 24 1995 07:25:29 GMT<br />
-						other<br />
-						<span class="result-host">fluorine.hesa.ac.uk</span><br />
+						Jan 01 1980 00:00:00 GMT<br />
+						image<br />
+						<span class="result-host">web.robert-gordon.ac.uk</span><br />
 						
 						
 						<hr />
@@ -1805,8 +1757,8 @@
 			</div>
 			<div class="col-md-4 col-sm-4 checkbox">
 			 	<div class="checkbox pull-right">
-			 		<input host="fluorine.hesa.ac.uk" type="checkbox" name="selectedResource" value="
-	S6b/NaIvrQvpAD+3xAIvpw==/19951124072529;;;Fri Nov 24 07:25:29 GMT 1995;;;Technical Bulletin 95/03;;;hesa.ac.uk;;;http://fluorine.hesa.ac.uk:80/docs/circular/1995/tech/tech9503.doc;;;19951124072529
+			 		<input host="web.robert-gordon.ac.uk" type="checkbox" name="selectedResource" value="
+	Qs2VPHQOFxBKOXYqWyuXKQ==/19800101000000;;;Tue Jan 01 00:00:00 GMT 1980;;; ;;;robert-gordon.ac.uk;;;http://web.robert-gordon.ac.uk:80/prospectus95/schools/scott.gif;;;19800101000000
 " data-toggle="tooltip" data-placement="top" title="select" class="resource">
 			 	</div>
 			</div>
@@ -1827,12 +1779,12 @@
 		<div class="row">
 			<div class="col-md-8 col-sm-8">
 				<h4 class="list-group-item-heading">
-					6 <a href="http://web.archive.org/web/19951209163305/http://ntcwww.ntyneside.ac.uk:80/european/transn~1.doc">"M E M O R A N D U M"</a>
+					6 <a href="http://web.archive.org/web/19800101000000/http://web.robert-gordon.ac.uk:80/prospectus95/schools/sim1.gif">""</a>
 				</h4>
 				<p class="list-group-item-text">
-						Dec 09 1995 16:33:05 GMT<br />
-						other<br />
-						<span class="result-host">ntcwww.ntyneside.ac.uk</span><br />
+						Jan 01 1980 00:00:00 GMT<br />
+						image<br />
+						<span class="result-host">web.robert-gordon.ac.uk</span><br />
 						
 						
 						<hr />
@@ -1844,8 +1796,8 @@
 			</div>
 			<div class="col-md-4 col-sm-4 checkbox">
 			 	<div class="checkbox pull-right">
-			 		<input host="ntcwww.ntyneside.ac.uk" type="checkbox" name="selectedResource" value="
-	OgfC2MA+LIW4nrhJPa12Gg==/19951209163305;;;Sat Dec 09 16:33:05 GMT 1995;;;M E M O R A N D U M;;;ntyneside.ac.uk;;;http://ntcwww.ntyneside.ac.uk:80/european/transn~1.doc;;;19951209163305
+			 		<input host="web.robert-gordon.ac.uk" type="checkbox" name="selectedResource" value="
+	jesn8fAqFqUcwzWM929emA==/19800101000000;;;Tue Jan 01 00:00:00 GMT 1980;;; ;;;robert-gordon.ac.uk;;;http://web.robert-gordon.ac.uk:80/prospectus95/schools/sim1.gif;;;19800101000000
 " data-toggle="tooltip" data-placement="top" title="select" class="resource">
 			 	</div>
 			</div>
@@ -1866,12 +1818,12 @@
 		<div class="row">
 			<div class="col-md-8 col-sm-8">
 				<h4 class="list-group-item-heading">
-					7 <a href="http://web.archive.org/web/19951211000000/http://fluorine.hesa.ac.uk:80/docs/circular/1995/staff/95_04.doc">"Staff Circular 95/04"</a>
+					7 <a href="http://web.archive.org/web/19800101000000/http://web.robert-gordon.ac.uk:80/prospectus95/university/quality.gif">""</a>
 				</h4>
 				<p class="list-group-item-text">
-						Dec 11 1995 00:00:00 GMT<br />
-						other<br />
-						<span class="result-host">fluorine.hesa.ac.uk</span><br />
+						Jan 01 1980 00:00:00 GMT<br />
+						image<br />
+						<span class="result-host">web.robert-gordon.ac.uk</span><br />
 						
 						
 						<hr />
@@ -1883,8 +1835,8 @@
 			</div>
 			<div class="col-md-4 col-sm-4 checkbox">
 			 	<div class="checkbox pull-right">
-			 		<input host="fluorine.hesa.ac.uk" type="checkbox" name="selectedResource" value="
-	UKa5qJEs36aI8fiyY8Mk/Q==/19951211000000;;;Mon Dec 11 00:00:00 GMT 1995;;;Staff Circular 95/04;;;hesa.ac.uk;;;http://fluorine.hesa.ac.uk:80/docs/circular/1995/staff/95_04.doc;;;19951211000000
+			 		<input host="web.robert-gordon.ac.uk" type="checkbox" name="selectedResource" value="
+	84vubT4vpmDTlwm1PIP64g==/19800101000000;;;Tue Jan 01 00:00:00 GMT 1980;;; ;;;robert-gordon.ac.uk;;;http://web.robert-gordon.ac.uk:80/prospectus95/university/quality.gif;;;19800101000000
 " data-toggle="tooltip" data-placement="top" title="select" class="resource">
 			 	</div>
 			</div>
@@ -1905,12 +1857,12 @@
 		<div class="row">
 			<div class="col-md-8 col-sm-8">
 				<h4 class="list-group-item-heading">
-					8 <a href="http://web.archive.org/web/19960510151827/http://cbl.leeds.ac.uk:80/~edu5ykh/taiwan/taiwan.htm">"TAIWAN"</a>
+					8 <a href="http://web.archive.org/web/19800101000000/http://web.robert-gordon.ac.uk:80/prospectus96/schools/social1.gif">""</a>
 				</h4>
 				<p class="list-group-item-text">
-						May 10 1996 16:18:27 BST<br />
-						other<br />
-						<span class="result-host">cbl.leeds.ac.uk</span><br />
+						Jan 01 1980 00:00:00 GMT<br />
+						image<br />
+						<span class="result-host">web.robert-gordon.ac.uk</span><br />
 						
 						
 						<hr />
@@ -1922,8 +1874,8 @@
 			</div>
 			<div class="col-md-4 col-sm-4 checkbox">
 			 	<div class="checkbox pull-right">
-			 		<input host="cbl.leeds.ac.uk" type="checkbox" name="selectedResource" value="
-	Agst3APgcedVER9T5xtZpg==/19960510151827;;;Fri May 10 16:18:27 BST 1996;;;TAIWAN;;;leeds.ac.uk;;;http://cbl.leeds.ac.uk:80/~edu5ykh/taiwan/taiwan.htm;;;19960510151827
+			 		<input host="web.robert-gordon.ac.uk" type="checkbox" name="selectedResource" value="
+	c4oz9fpKaVdSPc6K6R8cow==/19800101000000;;;Tue Jan 01 00:00:00 GMT 1980;;; ;;;robert-gordon.ac.uk;;;http://web.robert-gordon.ac.uk:80/prospectus96/schools/social1.gif;;;19800101000000
 " data-toggle="tooltip" data-placement="top" title="select" class="resource">
 			 	</div>
 			</div>
@@ -1944,12 +1896,12 @@
 		<div class="row">
 			<div class="col-md-8 col-sm-8">
 				<h4 class="list-group-item-heading">
-					9 <a href="http://web.archive.org/web/19960510170213/http://cbl.leeds.ac.uk:80/raven/pha/amnmre.doc">"Glutamate receptors"</a>
+					9 <a href="http://web.archive.org/web/19800101000000/http://web.robert-gordon.ac.uk:80/prospectus96/library/liby.gif">""</a>
 				</h4>
 				<p class="list-group-item-text">
-						May 10 1996 18:02:13 BST<br />
-						other<br />
-						<span class="result-host">cbl.leeds.ac.uk</span><br />
+						Jan 01 1980 00:00:00 GMT<br />
+						image<br />
+						<span class="result-host">web.robert-gordon.ac.uk</span><br />
 						
 						
 						<hr />
@@ -1961,8 +1913,8 @@
 			</div>
 			<div class="col-md-4 col-sm-4 checkbox">
 			 	<div class="checkbox pull-right">
-			 		<input host="cbl.leeds.ac.uk" type="checkbox" name="selectedResource" value="
-	Cxzq+vAHA4hDLYrnZRcnVA==/19960510170213;;;Fri May 10 18:02:13 BST 1996;;;Glutamate receptors;;;leeds.ac.uk;;;http://cbl.leeds.ac.uk:80/raven/pha/amnmre.doc;;;19960510170213
+			 		<input host="web.robert-gordon.ac.uk" type="checkbox" name="selectedResource" value="
+	t7qhvb7/lALf88ngzXYJZg==/19800101000000;;;Tue Jan 01 00:00:00 GMT 1980;;; ;;;robert-gordon.ac.uk;;;http://web.robert-gordon.ac.uk:80/prospectus96/library/liby.gif;;;19800101000000
 " data-toggle="tooltip" data-placement="top" title="select" class="resource">
 			 	</div>
 			</div>
@@ -1983,12 +1935,12 @@
 		<div class="row">
 			<div class="col-md-8 col-sm-8">
 				<h4 class="list-group-item-heading">
-					10 <a href="http://web.archive.org/web/19960510224312/http://www.smo.uhi.ac.uk:80/~craig/cv-main.doc">""</a>
+					10 <a href="http://web.archive.org/web/19800101000000/http://web.robert-gordon.ac.uk:80/prospectus96/schools/pharm1.gif">""</a>
 				</h4>
 				<p class="list-group-item-text">
-						May 10 1996 23:43:12 BST<br />
-						other<br />
-						<span class="result-host">www.smo.uhi.ac.uk</span><br />
+						Jan 01 1980 00:00:00 GMT<br />
+						image<br />
+						<span class="result-host">web.robert-gordon.ac.uk</span><br />
 						
 						
 						<hr />
@@ -2000,8 +1952,8 @@
 			</div>
 			<div class="col-md-4 col-sm-4 checkbox">
 			 	<div class="checkbox pull-right">
-			 		<input host="www.smo.uhi.ac.uk" type="checkbox" name="selectedResource" value="
-	SjhXMONLR5ToNQEtYLhwow==/19960510224312;;;Fri May 10 23:43:12 BST 1996;;; ;;;uhi.ac.uk;;;http://www.smo.uhi.ac.uk:80/~craig/cv-main.doc;;;19960510224312
+			 		<input host="web.robert-gordon.ac.uk" type="checkbox" name="selectedResource" value="
+	9vbmrjgOsmzFvEZwHJnehg==/19800101000000;;;Tue Jan 01 00:00:00 GMT 1980;;; ;;;robert-gordon.ac.uk;;;http://web.robert-gordon.ac.uk:80/prospectus96/schools/pharm1.gif;;;19800101000000
 " data-toggle="tooltip" data-placement="top" title="select" class="resource">
 			 	</div>
 			</div>
@@ -2036,38 +1988,38 @@
 					
 						
 							
-								<li id="list-2"><a href="/shine/search?query=content_ffb%3A%22d0cf11e0%22&amp;page=2&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-2" class="paging">2</a></li>
+								<li id="list-2"><a href="/shine/search?query=content_ffb%3A%2247494638%22&amp;page=2&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-2" class="paging">2</a></li>
 							
 						
 					
 						
 							
-								<li id="list-3"><a href="/shine/search?query=content_ffb%3A%22d0cf11e0%22&amp;page=3&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-3" class="paging">3</a></li>
+								<li id="list-3"><a href="/shine/search?query=content_ffb%3A%2247494638%22&amp;page=3&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-3" class="paging">3</a></li>
 							
 						
 					
 						
 							
-								<li id="list-4"><a href="/shine/search?query=content_ffb%3A%22d0cf11e0%22&amp;page=4&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-4" class="paging">4</a></li>
+								<li id="list-4"><a href="/shine/search?query=content_ffb%3A%2247494638%22&amp;page=4&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-4" class="paging">4</a></li>
 							
 						
 					
 						
 							
-								<li id="list-5"><a href="/shine/search?query=content_ffb%3A%22d0cf11e0%22&amp;page=5&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-5" class="paging">5</a></li>
+								<li id="list-5"><a href="/shine/search?query=content_ffb%3A%2247494638%22&amp;page=5&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-5" class="paging">5</a></li>
 							
 						
 					
 						
 							
-								<li id="list-6"><a href="/shine/search?query=content_ffb%3A%22d0cf11e0%22&amp;page=6&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-6" class="paging">6</a></li>
+								<li id="list-6"><a href="/shine/search?query=content_ffb%3A%2247494638%22&amp;page=6&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-6" class="paging">6</a></li>
 							
 						
 					
 		        	
 		                <li class="next" id="list-BaseScalaTemplate(play.api.templates.HtmlFormat$@3680fb53)">
 							
-	                    		<a href="/shine/search?query=content_ffb%3A%22d0cf11e0%22&amp;page=2&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-2" class="paging" data-toggle="tooltip" data-placement="right" title="Page 2">&raquo;</a>
+	                    		<a href="/shine/search?query=content_ffb%3A%2247494638%22&amp;page=2&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-2" class="paging" data-toggle="tooltip" data-placement="right" title="Page 2">&raquo;</a>
 							
 		                </li>
 		            
@@ -2129,38 +2081,38 @@
 					
 						
 							
-								<li id="list-2"><a href="/shine/search?query=content_ffb%3A%22d0cf11e0%22&amp;page=2&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-2" class="paging">2</a></li>
+								<li id="list-2"><a href="/shine/search?query=content_ffb%3A%2247494638%22&amp;page=2&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-2" class="paging">2</a></li>
 							
 						
 					
 						
 							
-								<li id="list-3"><a href="/shine/search?query=content_ffb%3A%22d0cf11e0%22&amp;page=3&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-3" class="paging">3</a></li>
+								<li id="list-3"><a href="/shine/search?query=content_ffb%3A%2247494638%22&amp;page=3&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-3" class="paging">3</a></li>
 							
 						
 					
 						
 							
-								<li id="list-4"><a href="/shine/search?query=content_ffb%3A%22d0cf11e0%22&amp;page=4&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-4" class="paging">4</a></li>
+								<li id="list-4"><a href="/shine/search?query=content_ffb%3A%2247494638%22&amp;page=4&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-4" class="paging">4</a></li>
 							
 						
 					
 						
 							
-								<li id="list-5"><a href="/shine/search?query=content_ffb%3A%22d0cf11e0%22&amp;page=5&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-5" class="paging">5</a></li>
+								<li id="list-5"><a href="/shine/search?query=content_ffb%3A%2247494638%22&amp;page=5&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-5" class="paging">5</a></li>
 							
 						
 					
 						
 							
-								<li id="list-6"><a href="/shine/search?query=content_ffb%3A%22d0cf11e0%22&amp;page=6&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-6" class="paging">6</a></li>
+								<li id="list-6"><a href="/shine/search?query=content_ffb%3A%2247494638%22&amp;page=6&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-6" class="paging">6</a></li>
 							
 						
 					
 		        	
 		                <li class="next" id="list-BaseScalaTemplate(play.api.templates.HtmlFormat$@3680fb53)">
 							
-	                    		<a href="/shine/search?query=content_ffb%3A%22d0cf11e0%22&amp;page=2&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-2" class="paging" data-toggle="tooltip" data-placement="right" title="Page 2">&raquo;</a>
+	                    		<a href="/shine/search?query=content_ffb%3A%2247494638%22&amp;page=2&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-2" class="paging" data-toggle="tooltip" data-placement="right" title="Page 2">&raquo;</a>
 							
 		                </li>
 		            
@@ -2194,9 +2146,9 @@
 
 <tr>
 	<td>
-		<a href="http://web.archive.org/web/19951110000000/http://fluorine.hesa.ac.uk:80/docs/circular/1995/student/95_09.doc">Nov 10 1995</a>
+		<a href="http://web.archive.org/web/19800101000000/http://web.robert-gordon.ac.uk:80/prospectus96/schools/aps1.gif">Jan 01 1980</a>
 	</td>
-	<td>hesa.ac.uk</td>
+	<td>robert-gordon.ac.uk</td>
 	<td>
 
 		
@@ -2215,9 +2167,9 @@
 
 <tr>
 	<td>
-		<a href="http://web.archive.org/web/19951110000000/http://fluorine.hesa.ac.uk:80/docs/circular/1995/student/95_01.doc">Nov 10 1995</a>
+		<a href="http://web.archive.org/web/19800101000000/http://web.robert-gordon.ac.uk:80/prospectus95/schools/business.gif">Jan 01 1980</a>
 	</td>
-	<td>hesa.ac.uk</td>
+	<td>robert-gordon.ac.uk</td>
 	<td>
 
 		
@@ -2236,9 +2188,9 @@
 
 <tr>
 	<td>
-		<a href="http://web.archive.org/web/19951110000000/http://fluorine.hesa.ac.uk:80/docs/circular/1995/student/95_10.doc">Nov 10 1995</a>
+		<a href="http://web.archive.org/web/19800101000000/http://web.robert-gordon.ac.uk:80/prospectus96/schools/eee1.gif">Jan 01 1980</a>
 	</td>
-	<td>hesa.ac.uk</td>
+	<td>robert-gordon.ac.uk</td>
 	<td>
 
 		
@@ -2257,9 +2209,9 @@
 
 <tr>
 	<td>
-		<a href="http://web.archive.org/web/19951110000000/http://fluorine.hesa.ac.uk:80/docs/circular/1995/staff/95_03.doc">Nov 10 1995</a>
+		<a href="http://web.archive.org/web/19800101000000/http://web.robert-gordon.ac.uk:80/prospectus95/student/custser.gif">Jan 01 1980</a>
 	</td>
-	<td>hesa.ac.uk</td>
+	<td>robert-gordon.ac.uk</td>
 	<td>
 
 		
@@ -2278,9 +2230,9 @@
 
 <tr>
 	<td>
-		<a href="http://web.archive.org/web/19951124072529/http://fluorine.hesa.ac.uk:80/docs/circular/1995/tech/tech9503.doc">Nov 24 1995</a>
+		<a href="http://web.archive.org/web/19800101000000/http://web.robert-gordon.ac.uk:80/prospectus95/schools/scott.gif">Jan 01 1980</a>
 	</td>
-	<td>hesa.ac.uk</td>
+	<td>robert-gordon.ac.uk</td>
 	<td>
 
 		
@@ -2299,9 +2251,9 @@
 
 <tr>
 	<td>
-		<a href="http://web.archive.org/web/19951209163305/http://ntcwww.ntyneside.ac.uk:80/european/transn~1.doc">Dec 09 1995</a>
+		<a href="http://web.archive.org/web/19800101000000/http://web.robert-gordon.ac.uk:80/prospectus95/schools/sim1.gif">Jan 01 1980</a>
 	</td>
-	<td>ntyneside.ac.uk</td>
+	<td>robert-gordon.ac.uk</td>
 	<td>
 
 		
@@ -2320,9 +2272,9 @@
 
 <tr>
 	<td>
-		<a href="http://web.archive.org/web/19951211000000/http://fluorine.hesa.ac.uk:80/docs/circular/1995/staff/95_04.doc">Dec 11 1995</a>
+		<a href="http://web.archive.org/web/19800101000000/http://web.robert-gordon.ac.uk:80/prospectus95/university/quality.gif">Jan 01 1980</a>
 	</td>
-	<td>hesa.ac.uk</td>
+	<td>robert-gordon.ac.uk</td>
 	<td>
 
 		
@@ -2341,9 +2293,9 @@
 
 <tr>
 	<td>
-		<a href="http://web.archive.org/web/19960510151827/http://cbl.leeds.ac.uk:80/~edu5ykh/taiwan/taiwan.htm">May 10 1996</a>
+		<a href="http://web.archive.org/web/19800101000000/http://web.robert-gordon.ac.uk:80/prospectus96/schools/social1.gif">Jan 01 1980</a>
 	</td>
-	<td>leeds.ac.uk</td>
+	<td>robert-gordon.ac.uk</td>
 	<td>
 
 		
@@ -2362,9 +2314,9 @@
 
 <tr>
 	<td>
-		<a href="http://web.archive.org/web/19960510170213/http://cbl.leeds.ac.uk:80/raven/pha/amnmre.doc">May 10 1996</a>
+		<a href="http://web.archive.org/web/19800101000000/http://web.robert-gordon.ac.uk:80/prospectus96/library/liby.gif">Jan 01 1980</a>
 	</td>
-	<td>leeds.ac.uk</td>
+	<td>robert-gordon.ac.uk</td>
 	<td>
 
 		
@@ -2383,9 +2335,9 @@
 
 <tr>
 	<td>
-		<a href="http://web.archive.org/web/19960510224312/http://www.smo.uhi.ac.uk:80/~craig/cv-main.doc">May 10 1996</a>
+		<a href="http://web.archive.org/web/19800101000000/http://web.robert-gordon.ac.uk:80/prospectus96/schools/pharm1.gif">Jan 01 1980</a>
 	</td>
-	<td>uhi.ac.uk</td>
+	<td>robert-gordon.ac.uk</td>
 	<td>
 
 		
@@ -2429,38 +2381,38 @@
 					
 						
 							
-								<li id="list-2"><a href="/shine/search?query=content_ffb%3A%22d0cf11e0%22&amp;page=2&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-2" class="paging">2</a></li>
+								<li id="list-2"><a href="/shine/search?query=content_ffb%3A%2247494638%22&amp;page=2&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-2" class="paging">2</a></li>
 							
 						
 					
 						
 							
-								<li id="list-3"><a href="/shine/search?query=content_ffb%3A%22d0cf11e0%22&amp;page=3&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-3" class="paging">3</a></li>
+								<li id="list-3"><a href="/shine/search?query=content_ffb%3A%2247494638%22&amp;page=3&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-3" class="paging">3</a></li>
 							
 						
 					
 						
 							
-								<li id="list-4"><a href="/shine/search?query=content_ffb%3A%22d0cf11e0%22&amp;page=4&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-4" class="paging">4</a></li>
+								<li id="list-4"><a href="/shine/search?query=content_ffb%3A%2247494638%22&amp;page=4&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-4" class="paging">4</a></li>
 							
 						
 					
 						
 							
-								<li id="list-5"><a href="/shine/search?query=content_ffb%3A%22d0cf11e0%22&amp;page=5&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-5" class="paging">5</a></li>
+								<li id="list-5"><a href="/shine/search?query=content_ffb%3A%2247494638%22&amp;page=5&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-5" class="paging">5</a></li>
 							
 						
 					
 						
 							
-								<li id="list-6"><a href="/shine/search?query=content_ffb%3A%22d0cf11e0%22&amp;page=6&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-6" class="paging">6</a></li>
+								<li id="list-6"><a href="/shine/search?query=content_ffb%3A%2247494638%22&amp;page=6&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-6" class="paging">6</a></li>
 							
 						
 					
 		        	
 		                <li class="next" id="list-BaseScalaTemplate(play.api.templates.HtmlFormat$@3680fb53)">
 							
-	                    		<a href="/shine/search?query=content_ffb%3A%22d0cf11e0%22&amp;page=2&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-2" class="paging" data-toggle="tooltip" data-placement="right" title="Page 2">&raquo;</a>
+	                    		<a href="/shine/search?query=content_ffb%3A%2247494638%22&amp;page=2&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-2" class="paging" data-toggle="tooltip" data-placement="right" title="Page 2">&raquo;</a>
 							
 		                </li>
 		            

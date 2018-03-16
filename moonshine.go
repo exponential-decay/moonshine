@@ -8,6 +8,7 @@ import (
 	"log"
 	"math/rand"
 	"os"
+	"regexp"
 	"strconv"
 	"strings"
 	"time"
@@ -23,29 +24,32 @@ type shinerequest struct {
 	order    string // order=asc
 }
 
-const agent string = "moonshine-api-wrapper/0.0.1"
+const agent string = "moonshine-api-wrapper/0.0.2"
 const maxpages int = 5
+const solrmax int = 10
+const resultsPerPage int = 10
+const solrlimit int = 9
+const ffbgif string = "47494638"
 
 var (
 	vers   bool
 	ffb    string
+	gif    bool
 	random bool
-	//page    int
-	list bool
-	//listall bool
-	randno int
+	page   int
+	list   bool
 	stat   bool
 	rgen   *rand.Rand
 )
 
 func init() {
 	flag.StringVar(&ffb, "ffb", "0baddeed", "first four bytes of file to find")
-	flag.BoolVar(&list, "list", false, "list up to the first five pages results")
-	//flag.BoolVar(&listall, "list-all", false, "list all the results")
-	//flag.IntVar(&page, "page", 1, "specify a page number to return from")
+	flag.BoolVar(&gif, "gif", false, "return a single gif from the UKWA")
+	flag.BoolVar(&list, "list", false, "list the first five pages from page number")
+	flag.IntVar(&page, "page", 1, "specify a page number to return from, [max: 9000]")
 	flag.BoolVar(&random, "random", true, "return a random link to a file")
 	flag.BoolVar(&stat, "stat", false, "stat the resource")
-	flag.BoolVar(&vers, "version", false, "Return version.")
+	flag.BoolVar(&vers, "version", false, "Return version")
 
 	seed := rand.NewSource(time.Now().UnixNano())
 	rgen = rand.New(seed)
@@ -70,7 +74,7 @@ func newSearch(page int, ffb string, sort string, order string) shinerequest {
 	var newshine shinerequest
 	newshine.shineurl = "https://www.webarchive.org.uk/shine/search"
 	newshine.page = fmt.Sprintf("%d", page)
-	newshine.baddeed = fmt.Sprintf("&query=content_ffb:\"%s\"", ffb)
+	newshine.baddeed = fmt.Sprintf("query=content_ffb:\"%s\"", ffb)
 	newshine.sort = fmt.Sprintf("sort=%s", sort)
 	newshine.order = fmt.Sprintf("order=%s", order)
 	return newshine
@@ -79,7 +83,7 @@ func newSearch(page int, ffb string, sort string, order string) shinerequest {
 func newRequest(baddeedurl string) SR.SimpleRequest {
 	sr, err := SR.Create("GET", baddeedurl)
 	if err != nil {
-		log.Fatal("create request failed: %s\n", err)
+		log.Fatalf("create request failed: %s\n", err)
 	}
 	sr.Agent(agent)
 	return sr
@@ -103,6 +107,10 @@ func parseHtmForResults(htm string) (int, error) {
 			resInt := int(res)
 			return resInt, nil
 		}
+
+		if strings.Contains(scanner.Text(), "message:Service Temporarily Unavailable") {
+			log.Fatal("Exiting: UKWA server is currently experiencing technical difficultues")
+		}
 	}
 
 	if err := scanner.Err(); err != nil {
@@ -110,7 +118,7 @@ func parseHtmForResults(htm string) (int, error) {
 	}
 
 	// if we arrive here, we've no results
-	return 0, fmt.Errorf("no results string")
+	return 0, fmt.Errorf("no results string in htm")
 }
 
 func parseHtmForLinks(htm string) ([]string, error) {
@@ -135,10 +143,14 @@ func parseHtmForLinks(htm string) ([]string, error) {
 		if strings.Contains(scanner.Text(), "<h4 class=\"list-group-item-heading\">") {
 			f = true
 		}
+		if strings.Contains(scanner.Text(), "message:Service Temporarily Unavailable") {
+			log.Fatal("Exiting: UKWA server is currently experiencing technical difficultues")
+		}
 	}
 
 	if len(httpslice) == 0 {
 		return nil, fmt.Errorf("no results")
+
 	}
 
 	if err := scanner.Err(); err != nil {
@@ -165,8 +177,13 @@ func statResults(resp string) (int, int, error) {
 }
 
 func ping(baddeedurl string) (string, int, int) {
+	log.Printf("URL: %s", baddeedurl)
 	req := newRequest(baddeedurl)
 	resp, _ := req.Do()
+
+	if resp.StatusCode != 200 {
+		log.Fatalf("Unsuccessful request: %s", resp.StatusText, 1)
+	}
 
 	// stat the results at all times to understand what other processing
 	// is needed.
@@ -180,7 +197,7 @@ func ping(baddeedurl string) (string, int, int) {
 	return resp.Data, count, pagecount
 }
 
-func augmentresults(linkslice []string, page string) ([]string, error) {
+func concatenateresults(linkslice []string, page string) ([]string, error) {
 	res, err := parseHtmForLinks(page)
 	if err != nil {
 		return linkslice, err
@@ -189,62 +206,144 @@ func augmentresults(linkslice []string, page string) ([]string, error) {
 	return linkslice, nil
 }
 
-func listresults(baddeedurl shinerequest, page string, pagecount int) []string {
+func listresults(baddeedurl shinerequest,
+	pagecontent string,
+	pageno int,
+	pagecount int,
+	numberOfPages int) []string {
 
 	var linkslice []string
 	var err error
 
-	for x := 1; x <= minint(maxpages, pagecount); x++ {
-		// don't redo work we've already done
-		// use the current page in memory
-		if page != "" {
-			linkslice, err = augmentresults(linkslice, page)
+	if numberOfPages == 0 || numberOfPages > maxpages {
+		numberOfPages = maxpages
+	}
+
+	for x := pageno; x < pageno+minint(numberOfPages, pagecount); x++ {
+		// don't redo work we've already done in PING if we're just
+		// looking for the first page.
+		if pagecontent != "" && pageno == 1 {
+			log.Println("First result already in memory")
+			linkslice, err = concatenateresults(linkslice, pagecontent)
 			if err != nil {
 				log.Println(err)
 			}
-			page = ""
+			pagecontent = ""
 			continue
 		}
+
 		baddeedurl.page = strconv.Itoa(x)
+		log.Println(newSearchString(baddeedurl))
 		sr := newRequest(newSearchString(baddeedurl))
 		resp, _ := sr.Do()
-		linkslice, err = augmentresults(linkslice, resp.Data)
+
+		if resp.StatusCode != 200 {
+			log.Printf("Unsuccessful request: %s\n", resp.StatusText)
+			if len(linkslice) > 0 {
+				log.Println("Dumping results received so far:")
+				for _ , x := range linkslice {
+					fmt.Println(x)
+				}
+			}
+			log.Fatal("exiting")
+		}
+
+		linkslice, err = concatenateresults(linkslice, resp.Data)
 		if err != nil {
 			log.Println(err)
 		}
-		time.Sleep(200 * time.Millisecond)
+		time.Sleep(500 * time.Millisecond)
 	}
 	return linkslice
 }
 
+func validateHex(magic string) error {
+
+	/*hex errors to return*/
+	const NOTHEX string = "Contains invalid hexadecimal characters."
+	const UNEVEN string = "Contains uneven character count."
+	const LENGTH string = "FFB in UKWA must be four bytes."
+
+	var regexString = "^[A-Fa-f\\d]+$"
+	res, _ := regexp.MatchString(regexString, magic)
+	if res == false {
+		return fmt.Errorf(NOTHEX)
+	}
+	if len(magic)%2 != 0 {
+		return fmt.Errorf(UNEVEN)
+	}
+	if len(magic) < 8 || len(magic) > 8 {
+		return fmt.Errorf(LENGTH)
+	}
+	return nil
+}
+
+func getRandom(count int, pagecount int) (int, int) {
+
+	randno := rgen.Intn(count)
+	pageno := (randno / resultsPerPage) + 1
+	if pageno > pagecount {
+		log.Println("finding the page number for the random file failed, resetting")
+		getRandom(count, pagecount)
+	}
+	log.Printf("returning result %d", randno)
+	if randno%resultsPerPage == 0 {
+		return resultsPerPage, pageno
+	}
+	return randno % resultsPerPage, pageno
+}
+
 func getFile() {
 
-	baddeedurl := newSearch(1, "0baddeed", "crawl_date", "asc")
-	if ffb != "" {
-		baddeedurl = newSearch(1, ffb, "crawl_date", "asc")
+	// Override ffb and enter GIF mode...
+	if gif == true {
+		log.Println("Searching UKWA in GIF mode")
+		ffb = ffbgif
 	}
 
-	log.Printf("URL: %s\n", baddeedurl)
-	page, count, pagecount := ping(newSearchString(baddeedurl))
+	err := validateHex(ffb)
+	if err != nil {
+		log.Fatal("Invalid hexadecimal string: ", err)
+	}
+
+	// Ping the first page to configure our search...
+	baddeedurl := newSearch(1, ffb, "crawl_date", "asc")
+	pagecontent, count, pagecount := ping(newSearchString(baddeedurl))
 
 	// if this, our work is done...
 	if stat || count == 0 {
 		return
 	}
 
-	linkslice := listresults(baddeedurl, page, pagecount)
+	// SOLR has a issue deep paging beyond 10,000 results. This eats RAM and
+	// CPU. Be kind to the UKWA Shine Project and don't make the pagecouny
+	// any higher than that.
+	if pagecount >= solrmax {
+		pagecount = solrlimit
+		count = solrlimit * resultsPerPage
+	}
 
 	if random && !list {
-		randno = rgen.Intn(len(linkslice))
+		randno, pageno := getRandom(count, pagecount)
+		linkslice := listresults(baddeedurl, pagecontent, pageno, pagecount, 1)
 		fmt.Println(linkslice[randno])
 		return
 	}
+
+	// List results from specific page no.
+	numberOfPages := maxpages
+	if pagecount < page {
+		page = pagecount
+		numberOfPages = 1
+		log.Println("page number too high, returning last page of results")
+	}
+
+	linkslice := listresults(baddeedurl, pagecontent, page, pagecount, numberOfPages)
 
 	log.Printf("Returning %d results\n", len(linkslice))
 	for _, l := range linkslice {
 		fmt.Println(l)
 	}
-
 }
 
 func main() {
@@ -255,9 +354,14 @@ func main() {
 	} else if flag.NFlag() < 0 { // can access args w/ len(os.Args[1:]) too
 		fmt.Fprintln(os.Stderr, "Usage:  baddeed")
 		fmt.Fprintln(os.Stderr, "        OPTIONAL: [-ffb] ... OPTIONAL: [-list] ...")
+		fmt.Fprintln(os.Stderr, "        OPTIONAL: [-gif] ...")
 		fmt.Fprintln(os.Stderr, "        OPTIONAL: [-stat]")
 		fmt.Fprintln(os.Stderr, "")
 		fmt.Fprintln(os.Stderr, "Output: [STRING] {url}")
+		fmt.Fprintln(os.Stderr, "Output: [LIST]   {url}")
+		fmt.Fprintln(os.Stderr, "                 {url}")
+		fmt.Fprintln(os.Stderr, "                  ... ")
+		fmt.Fprintln(os.Stderr, "                  ... ")
 		fmt.Fprintf(os.Stderr, "Output: [STRING] '%s ...'\n\n", agent)
 		flag.Usage()
 		os.Exit(0)

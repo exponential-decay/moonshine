@@ -8,13 +8,17 @@ Full usage:
 ```
 Usage of ./moonshine:
   -ffb string
-    	first four bytes of file to find (default "0baddeed")
+      first four bytes of file to find (default "0baddeed")
+  -gif
+      return a single gif from the UKWA
   -list
-    	list up to the first five pages results
+      list the first five pages from page number
+  -page int
+      specify a page number to return from (default 1)
   -random
-    	return a random link to a file (default true)
+      return a random link to a file (default true)
   -stat
-    	stat the resource
+      stat the resource
   -version
-    	Return version.
+      Return version
 ```

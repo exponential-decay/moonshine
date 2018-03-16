@@ -17,6 +17,7 @@ type htmCount struct {
 var htmCountTests = []htmCount{
 	{"baddeed.html.test", 179, 18},
 	{"d0cf11e0.html.test", 5501087, 550109},
+	{"gif89.html.test", 133576903, 13357691},
 }
 
 func getHtm(fname string) string {
