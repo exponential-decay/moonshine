@@ -24,7 +24,7 @@ type shinerequest struct {
 	order    string // order=asc
 }
 
-const agent string = "moonshine-api-wrapper/0.0.2"
+const agent string = "moonshine-api-wrapper/0.0.3"
 const maxpages int = 5
 const solrmax int = 10
 const resultsPerPage int = 10
@@ -241,7 +241,7 @@ func listresults(baddeedurl shinerequest,
 			log.Printf("Unsuccessful request: %s\n", resp.StatusText)
 			if len(linkslice) > 0 {
 				log.Println("Dumping results received so far:")
-				for _ , x := range linkslice {
+				for _, x := range linkslice {
 					fmt.Println(x)
 				}
 			}
@@ -301,6 +301,8 @@ func getFile() {
 		ffb = ffbgif
 	}
 
+	// Convert ffb to lowercase for Shine then validate
+	ffb = strings.ToLower(ffb)
 	err := validateHex(ffb)
 	if err != nil {
 		log.Fatal("Invalid hexadecimal string: ", err)
