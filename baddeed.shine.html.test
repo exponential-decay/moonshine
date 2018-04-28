@@ -7,7 +7,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="">
 		<meta name="author" content="">
-		
+
 		<link rel="stylesheet" media="screen" href="/shine/assets/stylesheets/main.css">
 		<link rel="shortcut icon" type="image/png" href="/shine/assets/images/favicon.png">
 		<link rel="stylesheet" media="screen" href="/shine/assets/bootstrap/css/bootstrap.min.css">
@@ -18,15 +18,15 @@
 		<script src="/shine/assets/bootstrap/js/modal.js" type="text/javascript"></script>
 		<script src="/shine/assets/bootstrap/js/button.js" type="text/javascript"></script>
 		<script type="text/javascript" src="/shine/assets/javascripts/routes"></script>
-		
-		
+
+
 	<link rel="stylesheet" type="text/css" media="screen" href="/shine/assets/bootstrap/typeahead/css/typeahead.css">
 
-		
+
 	<script src="/shine/assets/javascripts/tooltip.js" type="text/javascript"></script>
 	<script src="/shine/assets/javascripts/jquery.validate.min.js" type="text/javascript"></script>
 	<script src="/shine/assets/javascripts/search.js" type="text/javascript"></script>
-	
+
 	<script type="text/javascript">
 		$(document).ready(function() {
 
@@ -34,9 +34,9 @@
 	  		$('#order').val('asc')
 
 	  		$('#current-url').text(window.location.search);
-	  		
+
 			$('#export-message').addClass('hide');
-			
+
 	  		// if facet.show=crawl_year
 	  		var facetShow = getURLParameter("facet.show");
 	  		if (facetShow) {
@@ -46,9 +46,9 @@
 					//console.log(">>> " + link);
 					$(link).trigger("click");
 				});
-	  			
+
 	  		}
-	  		
+
 			$('#ajax-loader').hide();
 
 			function disableForm() {
@@ -57,7 +57,7 @@
 				$('#search').attr('disabled', 'disabled');
 				$('#reset').attr('disabled', 'disabled');
 			}
-			
+
 			function enableForm() {
 				$('#ajax-loader').hide();
 				$('#query').removeAttr('disabled');
@@ -76,10 +76,10 @@
 				var mode = $(this).attr('id');
 				$('#modeValue').val(mode);
 			});
-			
+
 			var sample = 'Sample Mode';
 			var full = 'Full Mode';
-			
+
 			//read back in the search mode
 			var mode = getURLParameter('mode');
 			var dropdown = $('#search-dropdown');
@@ -94,11 +94,11 @@
 				$('#modeValue').val('');
 				dropdown.html(sample + " <span class='caret'></span>");
 			}
-			
+
 			$('#search').on('click', function() {
 				doSearch();
 			});
-			
+
 			function doSearch() {
 				if ($('#search-form').valid()) {
 					if ($('#addFacet').val() == "") {
@@ -110,42 +110,42 @@
 					if ($('#tab').val() == "") {
 						$('#tab').prop("disabled", true);
 					}
-					
+
 					processSelectedResources();
 				    $('#action').val('search');
 
 					modalLoader();
 				    // add to parameters then submit
 				    // &facet.fields=postcode_district
-				    
+
 					$('#search-form').submit();
 				}
 
 			}
-			
+
 			function buildDefaultFacets() {
 			    var crawl_year = $("<input>")
 	       			.attr("type", "hidden")
 	       			.attr("name", "facet.fields").val("crawl_year");
-				
+
 			    var public_suffix = $("<input>")
 	       			.attr("type", "hidden")
 	       			.attr("name", "facet.fields").val("public_suffix");
-			    
+
 			    $('#search-form').append($(crawl_year)).append($(public_suffix));
 			}
-			
+
 			function createSummary() {
-				
+
 				var query = $('<li class="summary-li">').html("Search Term(s): " + $("#query").val());
 				var line = "";
 				$('#search-summary').append(query);
-				
+
 				$('ul.facet-heading').each(function(index) {
-					
+
 					// check form fields
 					var facet_options = $(this).find('li.facet-options');
-					
+
 					var total = facet_options.length;
 
 					var facet_main = $(this).parent().parent().find('div.facet-main');
@@ -153,9 +153,9 @@
 					var values = "";
 					var facetValue = facet_main.find('input[type=hidden]:first').val();
 					var invert = facet_main.find('input[type=hidden]:last').val();
-					
+
 					console.log(facetValue + "/" + facetValue.length + " - " + invert + "/" + invert.length);
-					
+
 					// +/-
 					facet_options.each(function(index) {
 						if (name.length == 0) {
@@ -169,7 +169,7 @@
 							}
 						}
 						var facet_option = $(this);
-						
+
 						var include = facet_option.find('input.include');
 						var exclude = facet_option.find('input.exclude');
 
@@ -189,7 +189,7 @@
 
 					});
 				});
-				
+
 				createSummaryExclusions();
 
 			}
@@ -214,7 +214,7 @@
 					doSearch();
 				});
 			}
-			
+
 			resetFacets();
 			searchTabs();
 			facetOptions();
@@ -231,11 +231,11 @@
 		});
 	</script>
 
-		
+
 	</head>
 	<body>
 		<nav class="navbar navbar-default" role="navigation">
-  			<div class="navbar-header">		
+  			<div class="navbar-header">
     			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
       				<span class="sr-only">Toggle navigation</span>
       				<span class="icon-bar"></span>
@@ -253,11 +253,11 @@
 	           		<li class=""><a class="white-text"  href="/shine/graph">Trends</a></li>
 				</ul>
 				<div class="navbar-right">
-					
-					<!-- 
+
+					<!--
 		           		<a class="btn btn-success navbar-btn" href="/shine/login">Login</a>
                      -->
-		           	
+
 				</div>
 			</div>
 		</nav>
@@ -274,43 +274,43 @@
 	      } else if($.cookie('alert-beta-service-warning') == 'close') {
 	          $("#alert-beta-service-warning").hide();
 	      }
-	        
+
 	      function hideMe(){
 	        $.cookie('alert-beta-service-warning', 'close', {expires:7 });
 	        $("#alert-beta-service-warning").hide();
 	      }
 	    </script>
 		 <!-- End Of: Warning banner and show/hide logic... -->
-	        
-			
 
-	
+
+
+
 
 
 
 <ul class="nav nav-tabs">
- 
+
 
   	<li class="active"><a href="/shine/search?facet.sort=index&tab=results">Search</a></li>
     <li><a href="/shine/search/advanced">Advanced Search</a></li>
     <li><a href="/shine/search/tips">Search Tips</a></li>
-	
-	
-  
+
+
+
 
 </ul>
 
 	<div class="padding-20">
 
-		 
+
 
 <form action="/shine/search" method="GET" id="search-form">
-    
-	
+
+
 			<div class="row">
-				
+
 					<div class="col-md-4 col-sm-4">
-						
+
 
 
 
@@ -322,9 +322,9 @@
 
 <div class="panel panel-default">
 	<input id="facet-sort" class="hide" type="checkbox" name="facet.sort" value=""  />
-	
+
 		<input type="hidden" name="page" value="1" />
-	
+
 	<div class="padding-5 pull-right">
 		<button class="facet-sort btn btn-primary btn-xs" type="button" value="value" id="facet-sort-value" data-toggle="tooltip" data-placement="top" title="Sort by Index">
 			<span class="glyphicon glyphicon-sort-by-alphabet"></span>
@@ -333,9 +333,9 @@
 			<span class="glyphicon glyphicon-sort-by-order-alt"></span>
 		</button>
 	</div>
-	
-	
-		
+
+
+
 			<div class="panel-body content_type_norm">
    				<div class="facet-main">
 					<a class="facet-heading"><strong>General Content Type</strong></a> <span class="badge">1</span>
@@ -346,7 +346,7 @@
 							<span class="glyphicon glyphicon-cog"></span>
 						</button>
 						<ul class="dropdown-menu" role="menu">
-							
+
 							<li><a href="#" class="facet-invert" id="invertmenu_content_type_norm">(+-) Exclude selected values</a></li>
 							<li><a href="#" class="facet-remove">(x) remove this facet </a></li>
 							<li><a href="#" class="facet-search">(+) search for another facet value  </a></li>
@@ -355,10 +355,10 @@
    				</div>
    				<div class="facet-index">
 					<ul class="list-unstyled facet-heading">
-						
-							
+
+
    								<li class="facet-options show" data-attr="default">
-							
+
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
 								<a class="facet-name">powerpoint</a> <span class="badge">179</span>
@@ -367,8 +367,8 @@
 							</li>
 					        <!-- dynamically add checked="true"? -->
 					        <!-- OR use some kind of link constructor? -->
-						
-						
+
+
 					</ul>
 					<div id="add-more-option-0" class="input-group input-group-sm hide">
 						<span class="input-group-btn">
@@ -385,14 +385,14 @@
 							<a href="#" title="Close" class="close-facet-value" id="close-search-0">
 								<span class="glyphicon glyphicon-remove-sign"></span>
 							</a>
-							
+
 						</span>
 						<span class="tt-dropdown-menu" style="position: absolute; top: 100%; left: 0px; z-index: 100; display: none; right: auto;">
 						</span>
 					</div>
    				</div>
 			</div>
-		
+
 			<div class="panel-body crawl_year">
    				<div class="facet-main">
 					<a class="facet-heading"><strong>Crawl Years</strong></a> <span class="badge">10</span>
@@ -403,10 +403,10 @@
 							<span class="glyphicon glyphicon-cog"></span>
 						</button>
 						<ul class="dropdown-menu" role="menu">
-							
+
 								<li><a href="#" class="facet-sort-alpha">(az) sort values alphabetically </a></li>
 								<li><a href="#" class="facet-sort-freq">(01) sort values by frequency </a></li>
-							
+
 							<li><a href="#" class="facet-invert" id="invertmenu_crawl_year">(+-) Exclude selected values</a></li>
 							<li><a href="#" class="facet-remove">(x) remove this facet </a></li>
 							<li><a href="#" class="facet-search">(+) search for another facet value  </a></li>
@@ -415,10 +415,10 @@
    				</div>
    				<div class="facet-index">
 					<ul class="list-unstyled facet-heading">
-						
-							
+
+
    								<li class="facet-options show" data-attr="default">
-							
+
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
 								<a class="facet-name">2004</a> <span class="badge">62</span>
@@ -427,10 +427,10 @@
 							</li>
 					        <!-- dynamically add checked="true"? -->
 					        <!-- OR use some kind of link constructor? -->
-						
-							
+
+
    								<li class="facet-options show" data-attr="default">
-							
+
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
 								<a class="facet-name">1997</a> <span class="badge">31</span>
@@ -439,10 +439,10 @@
 							</li>
 					        <!-- dynamically add checked="true"? -->
 					        <!-- OR use some kind of link constructor? -->
-						
-							
+
+
    								<li class="facet-options show" data-attr="default">
-							
+
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
 								<a class="facet-name">2003</a> <span class="badge">15</span>
@@ -451,10 +451,10 @@
 							</li>
 					        <!-- dynamically add checked="true"? -->
 					        <!-- OR use some kind of link constructor? -->
-						
-							
+
+
    								<li class="facet-options show" data-attr="default">
-							
+
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
 								<a class="facet-name">1998</a> <span class="badge">14</span>
@@ -463,10 +463,10 @@
 							</li>
 					        <!-- dynamically add checked="true"? -->
 					        <!-- OR use some kind of link constructor? -->
-						
-							
+
+
    								<li class="facet-options show" data-attr="default">
-							
+
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
 								<a class="facet-name">2005</a> <span class="badge">14</span>
@@ -475,10 +475,10 @@
 							</li>
 					        <!-- dynamically add checked="true"? -->
 					        <!-- OR use some kind of link constructor? -->
-						
-							
+
+
    								<li class="facet-options hide">
-							
+
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
 								<a class="facet-name">2006</a> <span class="badge">14</span>
@@ -487,10 +487,10 @@
 							</li>
 					        <!-- dynamically add checked="true"? -->
 					        <!-- OR use some kind of link constructor? -->
-						
-							
+
+
    								<li class="facet-options hide">
-							
+
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
 								<a class="facet-name">2007</a> <span class="badge">13</span>
@@ -499,10 +499,10 @@
 							</li>
 					        <!-- dynamically add checked="true"? -->
 					        <!-- OR use some kind of link constructor? -->
-						
-							
+
+
    								<li class="facet-options hide">
-							
+
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
 								<a class="facet-name">2000</a> <span class="badge">8</span>
@@ -511,10 +511,10 @@
 							</li>
 					        <!-- dynamically add checked="true"? -->
 					        <!-- OR use some kind of link constructor? -->
-						
-							
+
+
    								<li class="facet-options hide">
-							
+
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
 								<a class="facet-name">1999</a> <span class="badge">5</span>
@@ -523,10 +523,10 @@
 							</li>
 					        <!-- dynamically add checked="true"? -->
 					        <!-- OR use some kind of link constructor? -->
-						
-							
+
+
    								<li class="facet-options hide">
-							
+
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
 								<a class="facet-name">2001</a> <span class="badge">3</span>
@@ -535,12 +535,12 @@
 							</li>
 					        <!-- dynamically add checked="true"? -->
 					        <!-- OR use some kind of link constructor? -->
-						
-						
-							<li> 
+
+
+							<li>
     							<a id="crawl_year" class="show-more" href="#"><span class="glyphicon glyphicon-plus-sign"></span> <span>Show more...</span></a>
      						</li>
-    					
+
 					</ul>
 					<div id="add-more-option-1" class="input-group input-group-sm hide">
 						<span class="input-group-btn">
@@ -557,14 +557,14 @@
 							<a href="#" title="Close" class="close-facet-value" id="close-search-1">
 								<span class="glyphicon glyphicon-remove-sign"></span>
 							</a>
-							
+
 						</span>
 						<span class="tt-dropdown-menu" style="position: absolute; top: 100%; left: 0px; z-index: 100; display: none; right: auto;">
 						</span>
 					</div>
    				</div>
 			</div>
-		
+
 			<div class="panel-body postcode_district">
    				<div class="facet-main">
 					<a class="facet-heading"><strong>Postcode District</strong></a> <span class="badge">0</span>
@@ -575,7 +575,7 @@
 							<span class="glyphicon glyphicon-cog"></span>
 						</button>
 						<ul class="dropdown-menu" role="menu">
-							
+
 							<li><a href="#" class="facet-invert" id="invertmenu_postcode_district">(+-) Exclude selected values</a></li>
 							<li><a href="#" class="facet-remove">(x) remove this facet </a></li>
 							<li><a href="#" class="facet-search">(+) search for another facet value  </a></li>
@@ -584,8 +584,8 @@
    				</div>
    				<div class="facet-index">
 					<ul class="list-unstyled facet-heading">
-						
-						
+
+
 					</ul>
 					<div id="add-more-option-2" class="input-group input-group-sm hide">
 						<span class="input-group-btn">
@@ -602,14 +602,14 @@
 							<a href="#" title="Close" class="close-facet-value" id="close-search-2">
 								<span class="glyphicon glyphicon-remove-sign"></span>
 							</a>
-							
+
 						</span>
 						<span class="tt-dropdown-menu" style="position: absolute; top: 100%; left: 0px; z-index: 100; display: none; right: auto;">
 						</span>
 					</div>
    				</div>
 			</div>
-		
+
 			<div class="panel-body public_suffix">
    				<div class="facet-main">
 					<a class="facet-heading"><strong>Public Suffix</strong></a> <span class="badge">2</span>
@@ -620,7 +620,7 @@
 							<span class="glyphicon glyphicon-cog"></span>
 						</button>
 						<ul class="dropdown-menu" role="menu">
-							
+
 							<li><a href="#" class="facet-invert" id="invertmenu_public_suffix">(+-) Exclude selected values</a></li>
 							<li><a href="#" class="facet-remove">(x) remove this facet </a></li>
 							<li><a href="#" class="facet-search">(+) search for another facet value  </a></li>
@@ -629,10 +629,10 @@
    				</div>
    				<div class="facet-index">
 					<ul class="list-unstyled facet-heading">
-						
-							
+
+
    								<li class="facet-options show" data-attr="default">
-							
+
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
 								<a class="facet-name">ac.uk</a> <span class="badge">169</span>
@@ -641,10 +641,10 @@
 							</li>
 					        <!-- dynamically add checked="true"? -->
 					        <!-- OR use some kind of link constructor? -->
-						
-							
+
+
    								<li class="facet-options show" data-attr="default">
-							
+
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
 								<a class="facet-name">org.uk</a> <span class="badge">10</span>
@@ -653,8 +653,8 @@
 							</li>
 					        <!-- dynamically add checked="true"? -->
 					        <!-- OR use some kind of link constructor? -->
-						
-						
+
+
 					</ul>
 					<div id="add-more-option-3" class="input-group input-group-sm hide">
 						<span class="input-group-btn">
@@ -671,14 +671,14 @@
 							<a href="#" title="Close" class="close-facet-value" id="close-search-3">
 								<span class="glyphicon glyphicon-remove-sign"></span>
 							</a>
-							
+
 						</span>
 						<span class="tt-dropdown-menu" style="position: absolute; top: 100%; left: 0px; z-index: 100; display: none; right: auto;">
 						</span>
 					</div>
    				</div>
 			</div>
-		
+
 			<div class="panel-body content_language">
    				<div class="facet-main">
 					<a class="facet-heading"><strong>Language</strong></a> <span class="badge">0</span>
@@ -689,7 +689,7 @@
 							<span class="glyphicon glyphicon-cog"></span>
 						</button>
 						<ul class="dropdown-menu" role="menu">
-							
+
 							<li><a href="#" class="facet-invert" id="invertmenu_content_language">(+-) Exclude selected values</a></li>
 							<li><a href="#" class="facet-remove">(x) remove this facet </a></li>
 							<li><a href="#" class="facet-search">(+) search for another facet value  </a></li>
@@ -698,8 +698,8 @@
    				</div>
    				<div class="facet-index">
 					<ul class="list-unstyled facet-heading">
-						
-						
+
+
 					</ul>
 					<div id="add-more-option-4" class="input-group input-group-sm hide">
 						<span class="input-group-btn">
@@ -716,14 +716,14 @@
 							<a href="#" title="Close" class="close-facet-value" id="close-search-4">
 								<span class="glyphicon glyphicon-remove-sign"></span>
 							</a>
-							
+
 						</span>
 						<span class="tt-dropdown-menu" style="position: absolute; top: 100%; left: 0px; z-index: 100; display: none; right: auto;">
 						</span>
 					</div>
    				</div>
 			</div>
-		
+
 			<div class="panel-body domain">
    				<div class="facet-main">
 					<a class="facet-heading"><strong>Domain</strong></a> <span class="badge">10</span>
@@ -734,7 +734,7 @@
 							<span class="glyphicon glyphicon-cog"></span>
 						</button>
 						<ul class="dropdown-menu" role="menu">
-							
+
 							<li><a href="#" class="facet-invert" id="invertmenu_domain">(+-) Exclude selected values</a></li>
 							<li><a href="#" class="facet-remove">(x) remove this facet </a></li>
 							<li><a href="#" class="facet-search">(+) search for another facet value  </a></li>
@@ -743,10 +743,10 @@
    				</div>
    				<div class="facet-index">
 					<ul class="list-unstyled facet-heading">
-						
-							
+
+
    								<li class="facet-options show" data-attr="default">
-							
+
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
 								<a class="facet-name">qmul.ac.uk</a> <span class="badge">72</span>
@@ -755,10 +755,10 @@
 							</li>
 					        <!-- dynamically add checked="true"? -->
 					        <!-- OR use some kind of link constructor? -->
-						
-							
+
+
    								<li class="facet-options show" data-attr="default">
-							
+
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
 								<a class="facet-name">bton.ac.uk</a> <span class="badge">39</span>
@@ -767,10 +767,10 @@
 							</li>
 					        <!-- dynamically add checked="true"? -->
 					        <!-- OR use some kind of link constructor? -->
-						
-							
+
+
    								<li class="facet-options show" data-attr="default">
-							
+
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
 								<a class="facet-name">brighton.ac.uk</a> <span class="badge">25</span>
@@ -779,10 +779,10 @@
 							</li>
 					        <!-- dynamically add checked="true"? -->
 					        <!-- OR use some kind of link constructor? -->
-						
-							
+
+
    								<li class="facet-options show" data-attr="default">
-							
+
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
 								<a class="facet-name">staffs.ac.uk</a> <span class="badge">9</span>
@@ -791,10 +791,10 @@
 							</li>
 					        <!-- dynamically add checked="true"? -->
 					        <!-- OR use some kind of link constructor? -->
-						
-							
+
+
    								<li class="facet-options show" data-attr="default">
-							
+
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
 								<a class="facet-name">parkinsons.org.uk</a> <span class="badge">7</span>
@@ -803,10 +803,10 @@
 							</li>
 					        <!-- dynamically add checked="true"? -->
 					        <!-- OR use some kind of link constructor? -->
-						
-							
+
+
    								<li class="facet-options show" data-attr="default">
-							
+
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
 								<a class="facet-name">bris.ac.uk</a> <span class="badge">4</span>
@@ -815,10 +815,10 @@
 							</li>
 					        <!-- dynamically add checked="true"? -->
 					        <!-- OR use some kind of link constructor? -->
-						
-							
+
+
    								<li class="facet-options show" data-attr="default">
-							
+
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
 								<a class="facet-name">dmu.ac.uk</a> <span class="badge">4</span>
@@ -827,10 +827,10 @@
 							</li>
 					        <!-- dynamically add checked="true"? -->
 					        <!-- OR use some kind of link constructor? -->
-						
-							
+
+
    								<li class="facet-options show" data-attr="default">
-							
+
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
 								<a class="facet-name">qmw.ac.uk</a> <span class="badge">4</span>
@@ -839,10 +839,10 @@
 							</li>
 					        <!-- dynamically add checked="true"? -->
 					        <!-- OR use some kind of link constructor? -->
-						
-							
+
+
    								<li class="facet-options show" data-attr="default">
-							
+
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
 								<a class="facet-name">ukoln.ac.uk</a> <span class="badge">4</span>
@@ -851,10 +851,10 @@
 							</li>
 					        <!-- dynamically add checked="true"? -->
 					        <!-- OR use some kind of link constructor? -->
-						
-							
+
+
    								<li class="facet-options show" data-attr="default">
-							
+
 								<a class="facet include" href="" title="Include"><span class="glyphicon glyphicon-plus-sign facet-deselected"></span></a>
 								<a class="facet exclude" href="" title="Exclude"><span class="glyphicon glyphicon-minus-sign facet-deselected"></span></a>
 								<a class="facet-name">sunsite.org.uk</a> <span class="badge">3</span>
@@ -863,8 +863,8 @@
 							</li>
 					        <!-- dynamically add checked="true"? -->
 					        <!-- OR use some kind of link constructor? -->
-						
-						
+
+
 					</ul>
 					<div id="add-more-option-5" class="input-group input-group-sm hide">
 						<span class="input-group-btn">
@@ -881,14 +881,14 @@
 							<a href="#" title="Close" class="close-facet-value" id="close-search-5">
 								<span class="glyphicon glyphicon-remove-sign"></span>
 							</a>
-							
+
 						</span>
 						<span class="tt-dropdown-menu" style="position: absolute; top: 100%; left: 0px; z-index: 100; display: none; right: auto;">
 						</span>
 					</div>
    				</div>
 			</div>
-		
+
 			<div class="panel-body links_domains">
    				<div class="facet-main">
 					<a class="facet-heading"><strong>Links Domains</strong></a> <span class="badge">0</span>
@@ -899,7 +899,7 @@
 							<span class="glyphicon glyphicon-cog"></span>
 						</button>
 						<ul class="dropdown-menu" role="menu">
-							
+
 							<li><a href="#" class="facet-invert" id="invertmenu_links_domains">(+-) Exclude selected values</a></li>
 							<li><a href="#" class="facet-remove">(x) remove this facet </a></li>
 							<li><a href="#" class="facet-search">(+) search for another facet value  </a></li>
@@ -908,8 +908,8 @@
    				</div>
    				<div class="facet-index">
 					<ul class="list-unstyled facet-heading">
-						
-						
+
+
 					</ul>
 					<div id="add-more-option-6" class="input-group input-group-sm hide">
 						<span class="input-group-btn">
@@ -926,35 +926,35 @@
 							<a href="#" title="Close" class="close-facet-value" id="close-search-6">
 								<span class="glyphicon glyphicon-remove-sign"></span>
 							</a>
-							
+
 						</span>
 						<span class="tt-dropdown-menu" style="position: absolute; top: 100%; left: 0px; z-index: 100; display: none; right: auto;">
 						</span>
 					</div>
    				</div>
 			</div>
-		
-		
-				
-	
-	
+
+
+
+
+
 	<div class="panel-body">
 		<div class="row pull-right">
 			<div class="col-md-12 col-sm-12">
-				
+
 					<div class="input-group">
 						<select class="form-control" name="addFacet" id="addFacet">
 							<option value="" selected="selected">&#060;Please Select&#062;</option>
-							
+
 								<option value="links_public_suffixes">Links to Public Suffixes</option>
-							
+
 						</select>
 						<span class="input-group-btn">
 							<button id="add-facet" class="btn btn-primary" type="button" name="action" value="add-facet" data-toggle="tooltip" data-placement="top" title="Add Facet to the above list"><span>Add Facet</span> <span class="glyphicon glyphicon-plus"></span></button>
 						</span>
 					</div><!-- /input-group -->
 					<input type="hidden" name="action" value="search" id="action" />
-				
+
 			</div>
 		</div>
 		<div class="row pull-right reset-facets">
@@ -965,7 +965,7 @@
 	</div>
 </div>
 					</div>
-			
+
 					<div class="col-md-8 col-sm-8">
 						<div class="panel panel-default">
 							<div class="panel-body">
@@ -976,8 +976,8 @@
 											<li id="sample"><a href="#">Sample Mode</a></li>
 											<li id="full"><a href="#">Full Mode</a></li>
 										</ul>
-							      	</div><!-- /btn-group -->			
-					   				
+							      	</div><!-- /btn-group -->
+
 
 
 
@@ -999,14 +999,14 @@
 									<span class="input-group-btn">
 										<button type="button" class="btn btn-primary" id="search" name="action" value="search">Search</button>
 										<button type="reset" class="btn btn-primary" id="reset" name="action" value="reset">Reset</button>
-										
+
 										<!-- <img id="ajax-loader" src="assets/images/ajax-loader.gif">  -->
 									</span>
 								</div>
 								<div id="errorBox"></div>
 							</div>
 						</div>
-	
+
 						<div class="padding-20" id="summary">
 							<div class="alert alert-info">
 								<ul id="search-summary">
@@ -1015,8 +1015,8 @@
 							<div class="alert alert-danger alert-dismissible" id="export-message" role="alert">
 								<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 							</div>
-						</div>					
-	
+						</div>
+
 						<div class="padding-20 hide" id="max-view-reached">
 							<div class="alert alert-danger alert-dismissable">
 								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -1025,18 +1025,18 @@
 						</div>
 
 						<input type="hidden" name="totalCount" value="totalCount" id="totalCount" />
-						
+
 
 <ul class="nav nav-tabs">
- 
-	
+
+
 	  	<li class="active" id="resultsTab"><a href="#">Results</a></li>
 		<li id="concordanceTab"><a href="#">Concordance</a></li>
-	  
+
 
 </ul>
-						
-									
+
+
 						<div class="padding-20">
 							<div id="results">
 
@@ -1047,13 +1047,13 @@
 <div class="panel panel-default">
 	<div class="panel-heading filter-heading">
 		<h4 class="panel-title pull-left filter-heading-title">
-			
+
 			    Results <span id="displayingXOfY">1 to 10 of 179</span>
-			
+
 		</h4>
 		<span class="hide" id="current-url"></span>
 		<div class="form-inline pull-right">
-			
+
 			 	<div class="form-group">
 					<div class="btn-group">
 					  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -1063,9 +1063,9 @@
 					    <li><a href="#" id="briefCSV" data-toggle="tooltip" data-placement="top" title="Export Standard Version">Brief</a></li>
 					    <li><a href="#" id="fullCSV" data-toggle="tooltip" data-placement="top" title="Export Full Version">Full</a></li>
 					  </ul>
-					</div>			 		
+					</div>
 			 	</div>
-			
+
 			<div class="form-group">
 				<select class="form-control" name="sort" id="sort">
 					<!-- get from some where -->
@@ -1086,8 +1086,8 @@
 	</div>
 
 	<div class="panel-body">
-		
-	
+
+
 
 
 
@@ -1097,72 +1097,72 @@
 		<div class="col-md-7 col-sm7">
 			<div class="text-center paging-tabs">
 				<ul class="pagination">
-					
+
 		                <li class="prev disabled">
 		                    <a class="paging">&laquo;</a>
 		                </li>
-		            
-					
-						
-							
+
+
+
+
 							<li class="active current" id="list-1"><a href="#" class="paging" id="page-1">1 <span class="sr-only">(current)</span></a></li>
-						
-					
-						
-							
+
+
+
+
 								<li id="list-2"><a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=2&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-2" class="paging">2</a></li>
-							
-						
-					
-						
-							
+
+
+
+
+
 								<li id="list-3"><a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=3&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-3" class="paging">3</a></li>
-							
-						
-					
-						
-							
+
+
+
+
+
 								<li id="list-4"><a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=4&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-4" class="paging">4</a></li>
-							
-						
-					
-						
-							
+
+
+
+
+
 								<li id="list-5"><a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=5&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-5" class="paging">5</a></li>
-							
-						
-					
-						
-							
+
+
+
+
+
 								<li id="list-6"><a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=6&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-6" class="paging">6</a></li>
-							
-						
-					
-		        	
+
+
+
+
 		                <li class="next" id="list-BaseScalaTemplate(play.api.templates.HtmlFormat$@3680fb53)">
-							
+
 	                    		<a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=2&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-2" class="paging" data-toggle="tooltip" data-placement="right" title="Page 2">&raquo;</a>
-							
+
 		                </li>
-		            
+
 				</ul>
 			</div>
 		</div>
 		<div class="col-md-5 col-sm5">
-			
+
 				<div class="pull-right save-right">
 					<div class="btn-group">
 						<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
 							Action <span class="caret"></span>
 						</button>
 						<ul class="dropdown-menu" role="menu">
-							
+
 							<li><a href="#" class="excludeButton">Exclude</a></li>
 							<li><a href="#" class="excludeHostButton">Exclude Host</a></li>
 						</ul>
 					</div>
 			    </div>
-			
+
 		</div>
 	</div>
 
@@ -1170,10 +1170,10 @@
 
 
 		<div id="result-set">
-			
-				
-					
-	
+
+
+
+
 
 
 
@@ -1190,13 +1190,13 @@
 						Feb 10 1997 18:09:09 GMT<br />
 						powerpoint<br />
 						<span class="result-host">www.chem.ox.ac.uk</span><br />
-						
-						
+
+
 						<hr />
-							
-							
-		 					
-						
+
+
+
+
 				</p>
 			</div>
 			<div class="col-md-4 col-sm-4 checkbox">
@@ -1210,9 +1210,9 @@
 	</div>
 </div>
 
-				
-					
-	
+
+
+
 
 
 
@@ -1229,13 +1229,13 @@
 						Mar 01 1997 09:47:41 GMT<br />
 						powerpoint<br />
 						<span class="result-host">maxwell-11.cs.strath.ac.uk</span><br />
-						
-						
+
+
 						<hr />
-							
-							
-		 					
-						
+
+
+
+
 				</p>
 			</div>
 			<div class="col-md-4 col-sm-4 checkbox">
@@ -1249,9 +1249,9 @@
 	</div>
 </div>
 
-				
-					
-	
+
+
+
 
 
 
@@ -1268,13 +1268,13 @@
 						May 22 1997 22:32:14 BST<br />
 						powerpoint<br />
 						<span class="result-host">www.seg.dmu.ac.uk</span><br />
-						
-						
+
+
 						<hr />
-							
-							
-		 					
-						
+
+
+
+
 				</p>
 			</div>
 			<div class="col-md-4 col-sm-4 checkbox">
@@ -1288,9 +1288,9 @@
 	</div>
 </div>
 
-				
-					
-	
+
+
+
 
 
 
@@ -1307,13 +1307,13 @@
 						May 22 1997 22:33:40 BST<br />
 						powerpoint<br />
 						<span class="result-host">www.seg.dmu.ac.uk</span><br />
-						
-						
+
+
 						<hr />
-							
-							
-		 					
-						
+
+
+
+
 				</p>
 			</div>
 			<div class="col-md-4 col-sm-4 checkbox">
@@ -1327,9 +1327,9 @@
 	</div>
 </div>
 
-				
-					
-	
+
+
+
 
 
 
@@ -1346,13 +1346,13 @@
 						May 22 1997 22:34:25 BST<br />
 						powerpoint<br />
 						<span class="result-host">www.seg.dmu.ac.uk</span><br />
-						
-						
+
+
 						<hr />
-							
-							
-		 					
-						
+
+
+
+
 				</p>
 			</div>
 			<div class="col-md-4 col-sm-4 checkbox">
@@ -1366,9 +1366,9 @@
 	</div>
 </div>
 
-				
-					
-	
+
+
+
 
 
 
@@ -1385,13 +1385,13 @@
 						May 30 1997 00:39:12 BST<br />
 						powerpoint<br />
 						<span class="result-host">www-centrim.bus.bton.ac.uk</span><br />
-						
-						
+
+
 						<hr />
-							
-							
-		 					
-						
+
+
+
+
 				</p>
 			</div>
 			<div class="col-md-4 col-sm-4 checkbox">
@@ -1405,9 +1405,9 @@
 	</div>
 </div>
 
-				
-					
-	
+
+
+
 
 
 
@@ -1424,13 +1424,13 @@
 						May 30 1997 00:43:58 BST<br />
 						powerpoint<br />
 						<span class="result-host">www-centrim.bus.bton.ac.uk</span><br />
-						
-						
+
+
 						<hr />
-							
-							
-		 					
-						
+
+
+
+
 				</p>
 			</div>
 			<div class="col-md-4 col-sm-4 checkbox">
@@ -1444,9 +1444,9 @@
 	</div>
 </div>
 
-				
-					
-	
+
+
+
 
 
 
@@ -1463,13 +1463,13 @@
 						May 30 1997 00:44:55 BST<br />
 						powerpoint<br />
 						<span class="result-host">www-centrim.bus.bton.ac.uk</span><br />
-						
-						
+
+
 						<hr />
-							
-							
-		 					
-						
+
+
+
+
 				</p>
 			</div>
 			<div class="col-md-4 col-sm-4 checkbox">
@@ -1483,9 +1483,9 @@
 	</div>
 </div>
 
-				
-					
-	
+
+
+
 
 
 
@@ -1502,13 +1502,13 @@
 						May 30 1997 00:46:07 BST<br />
 						powerpoint<br />
 						<span class="result-host">www-centrim.bus.bton.ac.uk</span><br />
-						
-						
+
+
 						<hr />
-							
-							
-		 					
-						
+
+
+
+
 				</p>
 			</div>
 			<div class="col-md-4 col-sm-4 checkbox">
@@ -1522,9 +1522,9 @@
 	</div>
 </div>
 
-				
-					
-	
+
+
+
 
 
 
@@ -1541,13 +1541,13 @@
 						May 30 1997 00:48:11 BST<br />
 						powerpoint<br />
 						<span class="result-host">www-centrim.bus.bton.ac.uk</span><br />
-						
-						
+
+
 						<hr />
-							
-							
-		 					
-						
+
+
+
+
 				</p>
 			</div>
 			<div class="col-md-4 col-sm-4 checkbox">
@@ -1561,11 +1561,11 @@
 	</div>
 </div>
 
-				
-			
+
+
 		</div>
-		
-	
+
+
 
 
 
@@ -1575,72 +1575,72 @@
 		<div class="col-md-7 col-sm7">
 			<div class="text-center paging-tabs">
 				<ul class="pagination">
-					
+
 		                <li class="prev disabled">
 		                    <a class="paging">&laquo;</a>
 		                </li>
-		            
-					
-						
-							
+
+
+
+
 							<li class="active current" id="list-1"><a href="#" class="paging" id="page-1">1 <span class="sr-only">(current)</span></a></li>
-						
-					
-						
-							
+
+
+
+
 								<li id="list-2"><a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=2&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-2" class="paging">2</a></li>
-							
-						
-					
-						
-							
+
+
+
+
+
 								<li id="list-3"><a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=3&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-3" class="paging">3</a></li>
-							
-						
-					
-						
-							
+
+
+
+
+
 								<li id="list-4"><a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=4&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-4" class="paging">4</a></li>
-							
-						
-					
-						
-							
+
+
+
+
+
 								<li id="list-5"><a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=5&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-5" class="paging">5</a></li>
-							
-						
-					
-						
-							
+
+
+
+
+
 								<li id="list-6"><a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=6&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-6" class="paging">6</a></li>
-							
-						
-					
-		        	
+
+
+
+
 		                <li class="next" id="list-BaseScalaTemplate(play.api.templates.HtmlFormat$@3680fb53)">
-							
+
 	                    		<a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=2&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=results&action=search&mode=" id="page-2" class="paging" data-toggle="tooltip" data-placement="right" title="Page 2">&raquo;</a>
-							
+
 		                </li>
-		            
+
 				</ul>
 			</div>
 		</div>
 		<div class="col-md-5 col-sm5">
-			
+
 				<div class="pull-right save-right">
 					<div class="btn-group">
 						<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
 							Action <span class="caret"></span>
 						</button>
 						<ul class="dropdown-menu" role="menu">
-							
+
 							<li><a href="#" class="excludeButton">Exclude</a></li>
 							<li><a href="#" class="excludeHostButton">Exclude Host</a></li>
 						</ul>
 					</div>
 			    </div>
-			
+
 		</div>
 	</div>
 
@@ -1657,8 +1657,8 @@
 
 <div class="panel-body">
 
-	
-	
+
+
 
 
 
@@ -1668,59 +1668,59 @@
 		<div class="col-md-7 col-sm7">
 			<div class="text-center paging-tabs">
 				<ul class="pagination">
-					
+
 		                <li class="prev disabled">
 		                    <a class="paging">&laquo;</a>
 		                </li>
-		            
-					
-						
-							
+
+
+
+
 							<li class="active current" id="list-1"><a href="#" class="paging" id="page-1">1 <span class="sr-only">(current)</span></a></li>
-						
-					
-						
-							
+
+
+
+
 								<li id="list-2"><a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=2&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-2" class="paging">2</a></li>
-							
-						
-					
-						
-							
+
+
+
+
+
 								<li id="list-3"><a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=3&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-3" class="paging">3</a></li>
-							
-						
-					
-						
-							
+
+
+
+
+
 								<li id="list-4"><a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=4&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-4" class="paging">4</a></li>
-							
-						
-					
-						
-							
+
+
+
+
+
 								<li id="list-5"><a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=5&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-5" class="paging">5</a></li>
-							
-						
-					
-						
-							
+
+
+
+
+
 								<li id="list-6"><a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=6&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-6" class="paging">6</a></li>
-							
-						
-					
-		        	
+
+
+
+
 		                <li class="next" id="list-BaseScalaTemplate(play.api.templates.HtmlFormat$@3680fb53)">
-							
+
 	                    		<a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=2&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-2" class="paging" data-toggle="tooltip" data-placement="right" title="Page 2">&raquo;</a>
-							
+
 		                </li>
-		            
+
 				</ul>
 			</div>
 		</div>
 		<div class="col-md-5 col-sm5">
-			
+
 		</div>
 	</div>
 
@@ -1728,7 +1728,7 @@
 
 
 	<div id="concordance-set">
-	
+
 		<div class="list-group">
 			<table class="table">
 				<thead>
@@ -1738,11 +1738,11 @@
 						<th></th>
 					</tr>
 				</thead>
-				<tbody>					  				
-					
-						
-							
-	
+				<tbody>
+
+
+
+
 
 <tr>
 	<td>
@@ -1751,19 +1751,19 @@
 	<td>ox.ac.uk</td>
 	<td>
 
-		
-		
-		
-		
-		
+
+
+
+
+
 	</td>
 </tr>
 
 
 
-						
-							
-	
+
+
+
 
 <tr>
 	<td>
@@ -1772,19 +1772,19 @@
 	<td>strath.ac.uk</td>
 	<td>
 
-		
-		
-		
-		
-		
+
+
+
+
+
 	</td>
 </tr>
 
 
 
-						
-							
-	
+
+
+
 
 <tr>
 	<td>
@@ -1793,19 +1793,19 @@
 	<td>dmu.ac.uk</td>
 	<td>
 
-		
-		
-		
-		
-		
+
+
+
+
+
 	</td>
 </tr>
 
 
 
-						
-							
-	
+
+
+
 
 <tr>
 	<td>
@@ -1814,19 +1814,19 @@
 	<td>dmu.ac.uk</td>
 	<td>
 
-		
-		
-		
-		
-		
+
+
+
+
+
 	</td>
 </tr>
 
 
 
-						
-							
-	
+
+
+
 
 <tr>
 	<td>
@@ -1835,19 +1835,19 @@
 	<td>dmu.ac.uk</td>
 	<td>
 
-		
-		
-		
-		
-		
+
+
+
+
+
 	</td>
 </tr>
 
 
 
-						
-							
-	
+
+
+
 
 <tr>
 	<td>
@@ -1856,19 +1856,19 @@
 	<td>bton.ac.uk</td>
 	<td>
 
-		
-		
-		
-		
-		
+
+
+
+
+
 	</td>
 </tr>
 
 
 
-						
-							
-	
+
+
+
 
 <tr>
 	<td>
@@ -1877,19 +1877,19 @@
 	<td>bton.ac.uk</td>
 	<td>
 
-		
-		
-		
-		
-		
+
+
+
+
+
 	</td>
 </tr>
 
 
 
-						
-							
-	
+
+
+
 
 <tr>
 	<td>
@@ -1898,19 +1898,19 @@
 	<td>bton.ac.uk</td>
 	<td>
 
-		
-		
-		
-		
-		
+
+
+
+
+
 	</td>
 </tr>
 
 
 
-						
-							
-	
+
+
+
 
 <tr>
 	<td>
@@ -1919,19 +1919,19 @@
 	<td>bton.ac.uk</td>
 	<td>
 
-		
-		
-		
-		
-		
+
+
+
+
+
 	</td>
 </tr>
 
 
 
-						
-							
-	
+
+
+
 
 <tr>
 	<td>
@@ -1940,25 +1940,25 @@
 	<td>bton.ac.uk</td>
 	<td>
 
-		
-		
-		
-		
-		
+
+
+
+
+
 	</td>
 </tr>
 
 
 
-						
-					
+
+
 				</tbody>
 			</table>
 		</div>
-	</div>	
-	
-	
-	
+	</div>
+
+
+
 
 
 
@@ -1968,79 +1968,79 @@
 		<div class="col-md-7 col-sm7">
 			<div class="text-center paging-tabs">
 				<ul class="pagination">
-					
+
 		                <li class="prev disabled">
 		                    <a class="paging">&laquo;</a>
 		                </li>
-		            
-					
-						
-							
+
+
+
+
 							<li class="active current" id="list-1"><a href="#" class="paging" id="page-1">1 <span class="sr-only">(current)</span></a></li>
-						
-					
-						
-							
+
+
+
+
 								<li id="list-2"><a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=2&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-2" class="paging">2</a></li>
-							
-						
-					
-						
-							
+
+
+
+
+
 								<li id="list-3"><a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=3&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-3" class="paging">3</a></li>
-							
-						
-					
-						
-							
+
+
+
+
+
 								<li id="list-4"><a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=4&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-4" class="paging">4</a></li>
-							
-						
-					
-						
-							
+
+
+
+
+
 								<li id="list-5"><a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=5&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-5" class="paging">5</a></li>
-							
-						
-					
-						
-							
+
+
+
+
+
 								<li id="list-6"><a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=6&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-6" class="paging">6</a></li>
-							
-						
-					
-		        	
+
+
+
+
 		                <li class="next" id="list-BaseScalaTemplate(play.api.templates.HtmlFormat$@3680fb53)">
-							
+
 	                    		<a href="/shine/search?query=content_ffb%3A%220baddeed%22&amp;page=2&amp;sort=crawl_date&amp;sort=crawl_date&amp;order=asc&tab=concordance&action=search&mode=" id="page-2" class="paging" data-toggle="tooltip" data-placement="right" title="Page 2">&raquo;</a>
-							
+
 		                </li>
-		            
+
 				</ul>
 			</div>
 		</div>
 		<div class="col-md-5 col-sm5">
-			
+
 		</div>
 	</div>
 
 
 
-	
+
 </div>
 
 </div>
-						</div>	
+						</div>
 					</div>
-				
+
 			</div>
 			<input type="hidden" name="mode" value="sample" id="modeValue" />
-		
+
 </form>
 
 	</div>
 	<input type="hidden" id="export_url" value="/shine/search/export">
-	
+
 	<div id="save-search-form" class="modal fade" tabindex="-1" role="dialog">
 	<div class="modal-dialog modal-vertical-centered">
     	<div class="modal-content">
@@ -2056,7 +2056,7 @@
 							<input type="text" name="saveName" id="saveName" class="form-control">
 					    </div>
 					</div>
-					<div class="form-group">				
+					<div class="form-group">
 			    		<label for="save-description" class="col-sm-2 control-label">Description</label>
 			    		<div class="col-sm-10">
 							<textarea id="save-description" name="save-description" class="form-control"></textarea>
@@ -2085,7 +2085,7 @@
 	</div>
 </div>
 
-	
+
 
 <div id="save-corpus-form" class="modal fade" tabindex="-1" role="dialog">
 	<div class="modal-dialog modal-vertical-centered">
@@ -2097,7 +2097,7 @@
 			<div class="modal-body">
 				<form class="form-horizontal" role="form" id="corpus-modal-form">
 					<div id="corpusDropDownPanel">
-					 
+
 					</div>
 					<div class="form-group">
 						<label for="saveCorpusName" class="col-sm-2 control-label">Name</label>
@@ -2105,7 +2105,7 @@
 							<input type="text" name="saveCorpusName" id="saveCorpusName" class="form-control" placeholder="Create new corpus or choose from above dropdown">
 					    </div>
 					</div>
-					<div class="form-group">				
+					<div class="form-group">
 			    		<label for="save-corpus-description" class="col-sm-2 control-label">Description</label>
 			    		<div class="col-sm-10">
 							<textarea id="save-corpus-description" name="save-corpus-description" class="form-control"></textarea>
@@ -2121,10 +2121,10 @@
 		</div>
 	</div>
 </div>
-	
-	
 
-			
+
+
+
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

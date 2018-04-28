@@ -1,0 +1,182 @@
+{
+    "data": [],
+    "included": [
+        {
+            "attributes": {
+                "items": []
+            },
+            "id": "content_type_norm",
+            "links": {
+                "self": "http://warclight.archivesunleashed.org/catalog/facet/content_type_norm.json?f%5Bcontent_ffb%5D%5B%5D=baaddeed"
+            },
+            "type": "facet"
+        },
+        {
+            "attributes": {
+                "items": []
+            },
+            "id": "crawl_year",
+            "links": {
+                "self": "http://warclight.archivesunleashed.org/catalog/facet/crawl_year.json?f%5Bcontent_ffb%5D%5B%5D=baaddeed"
+            },
+            "type": "facet"
+        },
+        {
+            "attributes": {
+                "items": []
+            },
+            "id": "public_suffix",
+            "links": {
+                "self": "http://warclight.archivesunleashed.org/catalog/facet/public_suffix.json?f%5Bcontent_ffb%5D%5B%5D=baaddeed"
+            },
+            "type": "facet"
+        },
+        {
+            "attributes": {
+                "items": []
+            },
+            "id": "domain",
+            "links": {
+                "self": "http://warclight.archivesunleashed.org/catalog/facet/domain.json?f%5Bcontent_ffb%5D%5B%5D=baaddeed"
+            },
+            "type": "facet"
+        },
+        {
+            "attributes": {
+                "items": []
+            },
+            "id": "links_domains",
+            "links": {
+                "self": "http://warclight.archivesunleashed.org/catalog/facet/links_domains.json?f%5Bcontent_ffb%5D%5B%5D=baaddeed"
+            },
+            "type": "facet"
+        },
+        {
+            "attributes": {
+                "items": []
+            },
+            "id": "content_language",
+            "links": {
+                "self": "http://warclight.archivesunleashed.org/catalog/facet/content_language.json?f%5Bcontent_ffb%5D%5B%5D=baaddeed"
+            },
+            "type": "facet"
+        },
+        {
+            "attributes": {
+                "items": []
+            },
+            "id": "resourcename_facet",
+            "links": {
+                "self": "http://warclight.archivesunleashed.org/catalog/facet/resourcename_facet.json?f%5Bcontent_ffb%5D%5B%5D=baaddeed"
+            },
+            "type": "facet"
+        },
+        {
+            "attributes": {
+                "items": []
+            },
+            "id": "institution",
+            "links": {
+                "self": "http://warclight.archivesunleashed.org/catalog/facet/institution.json?f%5Bcontent_ffb%5D%5B%5D=baaddeed"
+            },
+            "type": "facet"
+        },
+        {
+            "attributes": {
+                "items": []
+            },
+            "id": "collection",
+            "links": {
+                "self": "http://warclight.archivesunleashed.org/catalog/facet/collection.json?f%5Bcontent_ffb%5D%5B%5D=baaddeed"
+            },
+            "type": "facet"
+        },
+        {
+            "attributes": {
+                "items": []
+            },
+            "id": "collection_id",
+            "links": {
+                "self": "http://warclight.archivesunleashed.org/catalog/facet/collection_id.json?f%5Bcontent_ffb%5D%5B%5D=baaddeed"
+            },
+            "type": "facet"
+        },
+        {
+            "attributes": {
+                "label": "Text"
+            },
+            "id": "text",
+            "links": {
+                "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=baaddeed&search_field=text"
+            },
+            "type": "search_field"
+        },
+        {
+            "attributes": {
+                "label": "Title"
+            },
+            "id": "title",
+            "links": {
+                "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=baaddeed&search_field=title"
+            },
+            "type": "search_field"
+        },
+        {
+            "attributes": {
+                "label": "Content"
+            },
+            "id": "content",
+            "links": {
+                "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=baaddeed&search_field=content"
+            },
+            "type": "search_field"
+        },
+        {
+            "attributes": {
+                "label": "URL"
+            },
+            "id": "url",
+            "links": {
+                "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=baaddeed&search_field=url"
+            },
+            "type": "search_field"
+        },
+        {
+            "attributes": {
+                "label": "Host"
+            },
+            "id": "host",
+            "links": {
+                "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=baaddeed&search_field=host"
+            },
+            "type": "search_field"
+        },
+        {
+            "attributes": {
+                "label": "relevance"
+            },
+            "id": "score desc",
+            "links": {
+                "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=baaddeed&sort=score+desc"
+            },
+            "type": "sort"
+        }
+    ],
+    "links": {
+        "last": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=baaddeed&page=0",
+        "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=baaddeed"
+    },
+    "meta": {
+        "pages": {
+            "current_page": 1,
+            "first_page?": true,
+            "last_page?": false,
+            "limit_value": 10,
+            "next_page": null,
+            "offset_value": 0,
+            "prev_page": null,
+            "total_count": 0,
+            "total_pages": 0
+        }
+    }
+}

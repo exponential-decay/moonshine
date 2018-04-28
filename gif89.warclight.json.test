@@ -1,0 +1,1151 @@
+{
+    "data": [
+        {
+            "attributes": {
+                "collection": [
+                    "PLGGTA"
+                ],
+                "content_ffb": "47494638",
+                "content_length": 6674,
+                "content_text_length": 0,
+                "content_type": [
+                    "image/gif"
+                ],
+                "content_type_droid": "image/gif; version=89a",
+                "content_type_ext": "gif",
+                "content_type_full": "image/gif; version=89a",
+                "content_type_norm": "image",
+                "content_type_served": "image/gif",
+                "content_type_tika": "image/gif",
+                "content_type_version": "89a",
+                "crawl_date": "2017-05-25T12:12:14Z",
+                "crawl_year": 2017,
+                "domain": "twimg.com",
+                "hash": "sha1:ZKN657X6VMB6PTVON6BZ2LAMXPBUFUZL",
+                "host": "abs.twimg.com",
+                "host_surt": [
+                    "(com,",
+                    "(com,twimg,",
+                    "(com,twimg,abs,"
+                ],
+                "id": "jdiyqlJHhJjY5gjXWIySsQ==/20170525121214",
+                "institution": "Web Archives for History Research Group",
+                "public_suffix": "com",
+                "record_type": "response",
+                "resourcename": [
+                    "bg.gif"
+                ],
+                "server": [
+                    "ECS (ord/4CB9)"
+                ],
+                "source_file": "WEB-20170522142901689-00000-19034~rho.library.yorku.ca~9191.warc.gz",
+                "source_file_offset": 432741459,
+                "status_code": 200,
+                "type": "Image",
+                "url": "http://abs.twimg.com/images/themes/theme9/bg.gif",
+                "url_path": "/images/themes/theme9/bg.gif",
+                "url_type": [
+                    "normal"
+                ],
+                "wayback_date": 20170525121214
+            },
+            "id": "jdiyqlJHhJjY5gjXWIySsQ==/20170525121214",
+            "links": {
+                "self": "http://warclight.archivesunleashed.org/catalog/jdiyqlJHhJjY5gjXWIySsQ==%2F20170525121214"
+            }
+        },
+        {
+            "attributes": {
+                "collection": [
+                    "PLGGTA"
+                ],
+                "content_ffb": "47494638",
+                "content_length": 1026,
+                "content_text_length": 0,
+                "content_type": [
+                    "image/gif"
+                ],
+                "content_type_droid": "image/gif; version=89a",
+                "content_type_ext": "gif",
+                "content_type_full": "image/gif; version=89a",
+                "content_type_norm": "image",
+                "content_type_served": "image/gif",
+                "content_type_tika": "image/gif",
+                "content_type_version": "89a",
+                "crawl_date": "2017-05-25T12:12:14Z",
+                "crawl_year": 2017,
+                "domain": "tumblr.com",
+                "hash": "sha1:KKZPCRC6EXFUETS52WXACO77ND7OHD27",
+                "host": "static.tumblr.com",
+                "host_surt": [
+                    "(com,",
+                    "(com,tumblr,",
+                    "(com,tumblr,static,"
+                ],
+                "id": "/iz5YGhyE1Bdp+dVmE14Yg==/20170525121214",
+                "institution": "Web Archives for History Research Group",
+                "public_suffix": "com",
+                "record_type": "response",
+                "resourcename": [
+                    "prev.gif"
+                ],
+                "server": [
+                    "ATS"
+                ],
+                "source_file": "WEB-20170522142901689-00000-19034~rho.library.yorku.ca~9191.warc.gz",
+                "source_file_offset": 433230398,
+                "status_code": 200,
+                "type": "Image",
+                "url": "http://static.tumblr.com/vr9xgox/U2Snf912u/prev.gif",
+                "url_path": "/vr9xgox/U2Snf912u/prev.gif",
+                "url_type": [
+                    "normal"
+                ],
+                "wayback_date": 20170525121214
+            },
+            "id": "/iz5YGhyE1Bdp+dVmE14Yg==/20170525121214",
+            "links": {
+                "self": "http://warclight.archivesunleashed.org/catalog/%2Fiz5YGhyE1Bdp+dVmE14Yg==%2F20170525121214"
+            }
+        },
+        {
+            "attributes": {
+                "collection": [
+                    "PLGGTA"
+                ],
+                "content_ffb": "47494638",
+                "content_length": 6049,
+                "content_text_length": 0,
+                "content_type": [
+                    "image/gif"
+                ],
+                "content_type_droid": "image/gif; version=89a",
+                "content_type_ext": "gif",
+                "content_type_full": "image/gif; version=89a",
+                "content_type_norm": "image",
+                "content_type_served": "image/gif",
+                "content_type_tika": "image/gif",
+                "content_type_version": "89a",
+                "crawl_date": "2017-05-25T12:18:31Z",
+                "crawl_year": 2017,
+                "domain": "chronicle.com",
+                "hash": "sha1:CKYGOEFZYL7J6WKELNB6LXX357MREGXM",
+                "host": "chronicle.com",
+                "host_surt": [
+                    "(com,",
+                    "(com,chronicle,"
+                ],
+                "id": "EBcGapGzgz9nALWSystJLw==/20170525121831",
+                "institution": "Web Archives for History Research Group",
+                "public_suffix": "com",
+                "record_type": "response",
+                "resourcename": [
+                    "Ilan-Stavans.gif"
+                ],
+                "server": [
+                    "cloudflare-nginx"
+                ],
+                "source_file": "WEB-20170522142901689-00000-19034~rho.library.yorku.ca~9191.warc.gz",
+                "source_file_offset": 491737448,
+                "status_code": 200,
+                "type": "Image",
+                "url": "http://www.chronicle.com/img/photos/biz/Ilan-Stavans.gif",
+                "url_path": "/img/photos/biz/Ilan-Stavans.gif",
+                "url_type": [
+                    "normal"
+                ],
+                "wayback_date": 20170525121831
+            },
+            "id": "EBcGapGzgz9nALWSystJLw==/20170525121831",
+            "links": {
+                "self": "http://warclight.archivesunleashed.org/catalog/EBcGapGzgz9nALWSystJLw==%2F20170525121831"
+            }
+        },
+        {
+            "attributes": {
+                "collection": [
+                    "PLGGTA"
+                ],
+                "content_ffb": "47494638",
+                "content_length": 3289,
+                "content_text_length": 0,
+                "content_type": [
+                    "image/gif"
+                ],
+                "content_type_droid": "image/gif; version=89a",
+                "content_type_ext": "gif",
+                "content_type_full": "image/gif; version=89a",
+                "content_type_norm": "image",
+                "content_type_served": "image/gif",
+                "content_type_tika": "image/gif",
+                "content_type_version": "89a",
+                "crawl_date": "2017-05-25T12:21:19Z",
+                "crawl_year": 2017,
+                "domain": "insidehighered.com",
+                "hash": "sha1:BHLBRKBNHCALHAXFDC4KAJWJJ32SO5ZP",
+                "host": "insidehighered.com",
+                "host_surt": [
+                    "(com,",
+                    "(com,insidehighered,"
+                ],
+                "id": "fKM6WgwPy3yZhz6Fmovhyw==/20170525122119",
+                "image_dominant_colour": "black",
+                "image_height": 35,
+                "image_size": 4165,
+                "image_width": 119,
+                "institution": "Web Archives for History Research Group",
+                "public_suffix": "com",
+                "record_type": "response",
+                "resourcename": [
+                    "app-download-google.gif"
+                ],
+                "server": [
+                    "Apache"
+                ],
+                "source_file": "WEB-20170522142901689-00000-19034~rho.library.yorku.ca~9191.warc.gz",
+                "source_file_offset": 495830207,
+                "status_code": 200,
+                "type": "Image",
+                "url": "https://www.insidehighered.com/sites/all/themes/ihecustom/images/app-download-google.gif",
+                "url_path": "/sites/all/themes/ihecustom/images/app-download-google.gif",
+                "url_type": [
+                    "normal"
+                ],
+                "wayback_date": 20170525122119
+            },
+            "id": "fKM6WgwPy3yZhz6Fmovhyw==/20170525122119",
+            "links": {
+                "self": "http://warclight.archivesunleashed.org/catalog/fKM6WgwPy3yZhz6Fmovhyw==%2F20170525122119"
+            }
+        },
+        {
+            "attributes": {
+                "collection": [
+                    "PLGGTA"
+                ],
+                "content_ffb": "47494638",
+                "content_length": 3319,
+                "content_text_length": 0,
+                "content_type": [
+                    "image/gif"
+                ],
+                "content_type_droid": "image/gif; version=89a",
+                "content_type_ext": "gif",
+                "content_type_full": "image/gif; version=89a",
+                "content_type_norm": "image",
+                "content_type_served": "image/gif",
+                "content_type_tika": "image/gif",
+                "content_type_version": "89a",
+                "crawl_date": "2017-05-25T12:21:49Z",
+                "crawl_year": 2017,
+                "domain": "insidehighered.com",
+                "hash": "sha1:MOIT4H5COJWBIOH5GRHMA53R7O2KVVYJ",
+                "host": "insidehighered.com",
+                "host_surt": [
+                    "(com,",
+                    "(com,insidehighered,"
+                ],
+                "id": "hGXV4NGn404kEKHyIJJgCA==/20170525122149",
+                "institution": "Web Archives for History Research Group",
+                "public_suffix": "com",
+                "record_type": "response",
+                "resourcename": [
+                    "app-download-apple.gif"
+                ],
+                "server": [
+                    "Apache"
+                ],
+                "source_file": "WEB-20170522142901689-00000-19034~rho.library.yorku.ca~9191.warc.gz",
+                "source_file_offset": 496157251,
+                "status_code": 200,
+                "type": "Image",
+                "url": "https://www.insidehighered.com/sites/all/themes/ihecustom/images/app-download-apple.gif",
+                "url_path": "/sites/all/themes/ihecustom/images/app-download-apple.gif",
+                "url_type": [
+                    "normal"
+                ],
+                "wayback_date": 20170525122149
+            },
+            "id": "hGXV4NGn404kEKHyIJJgCA==/20170525122149",
+            "links": {
+                "self": "http://warclight.archivesunleashed.org/catalog/hGXV4NGn404kEKHyIJJgCA==%2F20170525122149"
+            }
+        },
+        {
+            "attributes": {
+                "collection": [
+                    "PLGGTA"
+                ],
+                "content_ffb": "47494638",
+                "content_length": 43,
+                "content_text_length": 0,
+                "content_type": [
+                    "image/gif"
+                ],
+                "content_type_droid": "image/gif; version=89a",
+                "content_type_ext": "gif",
+                "content_type_full": "image/gif; version=89a",
+                "content_type_norm": "image",
+                "content_type_served": "image/gif",
+                "content_type_tika": "image/gif",
+                "content_type_version": "89a",
+                "crawl_date": "2017-05-25T12:11:43Z",
+                "crawl_year": 2017,
+                "domain": "getclicky.com",
+                "hash": "sha1:TLXI6I3MIDVS2FDQOQSJJMQI22X5GYWP",
+                "host": "static.getclicky.com",
+                "host_surt": [
+                    "(com,",
+                    "(com,getclicky,",
+                    "(com,getclicky,static,"
+                ],
+                "id": "o6EnBizxwyphEuew+t/9oA==/20170525121143",
+                "institution": "Web Archives for History Research Group",
+                "public_suffix": "com",
+                "record_type": "response",
+                "resourcename": [
+                    "align.gif"
+                ],
+                "server": [
+                    "cloudflare-nginx"
+                ],
+                "source_file": "WEB-20170522142901689-00000-19034~rho.library.yorku.ca~9191.warc.gz",
+                "source_file_offset": 412810469,
+                "status_code": 200,
+                "type": "Image",
+                "url": "http://static.getclicky.com/media/align.gif",
+                "url_path": "/media/align.gif",
+                "url_type": [
+                    "normal"
+                ],
+                "wayback_date": 20170525121143
+            },
+            "id": "o6EnBizxwyphEuew+t/9oA==/20170525121143",
+            "links": {
+                "self": "http://warclight.archivesunleashed.org/catalog/o6EnBizxwyphEuew+t%2F9oA==%2F20170525121143"
+            }
+        },
+        {
+            "attributes": {
+                "collection": [
+                    "PLGGTA"
+                ],
+                "content_ffb": "47494638",
+                "content_length": 1276,
+                "content_text_length": 0,
+                "content_type": [
+                    "image/gif"
+                ],
+                "content_type_droid": "image/gif; version=89a",
+                "content_type_full": "image/gif; version=89a",
+                "content_type_norm": "image",
+                "content_type_served": "image/gif",
+                "content_type_tika": "image/gif",
+                "content_type_version": "89a",
+                "crawl_date": "2017-05-25T12:11:44Z",
+                "crawl_year": 2017,
+                "domain": "feedburner.com",
+                "hash": "sha1:DTITSC4SG6OX5YPYNLFMWTRBYX6AUWOA",
+                "host": "feeds.feedburner.com",
+                "host_surt": [
+                    "(com,",
+                    "(com,feedburner,",
+                    "(com,feedburner,feeds,"
+                ],
+                "id": "g6px9GypcNfC4Y6xoxdA1Q==/20170525121144",
+                "institution": "Web Archives for History Research Group",
+                "public_suffix": "com",
+                "record_type": "response",
+                "resourcename": [
+                    "distlib"
+                ],
+                "server": [
+                    "GSE"
+                ],
+                "source_file": "WEB-20170522142901689-00000-19034~rho.library.yorku.ca~9191.warc.gz",
+                "source_file_offset": 413763051,
+                "status_code": 200,
+                "type": "Image",
+                "url": "http://feeds.feedburner.com/~fc/blogs/distlib?bg=0066FF&fg=444444&anim=0",
+                "url_path": "/~fc/blogs/distlib",
+                "url_type": [
+                    "normal"
+                ],
+                "wayback_date": 20170525121144
+            },
+            "id": "g6px9GypcNfC4Y6xoxdA1Q==/20170525121144",
+            "links": {
+                "self": "http://warclight.archivesunleashed.org/catalog/g6px9GypcNfC4Y6xoxdA1Q==%2F20170525121144"
+            }
+        },
+        {
+            "attributes": {
+                "collection": [
+                    "PLGGTA"
+                ],
+                "content_ffb": "47494638",
+                "content_length": 2531878,
+                "content_text_length": 0,
+                "content_type": [
+                    "image/gif"
+                ],
+                "content_type_droid": "image/gif; version=89a",
+                "content_type_ext": "gif",
+                "content_type_full": "image/gif; version=89a",
+                "content_type_norm": "image",
+                "content_type_served": "image/gif",
+                "content_type_tika": "image/gif",
+                "content_type_version": "89a",
+                "crawl_date": "2017-05-25T12:11:43Z",
+                "crawl_year": 2017,
+                "domain": "bp.blogspot.com",
+                "hash": "sha1:HL7JKYU7Z4FXXXYWT5G7YEAMB7ZKDWQ4",
+                "host": "1.bp.blogspot.com",
+                "host_surt": [
+                    "(com,",
+                    "(com,blogspot,",
+                    "(com,blogspot,bp,",
+                    "(com,blogspot,bp,1,"
+                ],
+                "id": "5AgdYN+hkfj86Qxjj47EQQ==/20170525121143",
+                "institution": "Web Archives for History Research Group",
+                "public_suffix": "blogspot.com",
+                "record_type": "response",
+                "resourcename": [
+                    "cat-curling-olympic.gif"
+                ],
+                "server": [
+                    "fife"
+                ],
+                "source_file": "WEB-20170522142901689-00000-19034~rho.library.yorku.ca~9191.warc.gz",
+                "source_file_offset": 413765410,
+                "status_code": 200,
+                "type": "Image",
+                "url": "https://1.bp.blogspot.com/-R-9UbpZSDV0/WQiQlMTrq6I/AAAAAAAAP9A/xOW0Vtax2doPW5lGjkOGM224LbvCW4ohACLcB/s1600/cat-curling-olympic.gif",
+                "url_path": "/-R-9UbpZSDV0/WQiQlMTrq6I/AAAAAAAAP9A/xOW0Vtax2doPW5lGjkOGM224LbvCW4ohACLcB/s1600/cat-curling-olympic.gif",
+                "url_type": [
+                    "normal"
+                ],
+                "wayback_date": 20170525121143
+            },
+            "id": "5AgdYN+hkfj86Qxjj47EQQ==/20170525121143",
+            "links": {
+                "self": "http://warclight.archivesunleashed.org/catalog/5AgdYN+hkfj86Qxjj47EQQ==%2F20170525121143"
+            }
+        },
+        {
+            "attributes": {
+                "collection": [
+                    "PLGGTA"
+                ],
+                "content_ffb": "47494638",
+                "content_length": 96,
+                "content_text_length": 0,
+                "content_type": [
+                    "image/gif"
+                ],
+                "content_type_droid": "image/gif; version=87a",
+                "content_type_ext": "gif",
+                "content_type_full": "image/gif; version=87a",
+                "content_type_norm": "image",
+                "content_type_served": "image/gif",
+                "content_type_tika": "image/gif",
+                "content_type_version": "87a",
+                "crawl_date": "2017-05-25T12:11:45Z",
+                "crawl_year": 2017,
+                "domain": "tumblr.com",
+                "hash": "sha1:NACCBH6CHZW2ZAHXKPXHUTZX7C7UJGA7",
+                "host": "static.tumblr.com",
+                "host_surt": [
+                    "(com,",
+                    "(com,tumblr,",
+                    "(com,tumblr,static,"
+                ],
+                "id": "IFpb/CygVeqQqto1MPTduQ==/20170525121145",
+                "institution": "Web Archives for History Research Group",
+                "public_suffix": "com",
+                "record_type": "response",
+                "resourcename": [
+                    "ds_bg.gif"
+                ],
+                "server": [
+                    "ATS"
+                ],
+                "source_file": "WEB-20170522142901689-00000-19034~rho.library.yorku.ca~9191.warc.gz",
+                "source_file_offset": 416943150,
+                "status_code": 200,
+                "type": "Image",
+                "url": "http://static.tumblr.com/vr9xgox/5aCnf90vk/ds_bg.gif",
+                "url_path": "/vr9xgox/5aCnf90vk/ds_bg.gif",
+                "url_type": [
+                    "normal"
+                ],
+                "wayback_date": 20170525121145
+            },
+            "id": "IFpb/CygVeqQqto1MPTduQ==/20170525121145",
+            "links": {
+                "self": "http://warclight.archivesunleashed.org/catalog/IFpb%2FCygVeqQqto1MPTduQ==%2F20170525121145"
+            }
+        },
+        {
+            "attributes": {
+                "collection": [
+                    "PLGGTA"
+                ],
+                "content_ffb": "47494638",
+                "content_length": 1491,
+                "content_text_length": 0,
+                "content_type": [
+                    "image/gif"
+                ],
+                "content_type_droid": "image/gif; version=89a",
+                "content_type_ext": "gif",
+                "content_type_full": "image/gif; version=89a",
+                "content_type_norm": "image",
+                "content_type_served": "image/gif",
+                "content_type_tika": "image/gif",
+                "content_type_version": "89a",
+                "crawl_date": "2017-05-25T12:11:45Z",
+                "crawl_year": 2017,
+                "domain": "paypalobjects.com",
+                "hash": "sha1:MU2VM6R45E7ASLXJFPEZ6UQPWU47VMKA",
+                "host": "paypalobjects.com",
+                "host_surt": [
+                    "(com,",
+                    "(com,paypalobjects,"
+                ],
+                "id": "H0ywd3zvlbdi9oChUgrEpA==/20170525121145",
+                "institution": "Web Archives for History Research Group",
+                "public_suffix": "com",
+                "record_type": "response",
+                "resourcename": [
+                    "btn_donate_SM.gif"
+                ],
+                "server": [
+                    "Apache"
+                ],
+                "source_file": "WEB-20170522142901689-00000-19034~rho.library.yorku.ca~9191.warc.gz",
+                "source_file_offset": 417028904,
+                "status_code": 200,
+                "type": "Image",
+                "url": "https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif",
+                "url_path": "/en_US/i/btn/btn_donate_SM.gif",
+                "url_type": [
+                    "normal"
+                ],
+                "wayback_date": 20170525121145
+            },
+            "id": "H0ywd3zvlbdi9oChUgrEpA==/20170525121145",
+            "links": {
+                "self": "http://warclight.archivesunleashed.org/catalog/H0ywd3zvlbdi9oChUgrEpA==%2F20170525121145"
+            }
+        }
+    ],
+    "included": [
+        {
+            "attributes": {
+                "items": [
+                    {
+                        "attributes": {
+                            "hits": 379,
+                            "label": "image",
+                            "value": "image"
+                        },
+                        "links": {
+                            "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&f%5Bcontent_type_norm%5D%5B%5D=image"
+                        }
+                    }
+                ]
+            },
+            "id": "content_type_norm",
+            "links": {
+                "self": "http://warclight.archivesunleashed.org/catalog/facet/content_type_norm.json?f%5Bcontent_ffb%5D%5B%5D=47494638"
+            },
+            "type": "facet"
+        },
+        {
+            "attributes": {
+                "items": [
+                    {
+                        "attributes": {
+                            "hits": 105,
+                            "label": "2016",
+                            "value": "2016"
+                        },
+                        "links": {
+                            "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&f%5Bcrawl_year%5D%5B%5D=2016"
+                        }
+                    },
+                    {
+                        "attributes": {
+                            "hits": 274,
+                            "label": "2017",
+                            "value": "2017"
+                        },
+                        "links": {
+                            "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&f%5Bcrawl_year%5D%5B%5D=2017"
+                        }
+                    }
+                ]
+            },
+            "id": "crawl_year",
+            "links": {
+                "self": "http://warclight.archivesunleashed.org/catalog/facet/crawl_year.json?f%5Bcontent_ffb%5D%5B%5D=47494638"
+            },
+            "type": "facet"
+        },
+        {
+            "attributes": {
+                "items": [
+                    {
+                        "attributes": {
+                            "hits": 293,
+                            "label": "com",
+                            "value": "com"
+                        },
+                        "links": {
+                            "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&f%5Bpublic_suffix%5D%5B%5D=com"
+                        }
+                    },
+                    {
+                        "attributes": {
+                            "hits": 30,
+                            "label": "ca",
+                            "value": "ca"
+                        },
+                        "links": {
+                            "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&f%5Bpublic_suffix%5D%5B%5D=ca"
+                        }
+                    },
+                    {
+                        "attributes": {
+                            "hits": 25,
+                            "label": "org",
+                            "value": "org"
+                        },
+                        "links": {
+                            "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&f%5Bpublic_suffix%5D%5B%5D=org"
+                        }
+                    },
+                    {
+                        "attributes": {
+                            "hits": 12,
+                            "label": "net",
+                            "value": "net"
+                        },
+                        "links": {
+                            "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&f%5Bpublic_suffix%5D%5B%5D=net"
+                        }
+                    },
+                    {
+                        "attributes": {
+                            "hits": 4,
+                            "label": "de",
+                            "value": "de"
+                        },
+                        "links": {
+                            "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&f%5Bpublic_suffix%5D%5B%5D=de"
+                        }
+                    },
+                    {
+                        "attributes": {
+                            "hits": 3,
+                            "label": "blogspot.com",
+                            "value": "blogspot.com"
+                        },
+                        "links": {
+                            "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&f%5Bpublic_suffix%5D%5B%5D=blogspot.com"
+                        }
+                    },
+                    {
+                        "attributes": {
+                            "hits": 3,
+                            "label": "me",
+                            "value": "me"
+                        },
+                        "links": {
+                            "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&f%5Bpublic_suffix%5D%5B%5D=me"
+                        }
+                    },
+                    {
+                        "attributes": {
+                            "hits": 2,
+                            "label": "info",
+                            "value": "info"
+                        },
+                        "links": {
+                            "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&f%5Bpublic_suffix%5D%5B%5D=info"
+                        }
+                    },
+                    {
+                        "attributes": {
+                            "hits": 2,
+                            "label": "it",
+                            "value": "it"
+                        },
+                        "links": {
+                            "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&f%5Bpublic_suffix%5D%5B%5D=it"
+                        }
+                    },
+                    {
+                        "attributes": {
+                            "hits": 1,
+                            "label": "cloudfront.net",
+                            "value": "cloudfront.net"
+                        },
+                        "links": {
+                            "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&f%5Bpublic_suffix%5D%5B%5D=cloudfront.net"
+                        }
+                    },
+                    {
+                        "attributes": {
+                            "hits": 1,
+                            "label": "co.uk",
+                            "value": "co.uk"
+                        },
+                        "links": {
+                            "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&f%5Bpublic_suffix%5D%5B%5D=co.uk"
+                        }
+                    }
+                ]
+            },
+            "id": "public_suffix",
+            "links": {
+                "self": "http://warclight.archivesunleashed.org/catalog/facet/public_suffix.json?f%5Bcontent_ffb%5D%5B%5D=47494638"
+            },
+            "type": "facet"
+        },
+        {
+            "attributes": {
+                "items": [
+                    {
+                        "attributes": {
+                            "hits": 84,
+                            "label": "tumblr.com",
+                            "value": "tumblr.com"
+                        },
+                        "links": {
+                            "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&f%5Bdomain%5D%5B%5D=tumblr.com"
+                        }
+                    },
+                    {
+                        "attributes": {
+                            "hits": 49,
+                            "label": "giphy.com",
+                            "value": "giphy.com"
+                        },
+                        "links": {
+                            "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&f%5Bdomain%5D%5B%5D=giphy.com"
+                        }
+                    },
+                    {
+                        "attributes": {
+                            "hits": 48,
+                            "label": "twimg.com",
+                            "value": "twimg.com"
+                        },
+                        "links": {
+                            "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&f%5Bdomain%5D%5B%5D=twimg.com"
+                        }
+                    },
+                    {
+                        "attributes": {
+                            "hits": 16,
+                            "label": "plggta.org",
+                            "value": "plggta.org"
+                        },
+                        "links": {
+                            "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&f%5Bdomain%5D%5B%5D=plggta.org"
+                        }
+                    },
+                    {
+                        "attributes": {
+                            "hits": 15,
+                            "label": "imgur.com",
+                            "value": "imgur.com"
+                        },
+                        "links": {
+                            "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&f%5Bdomain%5D%5B%5D=imgur.com"
+                        }
+                    },
+                    {
+                        "attributes": {
+                            "hits": 14,
+                            "label": "brocku.ca",
+                            "value": "brocku.ca"
+                        },
+                        "links": {
+                            "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&f%5Bdomain%5D%5B%5D=brocku.ca"
+                        }
+                    },
+                    {
+                        "attributes": {
+                            "hits": 12,
+                            "label": "cbc.ca",
+                            "value": "cbc.ca"
+                        },
+                        "links": {
+                            "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&f%5Bdomain%5D%5B%5D=cbc.ca"
+                        }
+                    },
+                    {
+                        "attributes": {
+                            "hits": 11,
+                            "label": "wp.com",
+                            "value": "wp.com"
+                        },
+                        "links": {
+                            "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&f%5Bdomain%5D%5B%5D=wp.com"
+                        }
+                    },
+                    {
+                        "attributes": {
+                            "hits": 8,
+                            "label": "wordpress.com",
+                            "value": "wordpress.com"
+                        },
+                        "links": {
+                            "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&f%5Bdomain%5D%5B%5D=wordpress.com"
+                        }
+                    },
+                    {
+                        "attributes": {
+                            "hits": 6,
+                            "label": "blogblog.com",
+                            "value": "blogblog.com"
+                        },
+                        "links": {
+                            "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&f%5Bdomain%5D%5B%5D=blogblog.com"
+                        }
+                    },
+                    {
+                        "attributes": {
+                            "hits": 4,
+                            "label": "extreme-dm.com",
+                            "value": "extreme-dm.com"
+                        },
+                        "links": {
+                            "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&f%5Bdomain%5D%5B%5D=extreme-dm.com"
+                        }
+                    }
+                ]
+            },
+            "id": "domain",
+            "links": {
+                "self": "http://warclight.archivesunleashed.org/catalog/facet/domain.json?f%5Bcontent_ffb%5D%5B%5D=47494638"
+            },
+            "type": "facet"
+        },
+        {
+            "attributes": {
+                "items": []
+            },
+            "id": "links_domains",
+            "links": {
+                "self": "http://warclight.archivesunleashed.org/catalog/facet/links_domains.json?f%5Bcontent_ffb%5D%5B%5D=47494638"
+            },
+            "type": "facet"
+        },
+        {
+            "attributes": {
+                "items": []
+            },
+            "id": "content_language",
+            "links": {
+                "self": "http://warclight.archivesunleashed.org/catalog/facet/content_language.json?f%5Bcontent_ffb%5D%5B%5D=47494638"
+            },
+            "type": "facet"
+        },
+        {
+            "attributes": {
+                "items": [
+                    {
+                        "attributes": {
+                            "hits": 48,
+                            "label": "bg.gif",
+                            "value": "bg.gif"
+                        },
+                        "links": {
+                            "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&f%5Bresourcename_facet%5D%5B%5D=bg.gif"
+                        }
+                    },
+                    {
+                        "attributes": {
+                            "hits": 38,
+                            "label": "giphy.gif",
+                            "value": "giphy.gif"
+                        },
+                        "links": {
+                            "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&f%5Bresourcename_facet%5D%5B%5D=giphy.gif"
+                        }
+                    },
+                    {
+                        "attributes": {
+                            "hits": 6,
+                            "label": "piwik.php",
+                            "value": "piwik.php"
+                        },
+                        "links": {
+                            "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&f%5Bresourcename_facet%5D%5B%5D=piwik.php"
+                        }
+                    },
+                    {
+                        "attributes": {
+                            "hits": 4,
+                            "label": "2.646",
+                            "value": "2.646"
+                        },
+                        "links": {
+                            "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&f%5Bresourcename_facet%5D%5B%5D=2.646"
+                        }
+                    },
+                    {
+                        "attributes": {
+                            "hits": 4,
+                            "label": "ajax-loader.gif",
+                            "value": "ajax-loader.gif"
+                        },
+                        "links": {
+                            "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&f%5Bresourcename_facet%5D%5B%5D=ajax-loader.gif"
+                        }
+                    },
+                    {
+                        "attributes": {
+                            "hits": 4,
+                            "label": "i.gif",
+                            "value": "i.gif"
+                        },
+                        "links": {
+                            "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&f%5Bresourcename_facet%5D%5B%5D=i.gif"
+                        }
+                    },
+                    {
+                        "attributes": {
+                            "hits": 4,
+                            "label": "loading.gif",
+                            "value": "loading.gif"
+                        },
+                        "links": {
+                            "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&f%5Bresourcename_facet%5D%5B%5D=loading.gif"
+                        }
+                    },
+                    {
+                        "attributes": {
+                            "hits": 4,
+                            "label": "meter.asp",
+                            "value": "meter.asp"
+                        },
+                        "links": {
+                            "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&f%5Bresourcename_facet%5D%5B%5D=meter.asp"
+                        }
+                    },
+                    {
+                        "attributes": {
+                            "hits": 4,
+                            "label": "sprite.gif",
+                            "value": "sprite.gif"
+                        },
+                        "links": {
+                            "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&f%5Bresourcename_facet%5D%5B%5D=sprite.gif"
+                        }
+                    },
+                    {
+                        "attributes": {
+                            "hits": 3,
+                            "label": "favicon.ico",
+                            "value": "favicon.ico"
+                        },
+                        "links": {
+                            "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&f%5Bresourcename_facet%5D%5B%5D=favicon.ico"
+                        }
+                    },
+                    {
+                        "attributes": {
+                            "hits": 2,
+                            "label": "-PAXP-deijE.gif",
+                            "value": "-PAXP-deijE.gif"
+                        },
+                        "links": {
+                            "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&f%5Bresourcename_facet%5D%5B%5D=-PAXP-deijE.gif"
+                        }
+                    }
+                ]
+            },
+            "id": "resourcename_facet",
+            "links": {
+                "self": "http://warclight.archivesunleashed.org/catalog/facet/resourcename_facet.json?f%5Bcontent_ffb%5D%5B%5D=47494638"
+            },
+            "type": "facet"
+        },
+        {
+            "attributes": {
+                "items": [
+                    {
+                        "attributes": {
+                            "hits": 207,
+                            "label": "Web Archives for History Research Group",
+                            "value": "Web Archives for History Research Group"
+                        },
+                        "links": {
+                            "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&f%5Binstitution%5D%5B%5D=Web+Archives+for+History+Research+Group"
+                        }
+                    },
+                    {
+                        "attributes": {
+                            "hits": 172,
+                            "label": "York University Libraries",
+                            "value": "York University Libraries"
+                        },
+                        "links": {
+                            "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&f%5Binstitution%5D%5B%5D=York+University+Libraries"
+                        }
+                    }
+                ]
+            },
+            "id": "institution",
+            "links": {
+                "self": "http://warclight.archivesunleashed.org/catalog/facet/institution.json?f%5Bcontent_ffb%5D%5B%5D=47494638"
+            },
+            "type": "facet"
+        },
+        {
+            "attributes": {
+                "items": [
+                    {
+                        "attributes": {
+                            "hits": 207,
+                            "label": "PLGGTA",
+                            "value": "PLGGTA"
+                        },
+                        "links": {
+                            "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcollection%5D%5B%5D=PLGGTA&f%5Bcontent_ffb%5D%5B%5D=47494638"
+                        }
+                    },
+                    {
+                        "attributes": {
+                            "hits": 105,
+                            "label": "#elxn42",
+                            "value": "#elxn42"
+                        },
+                        "links": {
+                            "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcollection%5D%5B%5D=%23elxn42&f%5Bcontent_ffb%5D%5B%5D=47494638"
+                        }
+                    },
+                    {
+                        "attributes": {
+                            "hits": 60,
+                            "label": "#WomensMarch",
+                            "value": "#WomensMarch"
+                        },
+                        "links": {
+                            "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcollection%5D%5B%5D=%23WomensMarch&f%5Bcontent_ffb%5D%5B%5D=47494638"
+                        }
+                    },
+                    {
+                        "attributes": {
+                            "hits": 7,
+                            "label": "#MarchForScience",
+                            "value": "#MarchForScience"
+                        },
+                        "links": {
+                            "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcollection%5D%5B%5D=%23MarchForScience&f%5Bcontent_ffb%5D%5B%5D=47494638"
+                        }
+                    }
+                ]
+            },
+            "id": "collection",
+            "links": {
+                "self": "http://warclight.archivesunleashed.org/catalog/facet/collection.json?f%5Bcontent_ffb%5D%5B%5D=47494638"
+            },
+            "type": "facet"
+        },
+        {
+            "attributes": {
+                "items": []
+            },
+            "id": "collection_id",
+            "links": {
+                "self": "http://warclight.archivesunleashed.org/catalog/facet/collection_id.json?f%5Bcontent_ffb%5D%5B%5D=47494638"
+            },
+            "type": "facet"
+        },
+        {
+            "attributes": {
+                "label": "Text"
+            },
+            "id": "text",
+            "links": {
+                "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&search_field=text"
+            },
+            "type": "search_field"
+        },
+        {
+            "attributes": {
+                "label": "Title"
+            },
+            "id": "title",
+            "links": {
+                "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&search_field=title"
+            },
+            "type": "search_field"
+        },
+        {
+            "attributes": {
+                "label": "Content"
+            },
+            "id": "content",
+            "links": {
+                "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&search_field=content"
+            },
+            "type": "search_field"
+        },
+        {
+            "attributes": {
+                "label": "URL"
+            },
+            "id": "url",
+            "links": {
+                "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&search_field=url"
+            },
+            "type": "search_field"
+        },
+        {
+            "attributes": {
+                "label": "Host"
+            },
+            "id": "host",
+            "links": {
+                "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&search_field=host"
+            },
+            "type": "search_field"
+        },
+        {
+            "attributes": {
+                "label": "relevance"
+            },
+            "id": "score desc",
+            "links": {
+                "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&sort=score+desc"
+            },
+            "type": "sort"
+        }
+    ],
+    "links": {
+        "last": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&page=38",
+        "next": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638&page=2",
+        "self": "http://warclight.archivesunleashed.org/catalog.json?f%5Bcontent_ffb%5D%5B%5D=47494638"
+    },
+    "meta": {
+        "pages": {
+            "current_page": 1,
+            "first_page?": true,
+            "last_page?": false,
+            "limit_value": 10,
+            "next_page": 2,
+            "offset_value": 0,
+            "prev_page": null,
+            "total_count": 379,
+            "total_pages": 38
+        }
+    }
+}
