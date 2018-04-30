@@ -6,7 +6,7 @@ Given four bytes, download a random file from the [UK Web Archive](https://www.w
 
 or Warclight:
 
-```./moonshine -gif | xargs wget```
+```./moonshine -warclight -gif | xargs wget```
 
 Full usage:
 ```
