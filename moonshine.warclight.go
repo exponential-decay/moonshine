@@ -4,7 +4,6 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 )
 
 func newWarclightSearch(page int, ffb string, sort string, order string) shinerequest {
@@ -61,7 +60,6 @@ type WarclightPages struct {
 }
 
 func parseWarclight(data string) (WarclightResult, error) {
-	log.Println("Received JSON data for Warclight")
 	var js WarclightResult
 	json.Unmarshal([]byte(data), &js)
 	if js.Meta.Pages.Current_Page < 1 {
