@@ -6,10 +6,14 @@ import (
 	"fmt"
 )
 
-func newWarclightSearch(page int, ffb string, sort string, order string) shinerequest {
+// newWarclightSearch creates a ShineRequest object to enable us to query Shine/Warclight.
+func newWarclightSearch(page int, ffb string, sort string, order string) ShineRequest {
+	//
 	// Example warclight requests:
-	// http://warclight.archivesunleashed.org/catalog.json?f[content_ffb][]=47494638&page=2
-	var newshine shinerequest
+	//  * `http://warclight.archivesunleashed.org/catalog.json?f[content_ffb][]=47494638&page=2`
+	//
+	//
+	var newshine ShineRequest
 	newshine.shineurl = "http://warclight.archivesunleashed.org/catalog.json"
 	newshine.page = fmt.Sprintf("%d", page)
 	newshine.baddeed = fmt.Sprintf("f[content_ffb][]=%s", ffb)

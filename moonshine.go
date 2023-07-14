@@ -4,19 +4,19 @@ import (
 	"bufio"
 	"flag"
 	"fmt"
-	SR "github.com/httpreserve/simplerequest"
 	"log"
-	"math/rand"
 	"os"
 	"regexp"
 	"strconv"
 	"strings"
 	"time"
+
+	SR "github.com/httpreserve/simplerequest"
 )
 
 // Example SHINE uri: https://www.webarchive.org.uk/shine/search?page=2&query=content_ffb:%220baddeed%22&sort=crawl_date&order=asc
 
-type shinerequest struct {
+type ShineRequest struct {
 	shineurl string // https://www.webarchive.org.uk/shine/search?
 	page     string // page=2
 	baddeed  string // &query=content_ffb:"0baddeed"
@@ -24,12 +24,22 @@ type shinerequest struct {
 	order    string // order=asc
 }
 
-const agent string = "moonshine/0.0.5"
-const maxpages int = 5
-const solrmax int = 10
+const agent string = "moonshine/1.0.0"
+
+// Search result limits to be kind to Shine and Warclight.
+const solrMaxPages int = 1000
 const resultsPerPage int = 10
-const solrlimit int = 9
-const ffbgif string = "47494638"
+
+// Consistently limit requests via this app, e.g. download a single page
+// or five pages. This also helps us play nice with the service.
+const singlePage int = 1
+const multiPage int = 5
+
+// FFB for the GIF file format.
+const ffbGIF string = "47494638"
+
+// FFB for the first PPT format, which inspired this code.
+const ffbBadDeed string = "0baddeed"
 
 var (
 	vers      bool
@@ -43,24 +53,24 @@ var (
 )
 
 func init() {
-	flag.StringVar(&ffb, "ffb", "0baddeed", "first four bytes of file to find")
+	flag.StringVar(&ffb, "ffb", ffbBadDeed, "first four bytes of file to find")
 	flag.BoolVar(&gif, "gif", false, "return a single gif")
 	flag.BoolVar(&list, "list", false, "list the first five pages from page number")
-	flag.IntVar(&page, "page", 1, "specify a page number to return from, [max: 9000]")
+	flag.IntVar(&page, "page", 0, "specify a page number to return from, [max: 9000]")
 	flag.BoolVar(&random, "random", true, "return a random link to a file")
-	flag.BoolVar(&stat, "stat", false, "stat the resource")
+	flag.BoolVar(&stat, "stats", false, "return statistics for the resource")
 	flag.BoolVar(&vers, "version", false, "Return version")
 	flag.BoolVar(&warclight, "warclight", false, "Use Warclight instead of Shine")
 }
 
-func minint(x int, y int) int {
-	if x < y {
-		return x
+func minInt(int1 int, int2 int) int {
+	if int1 < int2 {
+		return int1
 	}
-	return y
+	return int2
 }
 
-func newSearchString(newshine shinerequest) string {
+func newSearchString(newshine ShineRequest) string {
 	searchstring := fmt.Sprintf("%s?page=%s&%s&%s&%s", newshine.shineurl,
 		newshine.page,
 		newshine.baddeed,
@@ -166,13 +176,14 @@ func ping(baddeedurl string) (string, int, int) {
 		log.Fatalf("Unsuccessful request: %s", resp.StatusText)
 	}
 
-	// stat the results at all times to understand what other processing
+	// Stat the results at all times to understand what other processing
 	// is needed.
 	filecount, pagecount, err := statResults(resp.Data)
 	if err != nil {
 		log.Println(err)
 	}
 
+	// Shine doesn't used a zero-based index.
 	if filecount > 0 && pagecount == 0 {
 		pagecount = 1
 	}
@@ -201,48 +212,50 @@ func concatenateresults(linkslice []string, page string) ([]string, error) {
 	return linkslice, nil
 }
 
-func listresults(baddeedurl shinerequest, pagecontent string, pageno int,
-	pagecount int, numberOfPages int) []string {
+func getSinglePage(linkslice []string, pageNumber int, baddeedurl ShineRequest) []string {
+
+	var err error
+	baddeedurl.page = strconv.Itoa(pageNumber)
+	searchstring := newSearchString(baddeedurl)
+	sr := newRequest(searchstring)
+	resp, _ := sr.Do()
+
+	if resp.StatusCode != 200 {
+		log.Fatalf("Unsuccessful request: %s, exiting", resp.StatusText)
+	}
+
+	linkslice, err = concatenateresults(linkslice, resp.Data)
+	if err != nil {
+		log.Fatalf("%s", err)
+	}
+	return linkslice
+}
+
+// listResults returns a slice of all results for a given page.
+func listResults(baddeedurl ShineRequest, pagecontent string, pageNumber int,
+	numberOfPages int) []string {
 
 	var linkslice []string
 	var err error
 
-	if numberOfPages == 0 || numberOfPages > maxpages {
-		numberOfPages = maxpages
+	if numberOfPages == 1 && pageNumber == 1 {
+		log.Println("First result already in memory")
+		linkslice, err = concatenateresults(linkslice, pagecontent)
+		if err != nil {
+			log.Fatalf("%s", err)
+		}
+		return linkslice
 	}
 
-	for x := pageno; x < pageno+minint(numberOfPages, pagecount); x++ {
-		// don't redo work we've already done in PING if we're just
-		// looking for the first page.
-		if pagecontent != "" && pageno == 1 {
-			log.Println("First result already in memory")
-			linkslice, err = concatenateresults(linkslice, pagecontent)
-			if err != nil {
-				log.Println(err)
-			}
-			pagecontent = ""
-			continue
-		}
+	if numberOfPages == 1 {
+		return getSinglePage(linkslice, pageNumber, baddeedurl)
+	}
 
-		baddeedurl.page = strconv.Itoa(x)
-		searchstring := newSearchString(baddeedurl)
-		sr := newRequest(searchstring)
-		resp, _ := sr.Do()
-
-		if resp.StatusCode != 200 {
-			log.Printf("Unsuccessful request: %s\n", resp.StatusText)
-			if len(linkslice) > 0 {
-				log.Println("Dumping results received so far:")
-			}
-			log.Fatal("exiting")
-		}
-
-		linkslice, err = concatenateresults(linkslice, resp.Data)
-		if err != nil {
-			log.Println(err)
-		}
+	for pages := 0; pages < numberOfPages; pages++ {
+		linkslice = getSinglePage(linkslice, pageNumber+pages, baddeedurl)
 		time.Sleep(500 * time.Millisecond)
 	}
+
 	return linkslice
 }
 
@@ -267,99 +280,91 @@ func validateHex(magic string) error {
 	return nil
 }
 
-func getRandom(filecount int, pagecount int) (int, int) {
-	var randno int
-	rand.Seed(time.Now().UTC().UnixNano())
-	if filecount > 0 {
-		randno = rand.Intn(filecount)
+func returnRandomFile(pagecount int, baddeedurl ShineRequest, pagecontent string) {
+	// Shine doesn't use a zero-based index.
+	randomPageNumber := getRandom(pagecount) + 1
+	linkslice := listResults(baddeedurl, pagecontent, randomPageNumber, singlePage)
+	if len(linkslice) == 0 {
+		log.Fatalf("Returned zero attempting to get random result. Exiting.")
 	}
-
-	pageno := randno / resultsPerPage
-	if randno > 0 {
-		log.Printf("returning file number '%d'", randno+1)
-	}
-	return randno, pageno
+	randomFileNumber := getRandom(len(linkslice))
+	// Out slice uses a zero-based index so we don't need to increment.
+	log.Printf("Returning file: %d from page: %d", randomFileNumber+1, randomPageNumber)
+	fmt.Println(linkslice[randomFileNumber])
 }
 
+// getFile is the primary runner of this app,
 func getFile() {
-	// Override ffb and enter GIF mode...
+	// Override the ffb and enter GIF mode...
 	if gif == true {
 		log.Println("Searching in GIF mode")
-		ffb = ffbgif
+		ffb = ffbGIF
 	}
 
-	// Convert ffb to lowercase for Shine then validate
+	// Convert the ffb to lowercase for Shine then validate
 	ffb = strings.ToLower(ffb)
 	err := validateHex(ffb)
 	if err != nil {
 		log.Fatal("Invalid hexadecimal string: ", err)
 	}
 
-	// Ping the first page to configure our search...
-	var baddeedurl shinerequest
-	var pagecontent string
+	// Ping the first page of the shine service to configure the search.
+	var baddeedurl ShineRequest
+	var pageContent string
 	var filecount, pagecount int
 	if warclight {
 		log.Println("ff")
 		log.Println("Searching Warclight")
 		baddeedurl = newWarclightSearch(1, ffb, "crawl_date", "asc")
-		pagecontent, filecount, pagecount = ping(newSearchString(baddeedurl))
+		pageContent, filecount, pagecount = ping(newSearchString(baddeedurl))
 	} else {
-		log.Println("Searching Shine")
+		log.Println("Searching UKWA Shine")
 		baddeedurl = newShineSearch(1, ffb, "crawl_date", "asc")
-		pagecontent, filecount, pagecount = ping(newSearchString(baddeedurl))
+		pageContent, filecount, pagecount = ping(newSearchString(baddeedurl))
 	}
 
 	// if this, our work is done...
 	if stat || filecount == 0 {
+		// No files to return.
 		return
 	}
 
 	if filecount > 0 && pagecount == 0 {
+		// Non-zero based indexing.
 		pagecount = 1
 	}
 
 	// Shine's SOLR has a issue deep paging beyond 10,000 results. This eats
-	// RAM and CPU. Be kind to the UKWA Shine Project and don't make the
-	// pagecount any higher than that.
-	if !warclight {
-		if pagecount >= solrmax {
-			pagecount = solrlimit
-			filecount = solrlimit * resultsPerPage
-		}
+	// RAM and CPU. To be kind to Shine and Warclight we will keep the limits
+	// lower than that.
+	if pagecount >= solrMaxPages {
+		log.Printf("Setting pagecount ('%d') max to: %d (solrMaxPages)", pagecount, solrMaxPages)
+		pagecount = solrMaxPages
+		filecount = solrMaxPages * resultsPerPage
 	}
 
 	if random && !list {
-		randno, pageno := getRandom(filecount, pagecount)
-		linkslice := listresults(baddeedurl, pagecontent, pageno, pagecount, 1)
-
-		if len(linkslice) == 0 {
-			log.Fatalf("Returned zero attempting to get random result. Exiting.")
+		if page > 0 {
+			log.Printf("Argument `-page %d` has no effect when random (default) is selected", page)
 		}
-
-		if randno > len(linkslice) {
-			log.Println("Check logic behind random no. generation. Index greater than slice length")
-			log.Println("Returning slice length")
-			// zero-based index so len - 1
-			randno = len(linkslice) - 1
-		}
-		fmt.Println(linkslice[randno])
+		// Return a random file and then exit.
+		returnRandomFile(pagecount, baddeedurl, pageContent)
 		return
 	}
 
-	// List results from specific page no.
-	numberOfPages := maxpages
-	if pagecount < page {
+	// Else, list five pages of files from a given offset.
+	listSize := minInt((pagecount-page), multiPage) + 1
+	if page > pagecount {
+		log.Printf("Page number: '%d' too high, setting to max: '%d' (list size: %d)", page, pagecount, listSize)
 		page = pagecount
-		numberOfPages = 1
-		log.Println("page number too high, returning last page of results")
+		listSize = singlePage
 	}
 
-	linkslice := listresults(baddeedurl, pagecontent, page, pagecount, numberOfPages)
+	linkslice := listResults(baddeedurl, pageContent, page, listSize)
 
 	log.Printf("Returning %d results\n", len(linkslice))
-	for _, l := range linkslice {
-		fmt.Println(l)
+	for _, value := range linkslice {
+		fmt.Println(value)
 	}
 }
 

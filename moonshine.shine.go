@@ -4,19 +4,24 @@ import (
 	"fmt"
 )
 
-func newShineSearch(page int, ffb string, sort string, order string) shinerequest {
+// newShineSearch creates a ShineRequest object to enable us to query Shine/Warclight.
+func newShineSearch(page int, ffb string, sort string, order string) ShineRequest {
+	//
 	// Example Shine requests:
-	// https://www.webarchive.org.uk/shine/search?page=1&query=content_ffb:"47494638"&sort=crawl_date&order=asc
-	// https://www.webarchive.org.uk/shine/search?page=1&query=content_ffb:"d0cf11e0"&sort=crawl_date&order=asc
+	// `* `https://www.webarchive.org.uk/shine/search?page=1&query=content_ffb:"47494638"&sort=crawl_date&order=asc`
+	//  * `https://www.webarchive.org.uk/shine/search?page=1&query=content_ffb:"d0cf11e0"&sort=crawl_date&order=asc`
 	//
 	// Example warclight requests:
-	// http://warclight.archivesunleashed.org/catalog.json?f[content_ffb][]=d0cf11e0
-	// http://warclight.archivesunleashed.org/catalog.json?f[content_ffb][]=baaddeed
-	// http://warclight.archivesunleashed.org/catalog.json?f[content_ffb][]=47494638
-	var newshine shinerequest
+	//
+	//  * `http://warclight.archivesunleashed.org/catalog.json?f[content_ffb][]=d0cf11e0`
+	//  * `http://warclight.archivesunleashed.org/catalog.json?f[content_ffb][]=baaddeed`
+	//  * `http://warclight.archivesunleashed.org/catalog.json?f[content_ffb][]=47494638`
+	//
+	//
+	var newshine ShineRequest
 	newshine.shineurl = "https://www.webarchive.org.uk/shine/search"
 	newshine.page = fmt.Sprintf("%d", page)
-	newshine.baddeed = fmt.Sprintf("query=content_ffb:\"%s\"", ffb)
+	newshine.baddeed = fmt.Sprintf("query=content_ffb:%s", ffb)
 	newshine.sort = fmt.Sprintf("sort=%s", sort)
 	newshine.order = fmt.Sprintf("order=%s", order)
 	return newshine
