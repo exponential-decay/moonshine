@@ -8,7 +8,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        os:  ["windows-latest", "ubuntu-latest", "macOS-latest"]
+        os:  ["ubuntu-latest", "windows-latest", "macOS-latest"]
         go:  ["1.20.x"]
     runs-on: ${{ matrix.os }}
     steps:
@@ -20,8 +20,13 @@ jobs:
       uses: actions/setup-go@v2
       with:
         go-version: ${{ matrix.go }}
-    - run: "go test ./..."
-    - run: "go vet ./..."
+    - name: "fmt"
+      run: if [ "$(go fmt ./... | wc -l)" -gt 0 ]; then echo "go fmt failed, please run again locally"; exit 1; fi
+      if: matrix.os == 'ubuntu-latest'
+    - name: "test"
+      run: "go test ./..."
+    - name: "vet"
+      run: "go vet ./..."
     - run: "go install honnef.co/go/tools/cmd/staticcheck@latest"
     - name: staticcheck
       run: "staticcheck ./..."
