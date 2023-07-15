@@ -62,7 +62,7 @@ func init() {
 	flag.StringVar(&ffb, "ffb", ffbBadDeed, "first four bytes of file to find")
 	flag.BoolVar(&gif, "gif", false, "return a single gif")
 	flag.BoolVar(&list, "list", false, "list the first five pages from page number")
-	flag.IntVar(&page, "page", 1, "specify a page number to return from, [max: 9000]")
+	flag.IntVar(&page, "page", 1, fmt.Sprintf("specify a page number to return from, [max: %d]", solrMaxPages))
 	flag.BoolVar(&random, "random", true, "return a random link to a file")
 	flag.BoolVar(&stat, "stats", false, "return statistics for the resource")
 	flag.BoolVar(&vers, "version", false, "Return version")
