@@ -1,0 +1,27 @@
+name: linting
+
+on: ["push", "pull_request"]
+
+jobs:
+  ci:
+    name: "run linting"
+    strategy:
+      fail-fast: true
+      matrix:
+        os:  ["windows-latest", "ubuntu-latest", "macOS-latest"]
+        go:  ["1.20.x"]
+    runs-on: ${{ matrix.os }}
+    steps:
+    - name: "checkout"
+      uses: actions/checkout@v2
+    - name: "fetch unshallow"
+      run: git fetch --prune --unshallow
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: ${{ matrix.go }}
+    - run: "go test ./..."
+    - run: "go vet ./..."
+    - run: "go install honnef.co/go/tools/cmd/staticcheck@latest"
+    - name: staticcheck
+      run: "staticcheck ./..."
