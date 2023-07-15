@@ -26,7 +26,7 @@ type ShineRequest struct {
 
 const agent string = "moonshine/1.0.0"
 
-// Search result limits to be kind to Shine and Warclight.
+// Search result limits to be kind to Shine.
 const solrMaxPages int = 1000
 const resultsPerPage int = 10
 
@@ -42,25 +42,23 @@ const ffbGIF string = "47494638"
 const ffbBadDeed string = "0baddeed"
 
 var (
-	vers      bool
-	ffb       string
-	gif       bool
-	random    bool
-	page      int
-	list      bool
-	stat      bool
-	warclight bool
+	vers   bool
+	ffb    string
+	gif    bool
+	random bool
+	page   int
+	list   bool
+	stat   bool
 )
 
 func init() {
 	flag.StringVar(&ffb, "ffb", ffbBadDeed, "first four bytes of file to find")
 	flag.BoolVar(&gif, "gif", false, "return a single gif")
 	flag.BoolVar(&list, "list", false, "list the first five pages from page number")
-	flag.IntVar(&page, "page", 0, "specify a page number to return from, [max: 9000]")
+	flag.IntVar(&page, "page", 1, "specify a page number to return from, [max: 9000]")
 	flag.BoolVar(&random, "random", true, "return a random link to a file")
 	flag.BoolVar(&stat, "stats", false, "return statistics for the resource")
 	flag.BoolVar(&vers, "version", false, "Return version")
-	flag.BoolVar(&warclight, "warclight", false, "Use Warclight instead of Shine")
 }
 
 func minInt(int1 int, int2 int) int {
@@ -161,9 +159,6 @@ func parseHtmForLinks(htm string) ([]string, error) {
 }
 
 func statResults(resp string) (int, int, error) {
-	if warclight {
-		return statWarclightResults(resp)
-	}
 	return statShineResults(resp)
 }
 
@@ -188,26 +183,16 @@ func ping(baddeedurl string) (string, int, int) {
 		pagecount = 1
 	}
 
-	log.Printf("%d files discovered\n", filecount)
-	log.Printf("%d pages available\n", pagecount)
 	return resp.Data, filecount, pagecount
 }
 
 func concatenateresults(linkslice []string, page string) ([]string, error) {
 	var res []string
 	var err error
-	if warclight {
-		res, err = parseJSONForLinks(page)
-		if err != nil {
-			return linkslice, err
-		}
-	} else {
-		res, err = parseHtmForLinks(page)
-		if err != nil {
-			return linkslice, err
-		}
+	res, err = parseHtmForLinks(page)
+	if err != nil {
+		return linkslice, err
 	}
-
 	linkslice = append(linkslice, res...)
 	return linkslice, nil
 }
@@ -252,6 +237,11 @@ func listResults(baddeedurl ShineRequest, pagecontent string, pageNumber int,
 	}
 
 	for pages := 0; pages < numberOfPages; pages++ {
+		if pageNumber+pages == 1 {
+			log.Println("First result already in memory")
+			linkslice, err = concatenateresults(linkslice, pagecontent)
+			continue
+		}
 		linkslice = getSinglePage(linkslice, pageNumber+pages, baddeedurl)
 		time.Sleep(500 * time.Millisecond)
 	}
@@ -312,16 +302,11 @@ func getFile() {
 	var baddeedurl ShineRequest
 	var pageContent string
 	var filecount, pagecount int
-	if warclight {
-		log.Println("ff")
-		log.Println("Searching Warclight")
-		baddeedurl = newWarclightSearch(1, ffb, "crawl_date", "asc")
-		pageContent, filecount, pagecount = ping(newSearchString(baddeedurl))
-	} else {
-		log.Println("Searching UKWA Shine")
-		baddeedurl = newShineSearch(1, ffb, "crawl_date", "asc")
-		pageContent, filecount, pagecount = ping(newSearchString(baddeedurl))
-	}
+	log.Println("Searching Shine@UKWA")
+	baddeedurl = newShineSearch(1, ffb, "crawl_date", "asc")
+	pageContent, filecount, pagecount = ping(newSearchString(baddeedurl))
+	log.Printf("%d files discovered\n", filecount)
+	log.Printf("%d pages available\n", pagecount)
 
 	// if this, our work is done...
 	if stat || filecount == 0 {
@@ -331,12 +316,11 @@ func getFile() {
 
 	if filecount > 0 && pagecount == 0 {
 		// Non-zero based indexing.
-		pagecount = 1
+		pagecount = singlePage
 	}
 
 	// Shine's SOLR has a issue deep paging beyond 10,000 results. This eats
-	// RAM and CPU. To be kind to Shine and Warclight we will keep the limits
-	// lower than that.
+	// RAM and CPU. To be kind to Shine we will keep the limits lower than that.
 	if pagecount >= solrMaxPages {
 		log.Printf("Setting pagecount ('%d') max to: %d (solrMaxPages)", pagecount, solrMaxPages)
 		pagecount = solrMaxPages
@@ -357,7 +341,12 @@ func getFile() {
 	if page > pagecount {
 		log.Printf("Page number: '%d' too high, setting to max: '%d' (list size: %d)", page, pagecount, listSize)
 		page = pagecount
-		listSize = singlePage
+		listSize = 1
+	}
+
+	if page == 0 {
+		log.Println("Page can't be zero, setting to 1")
+		page = 1
 	}
 
 	linkslice := listResults(baddeedurl, pageContent, page, listSize)

@@ -1,4 +1,8 @@
 // Warclight Pieces
+//
+// NB. OBSOLETE and should be removed when there is an opportunity. I
+// want to query the status of this and understand more where the
+// resource went.
 package main
 
 import (
