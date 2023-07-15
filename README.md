@@ -9,7 +9,8 @@ or Warclight:
 ```./moonshine -warclight -gif | xargs wget```
 
 Full usage:
-```
+
+```text
 Usage of ./moonshine:
   -ffb string
       first four bytes of file to find (default "0baddeed")
@@ -28,3 +29,17 @@ Usage of ./moonshine:
   -warclight
       Use Warclight instead of Shine
 ```
+
+## Developing moonshine
+
+### Goreleaser
+
+Testing goreleaser can be done as follows:
+
+* `goreleaser release --skip-publish`
+
+Valid semantic versioning looks as follows:
+
+* `vMM.mm.pp-rc.n`
+
+Where `-rc.n` are optional, e.g. used purely for release candidates.

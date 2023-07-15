@@ -1,0 +1,40 @@
+project_name: moonshine
+builds:
+- env: [CGO_ENABLED=0]
+  goos:
+    - linux
+    - windows
+    - darwin
+    - freebsd
+  ignore:
+    - goos: linux
+      goarch: arm64
+    - goos: darwin
+      goarch: arm64
+    - goos: freebsd
+      goarch: 386
+    - goos: freebsd
+      goarch: arm64
+    - goos: windows
+      goarch: arm64
+archives:
+- name_template: >-
+    {{ .ProjectName }}_{{ .Version }}_
+    {{- title .Os }}_
+    {{- if eq .Arch "amd64" }}x86_64
+    {{- else if eq .Arch "386" }}i386
+    {{- else if eq .Arch "arm64" }}arm64
+    {{- else }}{{ .Arch }}{{ end }}
+  format: tar.gz
+  format_overrides:
+     - goos: windows
+       format: zip
+checksum:
+  name_template: 'checksums_sha256.txt'
+  algorithm: sha256
+changelog:
+  sort: asc
+  filters:
+    exclude:
+    - '^docs:'
+    - '^test:'

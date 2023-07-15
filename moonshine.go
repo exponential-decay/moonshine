@@ -25,7 +25,13 @@ type shineRequest struct {
 	order    string // order=asc
 }
 
-const agent string = "moonshine/1.0.0"
+var (
+	version = "dev-0.0.0"
+	commit  = "000000000000000000000000000000000baddeed"
+	date    = "1970-01-01T00:00:01Z"
+)
+
+var agent string = fmt.Sprintf("moonshine/%s", version)
 
 // Search result limits to be kind to Shine.
 const solrMaxPages int = 1000
@@ -353,7 +359,7 @@ func getFile() {
 func main() {
 	flag.Parse()
 	if vers {
-		fmt.Fprintf(os.Stderr, "%s \n", agent)
+		fmt.Fprintf(os.Stderr, "%s (%s) commit: %s date: %s\n", agent, version, commit, date)
 		os.Exit(0)
 	} else if flag.NFlag() < 0 { // can access args w/ len(os.Args[1:]) too
 		fmt.Fprintln(os.Stderr, "Usage:  baddeed")
