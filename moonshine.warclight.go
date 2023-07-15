@@ -10,6 +10,8 @@ import (
 	"fmt"
 )
 
+//lint:file-ignore U1000 Ignore all unused code, it serves a reference purpose.
+
 // newWarclightSearch creates a ShineRequest object to enable us to query Shine/Warclight.
 func newWarclightSearch(page int, ffb string, sort string, order string) shineRequest {
 	//
@@ -71,7 +73,7 @@ func parseWarclight(data string) (WarclightResult, error) {
 	var js WarclightResult
 	json.Unmarshal([]byte(data), &js)
 	if js.Meta.Pages.CurrentPage < 1 {
-		return WarclightResult{}, fmt.Errorf("Unable to read JSON result")
+		return WarclightResult{}, fmt.Errorf("unable to read JSON result")
 	}
 	return js, nil
 }

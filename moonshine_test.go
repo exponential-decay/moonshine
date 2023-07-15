@@ -1,12 +1,10 @@
 package main
 
 import (
-	"io/ioutil"
 	"log"
+	"os"
 	"testing"
 )
-
-var htm string
 
 type dataCount struct {
 	fpath     string
@@ -27,7 +25,7 @@ var jsonCountTests = []dataCount{
 }
 
 func getData(fname string) string {
-	rawhtm, err := ioutil.ReadFile(fname)
+	rawhtm, err := os.ReadFile(fname)
 	if err != nil {
 		log.Fatal(err)
 	}

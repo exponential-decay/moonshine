@@ -112,10 +112,6 @@ func parseHtmForResults(htm string) (int, error) {
 		}
 	}
 
-	if err := scanner.Err(); err != nil {
-		// Handle the error
-	}
-
 	// if we arrive here, we've no results
 	return 0, fmt.Errorf("no results string in htm")
 }
@@ -128,19 +124,19 @@ func parseHtmForLinks(htm string) ([]string, error) {
 	// Splits on newlines by default.
 	scanner := bufio.NewScanner(strings.NewReader(htm))
 
-	f := false
+	found := false
 	for scanner.Scan() {
-		if f == true {
+		if found {
 			lnk := strings.Split(strings.TrimSpace(scanner.Text()), "\"")[httpIndex]
 			if !strings.Contains(lnk, "http") &&
 				!strings.Contains(lnk, "https") {
 				return nil, fmt.Errorf("no http")
 			}
 			httpSlice = append(httpSlice, lnk)
-			f = false
+			found = false
 		}
 		if strings.Contains(scanner.Text(), "<h4 class=\"list-group-item-heading\">") {
-			f = true
+			found = true
 		}
 		if strings.Contains(scanner.Text(), "message:Service Temporarily Unavailable") {
 			log.Fatal("Exiting: UKWA server is currently experiencing technical difficultues")
@@ -150,10 +146,6 @@ func parseHtmForLinks(htm string) ([]string, error) {
 	if len(httpSlice) == 0 {
 		return nil, fmt.Errorf("no results")
 
-	}
-
-	if err := scanner.Err(); err != nil {
-		// Handle the error
 	}
 
 	return httpSlice, nil
@@ -240,7 +232,7 @@ func listResults(badDeedRequest shineRequest, pageContent string, pageNumber int
 	for pages := 0; pages < numberOfPages; pages++ {
 		if pageNumber+pages == 1 {
 			log.Println("First result already in memory")
-			linkSlice, err = concatenateResults(linkSlice, pageContent)
+			linkSlice, _ = concatenateResults(linkSlice, pageContent)
 			continue
 		}
 		linkSlice = getSinglePage(linkSlice, pageNumber+pages, badDeedRequest)
@@ -253,13 +245,13 @@ func listResults(badDeedRequest shineRequest, pageContent string, pageNumber int
 func validateHex(magic string) error {
 
 	/*hex errors to return*/
-	const NOTHEX string = "Contains invalid hexadecimal characters."
-	const UNEVEN string = "Contains uneven character filecount."
-	const LENGTH string = "FFB must be four bytes."
+	const NOTHEX string = "contains invalid hexadecimal characters"
+	const UNEVEN string = "contains uneven character filecount"
+	const LENGTH string = "ffb must be four bytes"
 
 	var regexString = "^[A-Fa-f\\d]+$"
 	res, _ := regexp.MatchString(regexString, magic)
-	if res == false {
+	if !res {
 		return fmt.Errorf(NOTHEX)
 	}
 	if len(magic)%2 != 0 {
@@ -287,7 +279,7 @@ func returnRandomFile(pageCount int, badDeedRequest shineRequest, pageContent st
 // getFile is the primary runner of this app,
 func getFile() {
 	// Override the ffb and enter GIF mode...
-	if gif == true {
+	if gif {
 		log.Println("Searching in GIF mode")
 		ffb = ffbGIF
 	}
