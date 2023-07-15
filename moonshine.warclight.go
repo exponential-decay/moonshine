@@ -11,19 +11,19 @@ import (
 )
 
 // newWarclightSearch creates a ShineRequest object to enable us to query Shine/Warclight.
-func newWarclightSearch(page int, ffb string, sort string, order string) ShineRequest {
+func newWarclightSearch(page int, ffb string, sort string, order string) shineRequest {
 	//
 	// Example warclight requests:
 	//  * `http://warclight.archivesunleashed.org/catalog.json?f[content_ffb][]=47494638&page=2`
 	//
 	//
-	var newshine ShineRequest
-	newshine.shineurl = "http://warclight.archivesunleashed.org/catalog.json"
-	newshine.page = fmt.Sprintf("%d", page)
-	newshine.baddeed = fmt.Sprintf("f[content_ffb][]=%s", ffb)
-	newshine.sort = fmt.Sprintf("sort=%s", sort)
-	newshine.order = fmt.Sprintf("order=%s", order)
-	return newshine
+	var newShine shineRequest
+	newShine.shineURL = "http://warclight.archivesunleashed.org/catalog.json"
+	newShine.page = fmt.Sprintf("%d", page)
+	newShine.badDeed = fmt.Sprintf("f[content_ffb][]=%s", ffb)
+	newShine.sort = fmt.Sprintf("sort=%s", sort)
+	newShine.order = fmt.Sprintf("order=%s", order)
+	return newShine
 }
 
 func statWarclightResults(resp string) (int, int, error) {
@@ -31,8 +31,8 @@ func statWarclightResults(resp string) (int, int, error) {
 	if err != nil {
 		return 0, 0, err
 	}
-	return wl.Meta.Pages.Total_Count,
-		wl.Meta.Pages.Total_Pages,
+	return wl.Meta.Pages.TotalCount,
+		wl.Meta.Pages.TotalPages,
 		nil
 }
 
@@ -59,18 +59,18 @@ type WarclightMeta struct {
 
 // WarclightPages is our result metadata
 type WarclightPages struct {
-	Current_Page int
-	First_Page   bool
-	Last_Page    bool
-	Limit_Value  int
-	Total_Count  int
-	Total_Pages  int
+	CurrentPage int  `json:"Current_Page"`
+	FirstPage   bool `json:"First_Page"`
+	LastPage    bool `json:"Last_Page"`
+	LimitValue  int  `json:"Limit_Value"`
+	TotalCount  int  `json:"Total_Count"`
+	TotalPages  int  `json:"Total_Pages"`
 }
 
 func parseWarclight(data string) (WarclightResult, error) {
 	var js WarclightResult
 	json.Unmarshal([]byte(data), &js)
-	if js.Meta.Pages.Current_Page < 1 {
+	if js.Meta.Pages.CurrentPage < 1 {
 		return WarclightResult{}, fmt.Errorf("Unable to read JSON result")
 	}
 	return js, nil
@@ -78,16 +78,16 @@ func parseWarclight(data string) (WarclightResult, error) {
 
 func parseJSONForLinks(js string) ([]string, error) {
 
-	var httpslice []string
+	var httpSlice []string
 
 	wl, err := parseWarclight(js)
 	if err != nil {
-		return httpslice, err
+		return httpSlice, err
 	}
 
 	for index := range wl.Data {
-		httpslice = append(httpslice, wl.Data[index].Attributes.URL)
+		httpSlice = append(httpSlice, wl.Data[index].Attributes.URL)
 	}
 
-	return httpslice, nil
+	return httpSlice, nil
 }

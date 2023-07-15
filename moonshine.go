@@ -16,10 +16,11 @@ import (
 
 // Example SHINE uri: https://www.webarchive.org.uk/shine/search?page=2&query=content_ffb:%220baddeed%22&sort=crawl_date&order=asc
 
-type ShineRequest struct {
-	shineurl string // https://www.webarchive.org.uk/shine/search?
+// shineRequest holds the information needed to make a request to Shine.
+type shineRequest struct {
+	shineURL string // https://www.webarchive.org.uk/shine/search?
 	page     string // page=2
-	baddeed  string // &query=content_ffb:"0baddeed"
+	badDeed  string // &query=content_ffb:"0baddeed"
 	sort     string // sort=crawl_date, title, score, comain, content
 	order    string // order=asc
 }
@@ -68,18 +69,18 @@ func minInt(int1 int, int2 int) int {
 	return int2
 }
 
-func newSearchString(newshine ShineRequest) string {
-	searchstring := fmt.Sprintf("%s?page=%s&%s&%s&%s", newshine.shineurl,
-		newshine.page,
-		newshine.baddeed,
-		newshine.sort,
-		newshine.order)
-	log.Printf("Created URL: %s\n", searchstring)
-	return searchstring
+func newSearchString(newShine shineRequest) string {
+	searchString := fmt.Sprintf("%s?page=%s&%s&%s&%s", newShine.shineURL,
+		newShine.page,
+		newShine.badDeed,
+		newShine.sort,
+		newShine.order)
+	log.Printf("Created URL: %s\n", searchString)
+	return searchString
 }
 
-func newRequest(baddeedurl string) SR.SimpleRequest {
-	sr, err := SR.Create("GET", baddeedurl)
+func newRequest(badDeedURL string) SR.SimpleRequest {
+	sr, err := SR.Create("GET", badDeedURL)
 	if err != nil {
 		log.Fatalf("create request failed: %s\n", err)
 	}
@@ -121,8 +122,8 @@ func parseHtmForResults(htm string) (int, error) {
 
 func parseHtmForLinks(htm string) ([]string, error) {
 
-	const httpindex int = 1 // location in the split where the URL will be
-	var httpslice []string
+	const httpIndex int = 1 // location in the split where the URL will be
+	var httpSlice []string
 
 	// Splits on newlines by default.
 	scanner := bufio.NewScanner(strings.NewReader(htm))
@@ -130,12 +131,12 @@ func parseHtmForLinks(htm string) ([]string, error) {
 	f := false
 	for scanner.Scan() {
 		if f == true {
-			lnk := strings.Split(strings.TrimSpace(scanner.Text()), "\"")[httpindex]
+			lnk := strings.Split(strings.TrimSpace(scanner.Text()), "\"")[httpIndex]
 			if !strings.Contains(lnk, "http") &&
 				!strings.Contains(lnk, "https") {
 				return nil, fmt.Errorf("no http")
 			}
-			httpslice = append(httpslice, lnk)
+			httpSlice = append(httpSlice, lnk)
 			f = false
 		}
 		if strings.Contains(scanner.Text(), "<h4 class=\"list-group-item-heading\">") {
@@ -146,7 +147,7 @@ func parseHtmForLinks(htm string) ([]string, error) {
 		}
 	}
 
-	if len(httpslice) == 0 {
+	if len(httpSlice) == 0 {
 		return nil, fmt.Errorf("no results")
 
 	}
@@ -155,16 +156,16 @@ func parseHtmForLinks(htm string) ([]string, error) {
 		// Handle the error
 	}
 
-	return httpslice, nil
+	return httpSlice, nil
 }
 
 func statResults(resp string) (int, int, error) {
 	return statShineResults(resp)
 }
 
-func ping(baddeedurl string) (string, int, int) {
-	log.Printf("Pinging URL: %s", baddeedurl)
-	req := newRequest(baddeedurl)
+func ping(badDeedURL string) (string, int, int) {
+	log.Printf("Pinging URL: %s", badDeedURL)
+	req := newRequest(badDeedURL)
 	resp, _ := req.Do()
 
 	if resp.StatusCode != 200 {
@@ -173,80 +174,80 @@ func ping(baddeedurl string) (string, int, int) {
 
 	// Stat the results at all times to understand what other processing
 	// is needed.
-	filecount, pagecount, err := statResults(resp.Data)
+	fileCount, pageCount, err := statResults(resp.Data)
 	if err != nil {
 		log.Println(err)
 	}
 
 	// Shine doesn't used a zero-based index.
-	if filecount > 0 && pagecount == 0 {
-		pagecount = 1
+	if fileCount > 0 && pageCount == 0 {
+		pageCount = 1
 	}
 
-	return resp.Data, filecount, pagecount
+	return resp.Data, fileCount, pageCount
 }
 
-func concatenateresults(linkslice []string, page string) ([]string, error) {
+func concatenateResults(linkSlice []string, page string) ([]string, error) {
 	var res []string
 	var err error
 	res, err = parseHtmForLinks(page)
 	if err != nil {
-		return linkslice, err
+		return linkSlice, err
 	}
-	linkslice = append(linkslice, res...)
-	return linkslice, nil
+	linkSlice = append(linkSlice, res...)
+	return linkSlice, nil
 }
 
-func getSinglePage(linkslice []string, pageNumber int, baddeedurl ShineRequest) []string {
+func getSinglePage(linkSlice []string, pageNumber int, badDeedRequest shineRequest) []string {
 
 	var err error
-	baddeedurl.page = strconv.Itoa(pageNumber)
-	searchstring := newSearchString(baddeedurl)
-	sr := newRequest(searchstring)
+	badDeedRequest.page = strconv.Itoa(pageNumber)
+	searchString := newSearchString(badDeedRequest)
+	sr := newRequest(searchString)
 	resp, _ := sr.Do()
 
 	if resp.StatusCode != 200 {
 		log.Fatalf("Unsuccessful request: %s, exiting", resp.StatusText)
 	}
 
-	linkslice, err = concatenateresults(linkslice, resp.Data)
+	linkSlice, err = concatenateResults(linkSlice, resp.Data)
 	if err != nil {
 		log.Fatalf("%s", err)
 	}
-	return linkslice
+	return linkSlice
 }
 
 // listResults returns a slice of all results for a given page.
-func listResults(baddeedurl ShineRequest, pagecontent string, pageNumber int,
+func listResults(badDeedRequest shineRequest, pageContent string, pageNumber int,
 	numberOfPages int) []string {
 
-	var linkslice []string
+	var linkSlice []string
 	var err error
 
 	if numberOfPages == 1 && pageNumber == 1 {
 		log.Println("First result already in memory")
-		linkslice, err = concatenateresults(linkslice, pagecontent)
+		linkSlice, err = concatenateResults(linkSlice, pageContent)
 		if err != nil {
 			log.Fatalf("%s", err)
 		}
-		return linkslice
+		return linkSlice
 	}
 
 	if numberOfPages == 1 {
-		return getSinglePage(linkslice, pageNumber, baddeedurl)
+		return getSinglePage(linkSlice, pageNumber, badDeedRequest)
 	}
 
 	for pages := 0; pages < numberOfPages; pages++ {
 		if pageNumber+pages == 1 {
 			log.Println("First result already in memory")
-			linkslice, err = concatenateresults(linkslice, pagecontent)
+			linkSlice, err = concatenateResults(linkSlice, pageContent)
 			continue
 		}
-		linkslice = getSinglePage(linkslice, pageNumber+pages, baddeedurl)
+		linkSlice = getSinglePage(linkSlice, pageNumber+pages, badDeedRequest)
 		time.Sleep(500 * time.Millisecond)
 	}
 
-	return linkslice
+	return linkSlice
 }
 
 func validateHex(magic string) error {
@@ -270,17 +271,17 @@ func validateHex(magic string) error {
 	return nil
 }
 
-func returnRandomFile(pagecount int, baddeedurl ShineRequest, pagecontent string) {
+func returnRandomFile(pageCount int, badDeedRequest shineRequest, pageContent string) {
 	// Shine doesn't use a zero-based index.
-	randomPageNumber := getRandom(pagecount) + 1
-	linkslice := listResults(baddeedurl, pagecontent, randomPageNumber, singlePage)
-	if len(linkslice) == 0 {
+	randomPageNumber := getRandom(pageCount) + 1
+	linkSlice := listResults(badDeedRequest, pageContent, randomPageNumber, singlePage)
+	if len(linkSlice) == 0 {
 		log.Fatalf("Returned zero attempting to get random result. Exiting.")
 	}
-	randomFileNumber := getRandom(len(linkslice))
+	randomFileNumber := getRandom(len(linkSlice))
 	// Out slice uses a zero-based index so we don't need to increment.
 	log.Printf("Returning file: %d from page: %d", randomFileNumber+1, randomPageNumber)
-	fmt.Println(linkslice[randomFileNumber])
+	fmt.Println(linkSlice[randomFileNumber])
 }
 
 // getFile is the primary runner of this app,
@@ -299,32 +300,32 @@ func getFile() {
 	}
 
 	// Ping the first page of the shine service to configure the search.
-	var baddeedurl ShineRequest
+	var badDeedRequest shineRequest
 	var pageContent string
-	var filecount, pagecount int
+	var fileCount, pageCount int
 	log.Println("Searching Shine@UKWA")
-	baddeedurl = newShineSearch(1, ffb, "crawl_date", "asc")
-	pageContent, filecount, pagecount = ping(newSearchString(baddeedurl))
-	log.Printf("%d files discovered\n", filecount)
-	log.Printf("%d pages available\n", pagecount)
+	badDeedRequest = newShineSearch(1, ffb, "crawl_date", "asc")
+	pageContent, fileCount, pageCount = ping(newSearchString(badDeedRequest))
+	log.Printf("%d files discovered\n", fileCount)
+	log.Printf("%d pages available\n", pageCount)
 
 	// if this, our work is done...
-	if stat || filecount == 0 {
+	if stat || fileCount == 0 {
 		// No files to return.
 		return
 	}
 
-	if filecount > 0 && pagecount == 0 {
+	if fileCount > 0 && pageCount == 0 {
 		// Non-zero based indexing.
-		pagecount = singlePage
+		pageCount = singlePage
 	}
 
 	// Shine's SOLR has a issue deep paging beyond 10,000 results. This eats
 	// RAM and CPU. To be kind to Shine we will keep the limits lower than that.
-	if pagecount >= solrMaxPages {
-		log.Printf("Setting pagecount ('%d') max to: %d (solrMaxPages)", pagecount, solrMaxPages)
-		pagecount = solrMaxPages
-		filecount = solrMaxPages * resultsPerPage
+	if pageCount >= solrMaxPages {
+		log.Printf("Setting pagecount ('%d') max to: %d (solrMaxPages)", pageCount, solrMaxPages)
+		pageCount = solrMaxPages
+		fileCount = solrMaxPages * resultsPerPage
 	}
 
 	if random && !list {
@@ -332,15 +333,15 @@ func getFile() {
 			log.Printf("Argument `-page %d` has no effect when random (default) is selected", page)
 		}
 		// Return a random file and then exit.
-		returnRandomFile(pagecount, baddeedurl, pageContent)
+		returnRandomFile(pageCount, badDeedRequest, pageContent)
 		return
 	}
 
 	// Else, list five pages of files from a given offset.
-	listSize := minInt((pagecount-page), multiPage) + 1
-	if page > pagecount {
-		log.Printf("Page number: '%d' too high, setting to max: '%d' (list size: %d)", page, pagecount, listSize)
-		page = pagecount
+	listSize := minInt((pageCount-page), multiPage) + 1
+	if page > pageCount {
+		log.Printf("Page number: '%d' too high, setting to max: '%d' (list size: %d)", page, pageCount, listSize)
+		page = pageCount
 		listSize = 1
 	}
 
@@ -349,10 +350,10 @@ func getFile() {
 		page = 1
 	}
 
-	linkslice := listResults(baddeedurl, pageContent, page, listSize)
+	linkSlice := listResults(badDeedRequest, pageContent, page, listSize)
 
-	log.Printf("Returning %d results\n", len(linkslice))
-	for _, value := range linkslice {
+	log.Printf("Returning %d results\n", len(linkSlice))
+	for _, value := range linkSlice {
 		fmt.Println(value)
 	}
 }

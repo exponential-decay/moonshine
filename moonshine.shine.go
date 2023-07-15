@@ -5,7 +5,7 @@ import (
 )
 
 // newShineSearch creates a ShineRequest object to enable us to query Shine/Warclight.
-func newShineSearch(page int, ffb string, sort string, order string) ShineRequest {
+func newShineSearch(page int, ffb string, sort string, order string) shineRequest {
 	//
 	// Example Shine requests:
 	// `* `https://www.webarchive.org.uk/shine/search?page=1&query=content_ffb:"47494638"&sort=crawl_date&order=asc`
@@ -18,27 +18,27 @@ func newShineSearch(page int, ffb string, sort string, order string) ShineReques
 	//  * `http://warclight.archivesunleashed.org/catalog.json?f[content_ffb][]=47494638`
 	//
 	//
-	var newshine ShineRequest
-	newshine.shineurl = "https://www.webarchive.org.uk/shine/search"
-	newshine.page = fmt.Sprintf("%d", page)
-	newshine.baddeed = fmt.Sprintf("query=content_ffb:%s", ffb)
-	newshine.sort = fmt.Sprintf("sort=%s", sort)
-	newshine.order = fmt.Sprintf("order=%s", order)
-	return newshine
+	var newShine shineRequest
+	newShine.shineURL = "https://www.webarchive.org.uk/shine/search"
+	newShine.page = fmt.Sprintf("%d", page)
+	newShine.badDeed = fmt.Sprintf("query=content_ffb:%s", ffb)
+	newShine.sort = fmt.Sprintf("sort=%s", sort)
+	newShine.order = fmt.Sprintf("order=%s", order)
+	return newShine
 }
 
 func statShineResults(resp string) (int, int, error) {
-	resultsperpage := 10
+	resultsPerPage := 10
 	count, err := parseHtmForResults(resp)
 	if err != nil {
 		return 0, 0, err
 	}
 
-	// round up pagecount if remainder isn't zero
+	// round up pageCount if remainder isn't zero
 	r := count % 10
-	pagecount := count / resultsperpage
+	pageCount := count / resultsPerPage
 	if count > 10 && r > 0 {
-		pagecount = pagecount + 1
+		pageCount = pageCount + 1
 	}
-	return count, pagecount, nil
+	return count, pageCount, nil
 }

@@ -67,7 +67,7 @@ func TestParseWarclight(t *testing.T) {
 		if err != nil {
 			t.Errorf("Unexpected error in parsing JSON in %s", jsonTest.fpath)
 		}
-		if res.Meta.Pages.Total_Count != jsonTest.count {
+		if res.Meta.Pages.TotalCount != jsonTest.count {
 			t.Errorf("didn't find correct res count in %s", jsonTest.fpath)
 		}
 	}
