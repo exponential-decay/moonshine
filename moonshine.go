@@ -5,8 +5,10 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"math"
 	"os"
 	"regexp"
+	"sort"
 	"strconv"
 	"strings"
 	"time"
@@ -42,6 +44,9 @@ const resultsPerPage int = 10
 const singlePage int = 1
 const multiPage int = 5
 
+// Limit the number of sampled results to return in sample mode.
+const maxSample int = 20
+
 // FFB for the GIF file format.
 const ffbGIF string = "47494638"
 
@@ -56,12 +61,14 @@ var (
 	page   int
 	list   bool
 	stat   bool
+	sample bool
 )
 
 func init() {
 	flag.StringVar(&ffb, "ffb", ffbBadDeed, "first four bytes of file to find")
-	flag.BoolVar(&gif, "gif", false, "return a single gif")
+	flag.BoolVar(&gif, "gif", false, fmt.Sprintf("return a single gif (hex \"%s\")", ffbGIF))
 	flag.BoolVar(&list, "list", false, "list the first five pages from page number")
+	flag.BoolVar(&sample, "sample", false, "return a sampled list of up to 20 files across the maximum no. results")
 	flag.IntVar(&page, "page", 1, fmt.Sprintf("specify a page number to return from, [max: %d]", solrMaxPages))
 	flag.BoolVar(&random, "random", true, "return a random link to a file")
 	flag.BoolVar(&stat, "stats", false, "return statistics for the resource")
@@ -282,6 +289,88 @@ func returnRandomFile(pageCount int, badDeedRequest shineRequest, pageContent st
 	fmt.Println(linkSlice[randomFileNumber])
 }
 
+func checkExistence(needle int, slice []int) bool {
+	for _, value := range slice {
+		if value == needle {
+			return true
+		}
+	}
+	return false
+}
+
+// Return a bar distribution for the pages files are selected from.
+func getDistribution(dist []int) {
+	sort.Ints(dist)
+	var distString string
+	columns := 100
+	for i := 0; i < columns; i++ {
+		for _, v := range dist {
+			x := float64(v)
+			y := float64(solrMaxPages)
+			percentage := float64((x / y) * 100)
+			calculated := int(math.Ceil(percentage))
+			if calculated == i {
+				distString = fmt.Sprintf("%s|", distString)
+				continue
+			}
+		}
+		distString = fmt.Sprintf("%s‖", distString)
+	}
+	log.Printf("Distribution: %s", distString)
+}
+
+func returnSampledList(badDeedRequest shineRequest, pageCount int, fileCount int) {
+
+	var randomFiles []int
+	var returnSlice []string
+
+	for i := 0; i < maxSample; i++ {
+		possibleFile := getRandom(fileCount)
+		// If performance is terrible we can rely on the map to de-dupe and return
+		// less than 20.
+		if checkExistence(possibleFile, randomFiles) {
+			// Decrement counter and find another value.
+			i--
+			continue
+		}
+		randomFiles = append(randomFiles, possibleFile)
+	}
+
+	// Map file number to a page number, map([file]pageNumber)
+	indexPageMap := make(map[int]int)
+	var pageDist []int
+	var keys []int
+	for _, value := range randomFiles {
+		page := int(value/10) + 1
+		indexPageMap[value] = page
+		pageDist = append(pageDist, page)
+		keys = append(keys, value)
+	}
+
+	getDistribution(pageDist)
+	sort.Ints(keys)
+	pageCounter := 0
+	var newLinkSlice []string
+	for _, value := range keys {
+		_page := indexPageMap[value]
+		if _page != pageCounter {
+			pageCounter = _page
+			log.Println("Get page", pageCounter)
+			newLinkSlice = nil
+			newLinkSlice = getSinglePage(newLinkSlice, pageCounter, badDeedRequest)
+		} else {
+			log.Println("Page already in memory:", pageCounter)
+		}
+		index := value % 10
+		returnSlice = append(returnSlice, newLinkSlice[index])
+	}
+
+	for _, value := range returnSlice {
+		// Print our random sample out to the console.
+		fmt.Println(value)
+	}
+}
+
 // getFile is the primary runner of this app,
 func getFile() {
 	// Override the ffb and enter GIF mode...
@@ -326,12 +415,18 @@ func getFile() {
 		fileCount = solrMaxPages * resultsPerPage
 	}
 
-	if random && !list {
+	if random && !list && !sample {
 		if page > 0 {
 			log.Printf("Argument `-page %d` has no effect when random (default) is selected", page)
 		}
 		// Return a random file and then exit.
 		returnRandomFile(pageCount, badDeedRequest, pageContent)
+		return
+	}
+
+	if sample && fileCount > maxSample {
+		log.Println("Returning a sampled list...")
+		returnSampledList(badDeedRequest, pageCount, fileCount)
 		return
 	}
 
@@ -364,6 +459,7 @@ func main() {
 	} else if flag.NFlag() < 0 { // can access args w/ len(os.Args[1:]) too
 		fmt.Fprintln(os.Stderr, "Usage:  baddeed")
 		fmt.Fprintln(os.Stderr, "        OPTIONAL: [-ffb] ... OPTIONAL: [-list] ...")
+		fmt.Fprintln(os.Stderr, "        OPTIONAL: [-ffb] ... OPTIONAL: [-sample] ...")
 		fmt.Fprintln(os.Stderr, "        OPTIONAL: [-gif] ...")
 		fmt.Fprintln(os.Stderr, "        OPTIONAL: [-stat]")
 		fmt.Fprintln(os.Stderr, "")
