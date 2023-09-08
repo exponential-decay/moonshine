@@ -2,27 +2,43 @@
 
 Given four bytes, download a random file from the [UK Web Archive](https://www.webarchive.org.uk/shine), e.g.
 
-```./moonshine -ffb d0cf11e0 | xargs wget```
+```sh
+moonshine -ffb d0cf11e0 | xargs wget
+```
 
 Full usage:
 
 ```text
-Usage of ./moonshine:
   -ffb string
-    	first four bytes of file to find (default "0baddeed")
+        first four bytes of file to find (default "0baddeed")
   -gif
-    	return a single gif
+        return a single gif (hex "47494638")
   -list
-    	list the first five pages from page number
+        list the first five pages from page number
   -page int
-    	specify a page number to return from, [max: 9000] (default 1)
+        specify a page number to return from, [max: 1000] (default 1)
   -random
-    	return a random link to a file (default true)
+        return a random link to a file (default true)
+  -sample
+        return a sampled list of up to 20 files across the maximum no. results
   -stats
-    	return statistics for the resource
+        return statistics for the resource
   -version
-    	Return version
+        Return version
 
+```
+
+## Sample mode
+
+Sample mode has been added to moonshine to return a more varied selection of the
+desired file format example to file format researchers. The results will be
+selected across a distribution of all the pages available to the Shine
+interface.
+
+To use sample mode you can do the following:
+
+```sh
+moonshine --sample --ffb cafebeef | xargs wget
 ```
 
 ## Developing moonshine
