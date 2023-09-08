@@ -88,7 +88,7 @@ func newSearchString(newShine shineRequest) string {
 		newShine.badDeed,
 		newShine.sort,
 		newShine.order)
-	log.Printf("Created URL: %s\n", searchString)
+	log.Printf("created URL: %s\n", searchString)
 	return searchString
 }
 
@@ -121,7 +121,7 @@ func parseHtmForResults(htm string) (int, error) {
 		}
 
 		if strings.Contains(scanner.Text(), "message:Service Temporarily Unavailable") {
-			log.Fatal("Exiting: UKWA server is currently experiencing technical difficultues")
+			log.Fatal("exiting: UKWA server is currently experiencing technical difficultues")
 		}
 	}
 
@@ -152,7 +152,7 @@ func parseHtmForLinks(htm string) ([]string, error) {
 			found = true
 		}
 		if strings.Contains(scanner.Text(), "message:Service Temporarily Unavailable") {
-			log.Fatal("Exiting: UKWA server is currently experiencing technical difficultues")
+			log.Fatal("exiting: UKWA server is currently experiencing technical difficultues")
 		}
 	}
 
@@ -169,12 +169,12 @@ func statResults(resp string) (int, int, error) {
 }
 
 func ping(badDeedURL string) (string, int, int) {
-	log.Printf("Pinging URL: %s", badDeedURL)
+	log.Printf("pinging URL: %s", badDeedURL)
 	req := newRequest(badDeedURL)
 	resp, _ := req.Do()
 
 	if resp.StatusCode != 200 {
-		log.Fatalf("Unsuccessful request: %s", resp.StatusText)
+		log.Fatalf("unsuccessful request: %s", resp.StatusText)
 	}
 
 	// Stat the results at all times to understand what other processing
@@ -212,7 +212,7 @@ func getSinglePage(linkSlice []string, pageNumber int, badDeedRequest shineReque
 	resp, _ := sr.Do()
 
 	if resp.StatusCode != 200 {
-		log.Fatalf("Unsuccessful request: %s, exiting", resp.StatusText)
+		log.Fatalf("unsuccessful request: %s, exiting", resp.StatusText)
 	}
 
 	linkSlice, err = concatenateResults(linkSlice, resp.Data)
@@ -230,7 +230,7 @@ func listResults(badDeedRequest shineRequest, pageContent string, pageNumber int
 	var err error
 
 	if numberOfPages == 1 && pageNumber == 1 {
-		log.Println("First result already in memory")
+		log.Println("first result already in memory")
 		linkSlice, err = concatenateResults(linkSlice, pageContent)
 		if err != nil {
 			log.Fatalf("%s", err)
@@ -244,7 +244,7 @@ func listResults(badDeedRequest shineRequest, pageContent string, pageNumber int
 
 	for pages := 0; pages < numberOfPages; pages++ {
 		if pageNumber+pages == 1 {
-			log.Println("First result already in memory")
+			log.Println("first result already in memory")
 			linkSlice, _ = concatenateResults(linkSlice, pageContent)
 			continue
 		}
@@ -281,11 +281,11 @@ func returnRandomFile(pageCount int, badDeedRequest shineRequest, pageContent st
 	randomPageNumber := getRandom(pageCount) + 1
 	linkSlice := listResults(badDeedRequest, pageContent, randomPageNumber, singlePage)
 	if len(linkSlice) == 0 {
-		log.Fatalf("Returned zero attempting to get random result. Exiting.")
+		log.Fatalf("returned zero attempting to get random result. Exiting.")
 	}
 	randomFileNumber := getRandom(len(linkSlice))
 	// Out slice uses a zero-based index so we don't need to increment.
-	log.Printf("Returning file: %d from page: %d", randomFileNumber+1, randomPageNumber)
+	log.Printf("returning file: %d from page: %d", randomFileNumber+1, randomPageNumber)
 	fmt.Println(linkSlice[randomFileNumber])
 }
 
@@ -316,7 +316,7 @@ func getDistribution(dist []int) {
 		}
 		distString = fmt.Sprintf("%s‖", distString)
 	}
-	log.Printf("Distribution: %s", distString)
+	log.Printf("distribution (pages): %s", distString)
 }
 
 func returnSampledList(badDeedRequest shineRequest, pageCount int, fileCount int) {
@@ -355,11 +355,11 @@ func returnSampledList(badDeedRequest shineRequest, pageCount int, fileCount int
 		_page := indexPageMap[value]
 		if _page != pageCounter {
 			pageCounter = _page
-			log.Println("Get page", pageCounter)
+			log.Println("get page", pageCounter)
 			newLinkSlice = nil
 			newLinkSlice = getSinglePage(newLinkSlice, pageCounter, badDeedRequest)
 		} else {
-			log.Println("Page already in memory:", pageCounter)
+			log.Println("page already in memory:", pageCounter)
 		}
 		index := value % 10
 		returnSlice = append(returnSlice, newLinkSlice[index])
@@ -375,7 +375,7 @@ func returnSampledList(badDeedRequest shineRequest, pageCount int, fileCount int
 func getFile() {
 	// Override the ffb and enter GIF mode...
 	if gif {
-		log.Println("Searching in GIF mode")
+		log.Println("searching in GIF mode")
 		ffb = ffbGIF
 	}
 
@@ -383,18 +383,18 @@ func getFile() {
 	ffb = strings.ToLower(ffb)
 	err := validateHex(ffb)
 	if err != nil {
-		log.Fatal("Invalid hexadecimal string: ", err)
+		log.Fatal("invalid hexadecimal string: ", err)
 	}
 
 	// Ping the first page of the shine service to configure the search.
 	var badDeedRequest shineRequest
 	var pageContent string
 	var fileCount, pageCount int
-	log.Println("Searching Shine@UKWA")
+	log.Println("searching Shine@UKWA")
 	badDeedRequest = newShineSearch(1, ffb, "crawl_date", "asc")
 	pageContent, fileCount, pageCount = ping(newSearchString(badDeedRequest))
-	log.Printf("%d files discovered\n", fileCount)
-	log.Printf("%d pages available\n", pageCount)
+	log.Printf("files discovered: '%d'", fileCount)
+	log.Printf("pages available: '%d'", pageCount)
 
 	// if this, our work is done...
 	if stat || fileCount == 0 {
@@ -410,14 +410,14 @@ func getFile() {
 	// Shine's SOLR has a issue deep paging beyond 10,000 results. This eats
 	// RAM and CPU. To be kind to Shine we will keep the limits lower than that.
 	if pageCount >= solrMaxPages {
-		log.Printf("Setting pagecount ('%d') max to: %d (solrMaxPages)", pageCount, solrMaxPages)
+		log.Printf("setting pageCount ('%d') max to: %d (solrMaxPages)", pageCount, solrMaxPages)
 		pageCount = solrMaxPages
 		fileCount = solrMaxPages * resultsPerPage
 	}
 
 	if random && !list && !sample {
 		if page > 0 {
-			log.Printf("Argument `-page %d` has no effect when random (default) is selected", page)
+			log.Printf("argument `-page %d` has no effect when random (default) is selected", page)
 		}
 		// Return a random file and then exit.
 		returnRandomFile(pageCount, badDeedRequest, pageContent)
@@ -425,7 +425,7 @@ func getFile() {
 	}
 
 	if sample && fileCount > maxSample {
-		log.Println("Returning a sampled list...")
+		log.Println("returning a sampled list...")
 		returnSampledList(badDeedRequest, pageCount, fileCount)
 		return
 	}
@@ -433,19 +433,19 @@ func getFile() {
 	// Else, list five pages of files from a given offset.
 	listSize := minInt((pageCount-page), multiPage) + 1
 	if page > pageCount {
-		log.Printf("Page number: '%d' too high, setting to max: '%d' (list size: %d)", page, pageCount, listSize)
+		log.Printf("page number: '%d' too high, setting to max: '%d' (list size: %d)", page, pageCount, listSize)
 		page = pageCount
 		listSize = 1
 	}
 
 	if page == 0 {
-		log.Println("Page can't be zero, setting to 1")
+		log.Println("page can't be zero, setting to 1")
 		page = 1
 	}
 
 	linkSlice := listResults(badDeedRequest, pageContent, page, listSize)
 
-	log.Printf("Returning %d results\n", len(linkSlice))
+	log.Printf("returning %d results\n", len(linkSlice))
 	for _, value := range linkSlice {
 		fmt.Println(value)
 	}
